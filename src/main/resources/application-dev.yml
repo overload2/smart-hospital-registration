@@ -1,0 +1,50 @@
+# src/main/resources/application.yml
+
+server:
+  port: 8081
+  servlet:
+    context-path: /api/hospital
+
+spring:
+  application:
+    name: smart-hospital-registration
+
+  # 数据库配置（先配置，稍后安装数据库）
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hospital_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  # 文件上传配置
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 100MB
+
+# 日志配置
+logging:
+  level:
+    com.hospital.registration: debug
+    org.springframework.web: debug
+  file:
+    name: logs/hospital-registration.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 自定义配置
+#hospital:
+#  config:
+#    registration:
+#      max-per-day: 50  # 每日最大挂号数
+#      advance-days: 7  # 可提前预约天数

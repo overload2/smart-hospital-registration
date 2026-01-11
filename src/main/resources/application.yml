@@ -1,0 +1,44 @@
+# src/main/resources/application.yml
+
+
+spring:
+  application:
+    name: smart-hospital-registration
+
+  # 激活哪个环境的配置
+  profiles:
+    active: dev
+
+
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  # 文件上传配置
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 100MB
+
+# 日志配置
+logging:
+  level:
+    com.hospital.registration: debug
+    org.springframework.web: debug
+  file:
+    name: logs/hospital-registration.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 自定义配置
+#hospital:
+#  config:
+#    registration:
+#      max-per-day: 50  # 每日最大挂号数
+#      advance-days: 7  # 可提前预约天数
