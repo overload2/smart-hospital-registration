@@ -1,25 +1,25 @@
-2026-01-11T20:47:16.428+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 35556 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
-2026-01-11T20:47:16.430+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
-2026-01-11T20:47:16.431+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : No active profile set, falling back to 1 default profile: "default"
-2026-01-11T20:47:16.493+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-01-11T20:47:16.493+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-01-11T20:47:17.585+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-01-11T20:47:17.647+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 2 JPA repository interfaces.
-2026-01-11T20:47:18.150+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-01-11T20:47:18.171+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-01-11T20:47:18.171+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
-2026-01-11T20:47:18.224+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
-2026-01-11T20:47:18.224+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1731 ms
-2026-01-11T20:47:18.411+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-01-11T20:47:18.489+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
-2026-01-11T20:47:18.528+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-01-11T20:47:18.884+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-01-11T20:47:18.920+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-01-11T20:47:19.093+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@682cd6c5
-2026-01-11T20:47:19.095+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-01-11T20:47:19.123+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-01-11T20:47:19.124+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2026-01-11T20:47:19.149+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-01-18T16:38:57.874+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 17184 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T16:38:57.879+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T16:38:57.879+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T16:38:57.928+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-18T16:38:57.928+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-18T16:38:59.112+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T16:38:59.181+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 2 JPA repository interfaces.
+2026-01-18T16:38:59.676+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-18T16:38:59.693+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-18T16:38:59.694+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-18T16:38:59.742+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
+2026-01-18T16:38:59.743+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1814 ms
+2026-01-18T16:38:59.918+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T16:38:59.993+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-01-18T16:39:00.033+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T16:39:00.358+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T16:39:00.395+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-18T16:39:00.579+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ab21979
+2026-01-18T16:39:00.580+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-18T16:39:00.610+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T16:39:00.611+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-18T16:39:00.632+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -27,50 +27,85 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-01-11T20:47:20.193+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-01-11T20:47:20.624+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T20:47:20.976+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-01-11T20:47:21.067+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2026-01-11T20:47:21.151+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2026-01-11T20:47:21.176+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2026-01-11T20:47:21.240+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2026-01-11T20:47:21.349+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2026-01-11T20:47:21.389+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
-2026-01-11T20:47:21.399+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.652 seconds (process running for 6.675)
-2026-01-11T20:47:21.403+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
-2026-01-11T20:47:21.649+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号初始化成功 - 用户名: admin, 密码: admin123
-2026-01-11T20:47:21.658+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 科室初始化成功 - 内科
-2026-01-11T20:47:21.668+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 科室初始化成功 - 外科
-2026-01-11T20:47:21.676+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 科室初始化成功 - 儿科
-2026-01-11T20:47:21.684+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 科室初始化成功 - 妇产科
-2026-01-11T20:47:21.692+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 科室初始化成功 - 眼科
-2026-01-11T20:47:21.700+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 科室初始化成功 - 口腔科
-2026-01-11T20:47:21.700+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
-2026-01-11T20:47:53.696+08:00  INFO 35556 --- [smart-hospital-registration] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 28 class path changes (0 additions, 27 deletions, 1 modification)
-2026-01-11T20:47:53.700+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-11T20:47:54.051+08:00  INFO 35556 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-11T20:47:54.055+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T20:47:54.060+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-01-11T20:47:54.071+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-01-11T20:47:54.156+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 35556 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
-2026-01-11T20:47:54.156+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
-2026-01-11T20:47:54.156+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : No active profile set, falling back to 1 default profile: "default"
-2026-01-11T20:47:54.350+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-01-11T20:47:54.352+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
-2026-01-11T20:47:54.448+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-01-11T20:47:54.449+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-01-11T20:47:54.449+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
-2026-01-11T20:47:54.465+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
-2026-01-11T20:47:54.465+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 307 ms
-2026-01-11T20:47:54.501+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-01-11T20:47:54.504+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-01-11T20:47:54.516+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-01-11T20:47:54.517+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2026-01-11T20:47:54.523+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4c0fa0f1
-2026-01-11T20:47:54.524+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2026-01-11T20:47:54.526+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-01-11T20:47:54.526+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2026-01-11T20:47:54.526+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-01-18T16:39:01.657+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-18T16:39:01.783+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:39:02.216+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-18T16:39:02.311+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2026-01-18T16:39:02.393+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-18T16:39:02.417+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-18T16:39:02.466+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-18T16:39:02.566+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-18T16:39:02.607+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
+2026-01-18T16:39:02.616+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.358 seconds (process running for 7.192)
+2026-01-18T16:39:02.621+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
+2026-01-18T16:39:02.805+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
+2026-01-18T16:39:02.820+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
+2026-01-18T16:43:07.827+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-18T16:43:07.828+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-18T16:43:07.829+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-01-18T16:43:07.829+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-01-18T16:43:07.829+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-01-18T16:43:07.830+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@4684ff23
+2026-01-18T16:43:07.830+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@2a78d613
+2026-01-18T16:43:07.830+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-18T16:43:07.830+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-01-18T16:43:07.839+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/hospital/user/register", parameters={}
+2026-01-18T16:43:07.852+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#register(RegisterDTO)
+2026-01-18T16:43:07.957+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [RegisterDTO(username=zhangsan, password=123456, realName=张三, idCard=330106199001011234, phone=138001 (truncated)...]
+2026-01-18T16:43:08.021+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.controller.UserController          : 收到注册请求 - 用户名: zhangsan
+2026-01-18T16:43:08.027+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.service.impl.UserServiceImpl       : 用户注册 - 用户名: zhangsan
+2026-01-18T16:43:08.166+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.registration.utils.PasswordUtil      : 密码加密成功
+2026-01-18T16:43:08.210+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.service.impl.UserServiceImpl       : 用户注册成功 - ID: 2, 用户名: zhangsan
+2026-01-18T16:43:08.244+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T16:43:08.250+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=注册成功, data={user=UserVO(id=2, username=zhangsan, realName=张三, (truncated)...]
+2026-01-18T16:43:08.274+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T16:44:23.347+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/hospital/user/login", parameters={}
+2026-01-18T16:44:23.348+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#login(LoginDTO)
+2026-01-18T16:44:23.351+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginDTO(username=zhangsan, password=123456)]
+2026-01-18T16:44:23.352+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] c.h.r.controller.UserController          : 收到登录请求 - 用户名: zhangsan
+2026-01-18T16:44:23.352+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] c.h.r.service.impl.UserServiceImpl       : 用户登录 - 用户名: zhangsan
+2026-01-18T16:44:23.477+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] c.h.registration.utils.PasswordUtil      : 密码验证结果: true
+2026-01-18T16:44:23.557+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] c.hospital.registration.utils.JwtUtil    : 生成Token成功 - userId: 2, username: zhangsan
+2026-01-18T16:44:23.557+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] c.h.r.service.impl.UserServiceImpl       : 用户登录成功 - ID: 2, 用户名: zhangsan
+2026-01-18T16:44:23.558+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T16:44:23.558+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=登录成功, data={user=UserVO(id=2, username=zhangsan, realName=张三, (truncated)...]
+2026-01-18T16:44:23.559+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T16:45:15.355+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/hospital/user/1", parameters={}
+2026-01-18T16:45:15.355+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#getUserInfo(Long)
+2026-01-18T16:45:15.357+08:00  INFO 17184 --- [smart-hospital-registration] [http-nio-8081-exec-6] c.h.r.controller.UserController          : 获取用户信息 - ID: 1
+2026-01-18T16:45:15.382+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T16:45:15.382+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=操作成功, data={user=UserVO(id=1, username=admin, realName=系统管理员, (truncated)...]
+2026-01-18T16:45:15.384+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T16:45:48.313+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/hospital/user/test", parameters={}
+2026-01-18T16:45:48.313+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#test()
+2026-01-18T16:45:48.314+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T16:45:48.314+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=用户模块接口正常, data={})]
+2026-01-18T16:45:48.314+08:00 DEBUG 17184 --- [smart-hospital-registration] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T16:51:43.537+08:00  INFO 17184 --- [smart-hospital-registration] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-18T16:51:43.542+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-18T16:51:43.877+08:00  INFO 17184 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-18T16:51:43.881+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:51:43.885+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-18T16:51:43.903+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-18T16:51:43.995+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 17184 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T16:51:43.995+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T16:51:43.995+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T16:51:44.200+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T16:51:44.214+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 2 JPA repository interfaces.
+2026-01-18T16:51:44.305+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-18T16:51:44.306+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-18T16:51:44.306+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-18T16:51:44.323+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
+2026-01-18T16:51:44.323+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 326 ms
+2026-01-18T16:51:44.357+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T16:51:44.359+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T16:51:44.370+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T16:51:44.371+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-01-18T16:51:44.375+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@78faecd
+2026-01-18T16:51:44.375+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-01-18T16:51:44.377+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T16:51:44.378+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-18T16:51:44.378+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -78,42 +113,45 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-01-11T20:47:54.547+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-01-11T20:47:54.547+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T20:47:54.567+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-01-11T20:47:54.590+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2026-01-11T20:47:54.622+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2026-01-11T20:47:54.629+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2026-01-11T20:47:54.637+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2026-01-11T20:47:54.688+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2026-01-11T20:47:54.707+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
-2026-01-11T20:47:54.714+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 0.596 seconds (process running for 39.99)
-2026-01-11T20:47:54.716+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2026-01-11T20:47:57.533+08:00  INFO 35556 --- [smart-hospital-registration] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 27 class path changes (27 additions, 0 deletions, 0 modifications)
-2026-01-11T20:47:57.535+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-11T20:47:57.799+08:00  INFO 35556 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-11T20:47:57.801+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T20:47:57.802+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2026-01-11T20:47:57.803+08:00  INFO 35556 --- [smart-hospital-registration] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2026-01-11T20:47:57.880+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 35556 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
-2026-01-11T20:47:57.880+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
-2026-01-11T20:47:57.880+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : No active profile set, falling back to 1 default profile: "default"
-2026-01-11T20:47:58.109+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-01-11T20:47:58.120+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 2 JPA repository interfaces.
-2026-01-11T20:47:58.181+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-01-11T20:47:58.182+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-01-11T20:47:58.182+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
-2026-01-11T20:47:58.193+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
-2026-01-11T20:47:58.193+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 311 ms
-2026-01-11T20:47:58.217+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-01-11T20:47:58.219+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-01-11T20:47:58.226+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-01-11T20:47:58.227+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
-2026-01-11T20:47:58.230+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c8743df
-2026-01-11T20:47:58.230+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
-2026-01-11T20:47:58.232+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-01-11T20:47:58.232+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2026-01-11T20:47:58.233+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-01-18T16:51:44.552+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-18T16:51:44.624+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:51:44.722+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-18T16:51:44.740+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2026-01-18T16:51:44.767+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-18T16:51:44.773+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-18T16:51:44.779+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-18T16:51:44.801+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-18T16:51:44.813+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
+2026-01-18T16:51:44.818+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 0.861 seconds (process running for 769.393)
+2026-01-18T16:51:44.818+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
+2026-01-18T16:51:44.844+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
+2026-01-18T16:51:44.858+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
+2026-01-18T16:51:44.860+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-01-18T16:51:59.414+08:00  INFO 17184 --- [smart-hospital-registration] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2026-01-18T16:51:59.416+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-18T16:51:59.763+08:00  INFO 17184 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-18T16:51:59.765+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:51:59.766+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-01-18T16:51:59.768+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-01-18T16:51:59.858+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 17184 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T16:51:59.858+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T16:51:59.858+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T16:51:59.984+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T16:52:00.010+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 2 JPA repository interfaces.
+2026-01-18T16:52:00.071+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-18T16:52:00.073+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-18T16:52:00.073+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-18T16:52:00.086+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
+2026-01-18T16:52:00.087+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 228 ms
+2026-01-18T16:52:00.114+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T16:52:00.115+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T16:52:00.122+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T16:52:00.122+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-01-18T16:52:00.126+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7d1d32fe
+2026-01-18T16:52:00.126+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-01-18T16:52:00.128+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T16:52:00.128+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-18T16:52:00.128+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -121,69 +159,230 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-01-11T20:47:58.362+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-01-11T20:47:58.439+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T20:47:58.494+08:00  WARN 35556 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-01-11T20:47:58.508+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2026-01-11T20:47:58.531+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2026-01-11T20:47:58.535+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2026-01-11T20:47:58.540+08:00 DEBUG 35556 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2026-01-11T20:47:58.558+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2026-01-11T20:47:58.569+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
-2026-01-11T20:47:58.573+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 0.713 seconds (process running for 43.849)
-2026-01-11T20:47:58.573+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
-2026-01-11T20:47:58.601+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
-2026-01-11T20:47:58.621+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
-2026-01-11T20:47:58.622+08:00  INFO 35556 --- [smart-hospital-registration] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2026-01-11T21:07:44.642+08:00  INFO 35556 --- [smart-hospital-registration] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-11T21:07:44.913+08:00  INFO 35556 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-11T21:07:44.918+08:00  INFO 35556 --- [smart-hospital-registration] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T21:07:44.919+08:00  INFO 35556 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
-2026-01-11T21:07:44.920+08:00  INFO 35556 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
-2026-01-11T22:03:09.667+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 30116 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
-2026-01-11T22:03:09.669+08:00 DEBUG 30116 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
-2026-01-11T22:03:09.670+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
-2026-01-11T22:03:09.715+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-01-11T22:03:09.715+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-01-11T22:03:10.577+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-01-11T22:03:10.629+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43 ms. Found 2 JPA repository interfaces.
-2026-01-11T22:03:11.046+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-01-11T22:03:11.058+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-01-11T22:03:11.059+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
-2026-01-11T22:03:11.097+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
-2026-01-11T22:03:11.097+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1381 ms
-2026-01-11T22:03:11.230+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-01-11T22:03:11.274+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
-2026-01-11T22:03:11.302+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-01-11T22:03:11.548+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-01-11T22:03:11.576+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-01-11T22:03:11.728+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@602bc2cc
-2026-01-11T22:03:11.730+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-01-11T22:03:11.751+08:00  WARN 30116 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-01-11T22:03:11.751+08:00  WARN 30116 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2026-01-11T22:03:11.768+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+2026-01-18T16:52:00.242+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-18T16:52:00.305+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:52:00.370+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-18T16:52:00.387+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2026-01-18T16:52:00.408+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-18T16:52:00.412+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-18T16:52:00.418+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-18T16:52:00.436+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-18T16:52:00.446+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
+2026-01-18T16:52:00.450+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 0.616 seconds (process running for 785.025)
+2026-01-18T16:52:00.450+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
+2026-01-18T16:52:00.477+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
+2026-01-18T16:52:00.493+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
+2026-01-18T16:52:00.494+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-01-18T16:52:01.860+08:00  INFO 17184 --- [smart-hospital-registration] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-18T16:52:01.861+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-11] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-18T16:52:02.128+08:00  INFO 17184 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-18T16:52:02.130+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:52:02.131+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-01-18T16:52:02.133+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-01-18T16:52:02.208+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 17184 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T16:52:02.209+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T16:52:02.209+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T16:52:02.325+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T16:52:02.334+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 2 JPA repository interfaces.
+2026-01-18T16:52:02.391+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-18T16:52:02.391+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-18T16:52:02.392+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-18T16:52:02.404+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
+2026-01-18T16:52:02.404+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 194 ms
+2026-01-18T16:52:02.426+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T16:52:02.428+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T16:52:02.434+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T16:52:02.434+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-01-18T16:52:02.438+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@f798ece
+2026-01-18T16:52:02.438+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-01-18T16:52:02.439+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T16:52:02.439+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-18T16:52:02.440+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
 	Database driver: undefined/unknown
 	Database version: 8.0
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-01-11T22:03:12.688+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-01-11T22:03:12.820+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T22:03:13.131+08:00  WARN 30116 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-01-11T22:03:13.203+08:00 DEBUG 30116 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2026-01-11T22:03:13.273+08:00 DEBUG 30116 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2026-01-11T22:03:13.295+08:00 DEBUG 30116 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2026-01-11T22:03:13.337+08:00 DEBUG 30116 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2026-01-11T22:03:13.427+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2026-01-11T22:03:13.462+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
-2026-01-11T22:03:13.472+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 4.309 seconds (process running for 5.735)
-2026-01-11T22:03:13.475+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
-2026-01-11T22:03:13.644+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
-2026-01-11T22:03:13.658+08:00  INFO 30116 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
-2026-01-11T22:03:34.892+08:00  INFO 30116 --- [smart-hospital-registration] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-11T22:03:35.162+08:00  INFO 30116 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-11T22:03:35.167+08:00  INFO 30116 --- [smart-hospital-registration] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-11T22:03:35.171+08:00  INFO 30116 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-01-11T22:03:35.179+08:00  INFO 30116 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-18T16:52:02.535+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-18T16:52:02.596+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:52:02.660+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-18T16:52:02.675+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2026-01-18T16:52:02.698+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-18T16:52:02.702+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-18T16:52:02.710+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-18T16:52:02.731+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-18T16:52:02.742+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
+2026-01-18T16:52:02.746+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 0.559 seconds (process running for 787.321)
+2026-01-18T16:52:02.746+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
+2026-01-18T16:52:02.772+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
+2026-01-18T16:52:02.788+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
+2026-01-18T16:52:02.790+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-01-18T16:52:07.204+08:00  INFO 17184 --- [smart-hospital-registration] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-01-18T16:52:07.205+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-15] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-18T16:52:07.514+08:00  INFO 17184 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-18T16:52:07.516+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:52:07.516+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-01-18T16:52:07.518+08:00  INFO 17184 --- [smart-hospital-registration] [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-01-18T16:52:07.623+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 17184 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T16:52:07.624+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T16:52:07.624+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T16:52:07.779+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T16:52:07.790+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 2 JPA repository interfaces.
+2026-01-18T16:52:07.849+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-18T16:52:07.849+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-18T16:52:07.849+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-18T16:52:07.861+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
+2026-01-18T16:52:07.861+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 237 ms
+2026-01-18T16:52:07.886+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T16:52:07.888+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T16:52:07.894+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T16:52:07.895+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-01-18T16:52:07.899+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3c206b54
+2026-01-18T16:52:07.899+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-01-18T16:52:07.900+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T16:52:07.900+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-18T16:52:07.901+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-18T16:52:08.022+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-18T16:52:08.084+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:52:08.150+08:00  WARN 17184 --- [smart-hospital-registration] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-18T16:52:08.166+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2026-01-18T16:52:08.195+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-18T16:52:08.200+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-18T16:52:08.206+08:00 DEBUG 17184 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-18T16:52:08.224+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-18T16:52:08.237+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
+2026-01-18T16:52:08.242+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 0.642 seconds (process running for 792.819)
+2026-01-18T16:52:08.244+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 开始数据初始化 ===
+2026-01-18T16:52:08.272+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : 管理员账号已存在，跳过初始化
+2026-01-18T16:52:08.284+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] c.h.registration.config.DataInitializer  : === 数据初始化完成 ===
+2026-01-18T16:52:08.285+08:00  INFO 17184 --- [smart-hospital-registration] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-01-18T16:52:17.104+08:00  INFO 17184 --- [smart-hospital-registration] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-18T16:52:17.376+08:00  INFO 17184 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-18T16:52:17.378+08:00  INFO 17184 --- [smart-hospital-registration] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T16:52:17.379+08:00  INFO 17184 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-01-18T16:52:17.382+08:00  INFO 17184 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2026-01-18T19:32:17.692+08:00  INFO 16024 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 16024 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T19:32:17.694+08:00 DEBUG 16024 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T19:32:17.695+08:00  INFO 16024 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T19:32:17.747+08:00  INFO 16024 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-18T19:32:17.747+08:00  INFO 16024 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-18T19:32:18.884+08:00  WARN 16024 --- [smart-hospital-registration] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name 'departmentMapper' defined in file [D:\workspace\code\github.com\username\smart-hospital-registration\target\classes\com\hospital\registration\mapper\DepartmentMapper.class]: Invalid value type for attribute 'factoryBeanObjectType': java.lang.String
+2026-01-18T19:32:18.894+08:00  INFO 16024 --- [smart-hospital-registration] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-18T19:32:18.925+08:00 ERROR 16024 --- [smart-hospital-registration] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name 'departmentMapper' defined in file [D:\workspace\code\github.com\username\smart-hospital-registration\target\classes\com\hospital\registration\mapper\DepartmentMapper.class]: Invalid value type for attribute 'factoryBeanObjectType': java.lang.String
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryBean(AbstractAutowireCapableBeanFactory.java:864) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getType(AbstractBeanFactory.java:744) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAnnotationOnBean(DefaultListableBeanFactory.java:818) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.boot.sql.init.dependency.AnnotationDependsOnDatabaseInitializationDetector.detect(AnnotationDependsOnDatabaseInitializationDetector.java:36) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer$DependsOnDatabaseInitializationPostProcessor.detectDependsOnInitializationBeanNames(DatabaseInitializationDependencyConfigurer.java:152) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer$DependsOnDatabaseInitializationPostProcessor.postProcessBeanFactory(DatabaseInitializationDependencyConfigurer.java:115) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:197) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:791) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:609) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.9.jar:3.5.9]
+	at com.hospital.registration.HospitalRegistrationApplication.main(HospitalRegistrationApplication.java:12) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.5.9.jar:3.5.9]
+
+2026-01-18T19:37:12.377+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 17.0.17 with PID 20388 (D:\workspace\code\github.com\username\smart-hospital-registration\target\classes started by suzd in D:\workspace\code\github.com\username\smart-hospital-registration)
+2026-01-18T19:37:12.379+08:00 DEBUG 20388 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Running with Spring Boot v3.5.9, Spring v6.2.15
+2026-01-18T19:37:12.380+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : The following 1 profile is active: "dev"
+2026-01-18T19:37:12.409+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-18T19:37:12.410+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-18T19:37:13.012+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-18T19:37:13.018+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-18T19:37:13.020+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-18T19:37:13.042+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring embedded WebApplicationContext
+2026-01-18T19:37:13.042+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 632 ms
+2026-01-18T19:37:13.227+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.DepartmentMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.265+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.DoctorEvaluationMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.287+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.DoctorMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.307+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.MedicalRecordMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.329+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.PaymentMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.349+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.RegistrationMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.366+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.ScheduleMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.385+08:00  WARN 20388 --- [smart-hospital-registration] [restartedMain] c.b.m.core.injector.methods.Insert       : [com.hospital.registration.mapper.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2026-01-18T19:37:13.588+08:00 DEBUG 20388 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 8 mappings in 'requestMappingHandlerMapping'
+2026-01-18T19:37:13.620+08:00 DEBUG 20388 --- [smart-hospital-registration] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-18T19:37:13.630+08:00 DEBUG 20388 --- [smart-hospital-registration] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-18T19:37:13.650+08:00 DEBUG 20388 --- [smart-hospital-registration] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-18T19:37:13.705+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-18T19:37:13.753+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/api/hospital'
+2026-01-18T19:37:13.764+08:00  INFO 20388 --- [smart-hospital-registration] [restartedMain] c.h.r.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 1.7 seconds (process running for 2.076)
+2026-01-18T19:39:08.688+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.a.c.c.C.[.[localhost].[/api/hospital]  : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-18T19:39:08.689+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-18T19:39:08.689+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-01-18T19:39:08.689+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-01-18T19:39:08.689+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-01-18T19:39:08.690+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7158eb74
+2026-01-18T19:39:08.690+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@47652ecd
+2026-01-18T19:39:08.690+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-18T19:39:08.691+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-01-18T19:39:08.698+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/hospital/user/register", parameters={}
+2026-01-18T19:39:08.707+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#register(RegisterDTO)
+2026-01-18T19:39:08.785+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [RegisterDTO(username=zhangsan, password=123456, realName=张三, idCard=330106199001011234, phone=138001 (truncated)...]
+2026-01-18T19:39:08.846+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.controller.UserController          : 收到注册请求 - 用户名: zhangsan
+2026-01-18T19:39:08.853+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-18T19:39:09.011+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23bb58c8
+2026-01-18T19:39:09.013+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-18T19:39:09.018+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.service.impl.UserServiceImpl       : 用户注册 - 用户名: zhangsan
+2026-01-18T19:39:09.036+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.m.UserMapper.selectByUsername      : ==>  Preparing: select id,username,password,real_name,id_card,phone, gender,birth_date,email,role,status, create_time,update_time from user where username = ?
+2026-01-18T19:39:09.064+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.m.UserMapper.selectByUsername      : ==> Parameters: zhangsan(String)
+2026-01-18T19:39:09.087+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.m.UserMapper.selectByUsername      : <==      Total: 0
+2026-01-18T19:39:09.223+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.registration.utils.PasswordUtil      : 密码加密成功
+2026-01-18T19:39:09.225+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.config.MyMetaObjectHandler         : 开始insert填充...
+2026-01-18T19:39:09.228+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.mapper.UserMapper.insert           : ==>  Preparing: insert into user ( id,username,password,real_name,id_card,phone, gender,birth_date,email,role,status, create_time,update_time) values (?,?,?,?,?,?, ?,?,?,?,?, ?,?)
+2026-01-18T19:39:09.230+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.mapper.UserMapper.insert           : ==> Parameters: null, zhangsan(String), $2a$10$xBGfzcG0rYugJQZxaCbIKeJYSx0AL/lAUa59acVEWQV3iQChDTRPK(String), 张三(String), 330106199001011234(String), 13800138000(String), MALE(String), 1990-01-01(LocalDate), zhangsan@qq.com(String), PATIENT(String), 1(Integer), 2026-01-18T19:39:09.225173700(LocalDateTime), 2026-01-18T19:39:09.228486200(LocalDateTime)
+2026-01-18T19:39:09.234+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.mapper.UserMapper.insert           : <==    Updates: 1
+2026-01-18T19:39:09.236+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] c.h.r.service.impl.UserServiceImpl       : 用户注册成功 - ID: 5, 用户名: zhangsan
+2026-01-18T19:39:09.262+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T19:39:09.268+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=注册成功, data={user=UserVO(id=5, username=zhangsan, realName=张三, (truncated)...]
+2026-01-18T19:39:09.286+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T19:39:20.377+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/hospital/user/login", parameters={}
+2026-01-18T19:39:20.378+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#login(LoginDTO)
+2026-01-18T19:39:20.380+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [LoginDTO(username=zhangsan, password=123456)]
+2026-01-18T19:39:20.383+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.r.controller.UserController          : 收到登录请求 - 用户名: zhangsan
+2026-01-18T19:39:20.383+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.r.service.impl.UserServiceImpl       : 用户登录 - 用户名: zhangsan
+2026-01-18T19:39:20.384+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.r.m.UserMapper.selectByUsername      : ==>  Preparing: select id,username,password,real_name,id_card,phone, gender,birth_date,email,role,status, create_time,update_time from user where username = ?
+2026-01-18T19:39:20.385+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.r.m.UserMapper.selectByUsername      : ==> Parameters: zhangsan(String)
+2026-01-18T19:39:20.398+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.r.m.UserMapper.selectByUsername      : <==      Total: 1
+2026-01-18T19:39:20.523+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.registration.utils.PasswordUtil      : 密码验证结果: true
+2026-01-18T19:39:20.553+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.hospital.registration.utils.JwtUtil    : 生成Token成功 - userId: 5, username: zhangsan
+2026-01-18T19:39:20.553+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] c.h.r.service.impl.UserServiceImpl       : 用户登录成功 - ID: 5, 用户名: zhangsan
+2026-01-18T19:39:20.554+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T19:39:20.554+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=登录成功, data={user=UserVO(id=5, username=zhangsan, realName=张三, (truncated)...]
+2026-01-18T19:39:20.555+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T19:39:40.251+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/hospital/user/5", parameters={}
+2026-01-18T19:39:40.252+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.hospital.registration.controller.UserController#getUserInfo(Long)
+2026-01-18T19:39:40.253+08:00  INFO 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] c.h.r.controller.UserController          : 获取用户信息 - ID: 5
+2026-01-18T19:39:40.254+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] c.h.r.mapper.UserMapper.selectById       : ==>  Preparing: SELECT id,username,password,real_name,id_card,phone,gender,birth_date,email,role,status,create_time,update_time FROM user WHERE id=?
+2026-01-18T19:39:40.255+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] c.h.r.mapper.UserMapper.selectById       : ==> Parameters: 5(Long)
+2026-01-18T19:39:40.256+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] c.h.r.mapper.UserMapper.selectById       : <==      Total: 1
+2026-01-18T19:39:40.258+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-18T19:39:40.258+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(success=true, code=200, message=操作成功, data={user=UserVO(id=5, username=zhangsan, realName=张三, (truncated)...]
+2026-01-18T19:39:40.259+08:00 DEBUG 20388 --- [smart-hospital-registration] [http-nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-01-18T20:19:29.821+08:00  INFO 20388 --- [smart-hospital-registration] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-18T20:19:30.085+08:00  INFO 20388 --- [smart-hospital-registration] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-01-18T20:19:30.090+08:00  INFO 20388 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-18T20:19:30.092+08:00  INFO 20388 --- [smart-hospital-registration] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.PaymentMapper">
+
+    <resultMap id="BaseResultMap" type="com.hospital.registration.entity.Payment">
+            <id property="id" column="id" />
+            <result property="transactionNo" column="transaction_no" />
+            <result property="registrationId" column="registration_id" />
+            <result property="userId" column="user_id" />
+            <result property="amount" column="amount" />
+            <result property="paymentMethod" column="payment_method" />
+            <result property="paymentStatus" column="payment_status" />
+            <result property="paymentTime" column="payment_time" />
+            <result property="refundTime" column="refund_time" />
+            <result property="remark" column="remark" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,transaction_no,registration_id,user_id,amount,payment_method,
+        payment_status,payment_time,refund_time,remark,create_time,
+        update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from payment
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from payment
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Payment" useGeneratedKeys="true">
+        insert into payment
+        ( id,transaction_no,registration_id,user_id,amount,payment_method,
+        payment_status,payment_time,refund_time,remark,create_time,
+        update_time)
+        values (#{id},#{transactionNo},#{registrationId},#{userId},#{amount},#{paymentMethod},
+        #{paymentStatus},#{paymentTime},#{refundTime},#{remark},#{createTime},
+        #{updateTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Payment" useGeneratedKeys="true">
+        insert into payment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="transactionNo != null">transaction_no,</if>
+                <if test="registrationId != null">registration_id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="amount != null">amount,</if>
+                <if test="paymentMethod != null">payment_method,</if>
+                <if test="paymentStatus != null">payment_status,</if>
+                <if test="paymentTime != null">payment_time,</if>
+                <if test="refundTime != null">refund_time,</if>
+                <if test="remark != null">remark,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="transactionNo != null">#{transactionNo},</if>
+                <if test="registrationId != null">#{registrationId},</if>
+                <if test="userId != null">#{userId},</if>
+                <if test="amount != null">#{amount},</if>
+                <if test="paymentMethod != null">#{paymentMethod},</if>
+                <if test="paymentStatus != null">#{paymentStatus},</if>
+                <if test="paymentTime != null">#{paymentTime},</if>
+                <if test="refundTime != null">#{refundTime},</if>
+                <if test="remark != null">#{remark},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.Payment">
+        update payment
+        <set>
+                <if test="transactionNo != null">
+                    transaction_no = #{transactionNo},
+                </if>
+                <if test="registrationId != null">
+                    registration_id = #{registrationId},
+                </if>
+                <if test="userId != null">
+                    user_id = #{userId},
+                </if>
+                <if test="amount != null">
+                    amount = #{amount},
+                </if>
+                <if test="paymentMethod != null">
+                    payment_method = #{paymentMethod},
+                </if>
+                <if test="paymentStatus != null">
+                    payment_status = #{paymentStatus},
+                </if>
+                <if test="paymentTime != null">
+                    payment_time = #{paymentTime},
+                </if>
+                <if test="refundTime != null">
+                    refund_time = #{refundTime},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.Payment">
+        update payment
+        set 
+            transaction_no =  #{transactionNo},
+            registration_id =  #{registrationId},
+            user_id =  #{userId},
+            amount =  #{amount},
+            payment_method =  #{paymentMethod},
+            payment_status =  #{paymentStatus},
+            payment_time =  #{paymentTime},
+            refund_time =  #{refundTime},
+            remark =  #{remark},
+            create_time =  #{createTime},
+            update_time =  #{updateTime}
+        where   id = #{id} 
+    </update>
+</mapper>

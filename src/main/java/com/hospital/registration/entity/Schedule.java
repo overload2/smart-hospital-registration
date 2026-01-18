@@ -1,10 +1,8 @@
 package com.hospital.registration.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.hospital.registration.common.TimeSlot;
-import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,49 +15,45 @@ import java.time.LocalDateTime;
  * @description: 排班表
  */
 @Data
-@Entity
-@Table(name = "schedule")
+@TableName("schedule")
 public class Schedule {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 主键（自增）
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     // 医生ID
-    @Column(name = "doctor_id", nullable = false)
+    @TableField("doctor_id")
     private Long doctorId;
 
     // 科室ID
-    @Column(name = "department_id", nullable = false)
+    @TableField("department_id")
     private Long departmentId;
 
     // 排班日期
-    @Column(name = "schedule_date", nullable = false)
+    @TableField("schedule_date")
     private LocalDate scheduleDate;
 
     // 时间段：上午/下午/晚上
-    @Enumerated(EnumType.STRING)
-    @Column(name = "time_slot", nullable = false, length = 20)
+    @TableField("time_slot")
     private TimeSlot timeSlot;
 
     // 总号源数
-    @Column(name = "total_number", nullable = false)
+    @TableField("total_number")
     private Integer totalNumber;
 
     // 剩余号源数
-    @Column(name = "remaining_number", nullable = false)
+    @TableField("remaining_number")
     private Integer remainingNumber;
 
     // 状态：0-已取消，1-可预约，2-已满
-    @Column(nullable = false)
     private Integer status = 1;
 
-    @CreationTimestamp
-    @Column(name = "create_time", updatable = false)
+    // 创建时间（自动填充）
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @UpdateTimestamp
-    @Column(name = "update_time")
+    // 更新时间（自动填充）
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 }
-
