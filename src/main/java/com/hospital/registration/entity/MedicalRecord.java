@@ -1,9 +1,7 @@
 package com.hospital.registration.entity;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,48 +13,48 @@ import java.time.LocalDateTime;
  * @description: 就诊记录表
  */
 @Data
-@Entity
-@Table(name = "medical_record")
+@TableName("medical_record")
 public class MedicalRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 主键（自增）
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     // 挂号ID
-    @Column(name = "registration_id", nullable = false)
+    @TableField("registration_id")
     private Long registrationId;
 
     // 患者ID
-    @Column(name = "patient_id", nullable = false)
+    @TableField("patient_id")
     private Long patientId;
 
     // 医生ID
-    @Column(name = "doctor_id", nullable = false)
+    @TableField("doctor_id")
     private Long doctorId;
 
     // 诊断结果
-    @Column(length = 1000)
     private String diagnosis;
 
     // 处方
-    @Column(length = 2000)
     private String prescription;
 
     // 医嘱
-    @Column(length = 1000)
     private String advice;
 
     // 就诊时间
-    @Column(name = "visit_time")
+    @TableField("visit_time")
     private LocalDateTime visitTime;
 
-    @CreationTimestamp
-    @Column(name = "create_time", updatable = false)
+    // 创建时间（自动填充）
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @UpdateTimestamp
-    @Column(name = "update_time")
+    // 更新时间（自动填充）
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-}
 
+    // 逻辑删除标识：0-未删除，1-已删除
+    @TableLogic
+    @TableField(value = "deleted")
+    private Integer deleted;
+}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.MedicalRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.hospital.registration.entity.MedicalRecord">
+            <id property="id" column="id" />
+            <result property="registrationId" column="registration_id" />
+            <result property="patientId" column="patient_id" />
+            <result property="doctorId" column="doctor_id" />
+            <result property="diagnosis" column="diagnosis" />
+            <result property="prescription" column="prescription" />
+            <result property="advice" column="advice" />
+            <result property="visitTime" column="visit_time" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,registration_id,patient_id,doctor_id,diagnosis,prescription,
+        advice,visit_time,create_time,update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from medical_record
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from medical_record
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.MedicalRecord" useGeneratedKeys="true">
+        insert into medical_record
+        ( id,registration_id,patient_id,doctor_id,diagnosis,prescription,
+        advice,visit_time,create_time,update_time)
+        values (#{id},#{registrationId},#{patientId},#{doctorId},#{diagnosis},#{prescription},
+        #{advice},#{visitTime},#{createTime},#{updateTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.MedicalRecord" useGeneratedKeys="true">
+        insert into medical_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="registrationId != null">registration_id,</if>
+                <if test="patientId != null">patient_id,</if>
+                <if test="doctorId != null">doctor_id,</if>
+                <if test="diagnosis != null">diagnosis,</if>
+                <if test="prescription != null">prescription,</if>
+                <if test="advice != null">advice,</if>
+                <if test="visitTime != null">visit_time,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="registrationId != null">#{registrationId},</if>
+                <if test="patientId != null">#{patientId},</if>
+                <if test="doctorId != null">#{doctorId},</if>
+                <if test="diagnosis != null">#{diagnosis},</if>
+                <if test="prescription != null">#{prescription},</if>
+                <if test="advice != null">#{advice},</if>
+                <if test="visitTime != null">#{visitTime},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.MedicalRecord">
+        update medical_record
+        <set>
+                <if test="registrationId != null">
+                    registration_id = #{registrationId},
+                </if>
+                <if test="patientId != null">
+                    patient_id = #{patientId},
+                </if>
+                <if test="doctorId != null">
+                    doctor_id = #{doctorId},
+                </if>
+                <if test="diagnosis != null">
+                    diagnosis = #{diagnosis},
+                </if>
+                <if test="prescription != null">
+                    prescription = #{prescription},
+                </if>
+                <if test="advice != null">
+                    advice = #{advice},
+                </if>
+                <if test="visitTime != null">
+                    visit_time = #{visitTime},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.MedicalRecord">
+        update medical_record
+        set 
+            registration_id =  #{registrationId},
+            patient_id =  #{patientId},
+            doctor_id =  #{doctorId},
+            diagnosis =  #{diagnosis},
+            prescription =  #{prescription},
+            advice =  #{advice},
+            visit_time =  #{visitTime},
+            create_time =  #{createTime},
+            update_time =  #{updateTime}
+        where   id = #{id} 
+    </update>
+</mapper>

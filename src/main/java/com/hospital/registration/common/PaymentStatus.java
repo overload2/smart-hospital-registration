@@ -1,5 +1,7 @@
 package com.hospital.registration.common;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -11,16 +13,21 @@ import lombok.Getter;
  */
 @Getter
 public enum PaymentStatus {
-    PENDING(1, "待支付"),
-    SUCCESS(2, "支付成功"),
-    FAILED(3, "支付失败"),
-    REFUNDED(4, "已退款");
+    PENDING(1, "PENDING", "待支付"),
+    PAID(2, "PAID", "已支付"),
+    REFUNDED(3, "REFUNDED", "已退款");
 
     private final Integer code;
+
+    @EnumValue
+    @JsonValue
+    private final String dbValue;
+
     private final String name;
 
-    PaymentStatus(Integer code, String name) {
+    PaymentStatus(Integer code, String dbValue, String name) {
         this.code = code;
+        this.dbValue = dbValue;
         this.name = name;
     }
 }

@@ -1,10 +1,8 @@
 package com.hospital.registration.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.hospital.registration.common.PaymentStatus;
-import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,57 +15,57 @@ import java.time.LocalDateTime;
  * @description: 支付记录表
  */
 @Data
-@Entity
-@Table(name = "payment")
+@TableName("payment")
 public class Payment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 主键（自增）
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     // 交易流水号（唯一）
-    @Column(name = "transaction_no", nullable = false, unique = true, length = 50)
+    @TableField("transaction_no")
     private String transactionNo;
 
     // 挂号ID
-    @Column(name = "registration_id", nullable = false)
+    @TableField("registration_id")
     private Long registrationId;
 
     // 用户ID
-    @Column(name = "user_id", nullable = false)
+    @TableField("user_id")
     private Long userId;
 
     // 支付金额
-    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
     // 支付方式：ALIPAY-支付宝，WECHAT-微信，CASH-现金
-    @Column(name = "payment_method", length = 20)
+    @TableField("payment_method")
     private String paymentMethod;
 
     // 支付状态
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status", nullable = false, length = 20)
+    @TableField("payment_status")
     private PaymentStatus paymentStatus;
 
     // 支付时间
-    @Column(name = "payment_time")
+    @TableField("payment_time")
     private LocalDateTime paymentTime;
 
     // 退款时间
-    @Column(name = "refund_time")
+    @TableField("refund_time")
     private LocalDateTime refundTime;
 
     // 备注
-    @Column(length = 500)
     private String remark;
 
-    @CreationTimestamp
-    @Column(name = "create_time", updatable = false)
+    // 创建时间（自动填充）
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @UpdateTimestamp
-    @Column(name = "update_time")
+    // 更新时间（自动填充）
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-}
 
+    // 逻辑删除标识：0-未删除，1-已删除
+    @TableLogic
+    @TableField(value = "deleted")
+    private Integer deleted;
+}

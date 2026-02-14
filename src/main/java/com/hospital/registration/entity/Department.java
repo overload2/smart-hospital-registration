@@ -1,9 +1,7 @@
 package com.hospital.registration.entity;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,43 +13,41 @@ import java.time.LocalDateTime;
  * @description: 科室表
  */
 @Data
-@Entity
-@Table(name = "department")
+@TableName("department")
 public class Department {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 主键（自增）
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     // 科室名称
-    @Column(nullable = false, length = 50)
     private String name;
 
     // 科室编码（唯一）
-    @Column(nullable = false, unique = true, length = 20)
     private String code;
 
     // 科室简介
-    @Column(length = 500)
     private String description;
 
     // 科室位置
-    @Column(length = 100)
     private String location;
 
     // 科室电话
-    @Column(length = 20)
     private String phone;
 
     // 状态：0-禁用，1-启用
-    @Column(nullable = false)
     private Integer status = 1;
 
-    @CreationTimestamp
-    @Column(name = "create_time", updatable = false)
+    // 创建时间（自动填充）
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @UpdateTimestamp
-    @Column(name = "update_time")
+    // 更新时间（自动填充）
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    // 逻辑删除标识：0-未删除，1-已删除
+    @TableLogic
+    @TableField(value = "deleted")
+    private Integer deleted;
 }

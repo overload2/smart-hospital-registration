@@ -16,15 +16,41 @@ spring:
     username: root
     password: 123456
 
+  # MyBatis-Plus配置
+  mybatis-plus:
+    # 配置Mapper XML文件位置
+    mapper-locations: classpath:mapper/**/*.xml
+    # 配置实体类别名包路径
+    type-aliases-package: com.hospital.registration.entity
+    # 配置枚举包扫描（重要！）
+    type-enums-package: com.hospital.registration.common
+    # 全局配置
+    global-config:
+      db-config:
+        # 主键类型（AUTO表示数据库自增）
+        id-type: auto
+        # 逻辑删除字段名
+        logic-delete-field: deleted
+        # 逻辑删除值（删除后的值）
+        logic-delete-value: 1
+        # 逻辑未删除值（正常状态的值）
+        logic-not-delete-value: 0
+    # 配置
+    configuration:
+      # 是否开启自动驼峰命名规则映射
+      map-underscore-to-camel-case: true
+      # 打印SQL日志
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
   # JPA配置
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        dialect: org.hibernate.dialect.MySQL8Dialect
 
   # 文件上传配置
 #  servlet:
@@ -36,6 +62,7 @@ spring:
 logging:
   level:
     com.hospital.registration: debug
+    com.hospital.registration.mapper: debug
     org.springframework.web: debug
   file:
     name: logs/hospital-registration.log

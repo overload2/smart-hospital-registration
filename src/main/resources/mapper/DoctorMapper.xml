@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.DoctorMapper">
+
+    <resultMap id="BaseResultMap" type="com.hospital.registration.entity.Doctor">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="departmentId" column="department_id" />
+            <result property="title" column="title" />
+            <result property="specialty" column="specialty" />
+            <result property="introduction" column="introduction" />
+            <result property="registrationFee" column="registration_fee" />
+            <result property="rating" column="rating" />
+            <result property="consultationCount" column="consultation_count" />
+            <result property="status" column="status" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <resultMap id="DoctorVOResultMap" type="com.hospital.registration.vo.DoctorVO">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="realName" column="real_name" />
+        <result property="departmentId" column="department_id" />
+        <result property="departmentName" column="department_name" />
+        <result property="title" column="title" />
+        <result property="specialty" column="specialty" />
+        <result property="introduction" column="introduction" />
+        <result property="registrationFee" column="registration_fee" />
+        <result property="rating" column="rating" />
+        <result property="consultationCount" column="consultation_count" />
+        <result property="status" column="status" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,department_id,title,specialty,introduction,
+        registration_fee,rating,consultation_count,status,create_time,
+        update_time
+    </sql>
+
+    <sql id="DoctorVO_Column_List">
+        d.id, d.user_id, u.real_name, d.department_id, dept.name as department_name,
+          d.title, d.specialty, d.introduction, d.registration_fee,
+          d.rating, d.consultation_count, d.status,
+          d.create_time, d.update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from doctor
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from doctor
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Doctor" useGeneratedKeys="true">
+        insert into doctor
+        ( id,user_id,department_id,title,specialty,introduction,
+        registration_fee,rating,consultation_count,status,create_time,
+        update_time)
+        values (#{id},#{userId},#{departmentId},#{title},#{specialty},#{introduction},
+        #{registrationFee},#{rating},#{consultationCount},#{status},#{createTime},
+        #{updateTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Doctor" useGeneratedKeys="true">
+        insert into doctor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="departmentId != null">department_id,</if>
+                <if test="title != null">title,</if>
+                <if test="specialty != null">specialty,</if>
+                <if test="introduction != null">introduction,</if>
+                <if test="registrationFee != null">registration_fee,</if>
+                <if test="rating != null">rating,</if>
+                <if test="consultationCount != null">consultation_count,</if>
+                <if test="status != null">status,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="userId != null">#{userId},</if>
+                <if test="departmentId != null">#{departmentId},</if>
+                <if test="title != null">#{title},</if>
+                <if test="specialty != null">#{specialty},</if>
+                <if test="introduction != null">#{introduction},</if>
+                <if test="registrationFee != null">#{registrationFee},</if>
+                <if test="rating != null">#{rating},</if>
+                <if test="consultationCount != null">#{consultationCount},</if>
+                <if test="status != null">#{status},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.Doctor">
+        update doctor
+        <set>
+                <if test="userId != null">
+                    user_id = #{userId},
+                </if>
+                <if test="departmentId != null">
+                    department_id = #{departmentId},
+                </if>
+                <if test="title != null">
+                    title = #{title},
+                </if>
+                <if test="specialty != null">
+                    specialty = #{specialty},
+                </if>
+                <if test="introduction != null">
+                    introduction = #{introduction},
+                </if>
+                <if test="registrationFee != null">
+                    registration_fee = #{registrationFee},
+                </if>
+                <if test="rating != null">
+                    rating = #{rating},
+                </if>
+                <if test="consultationCount != null">
+                    consultation_count = #{consultationCount},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.Doctor">
+        update doctor
+        set 
+            user_id =  #{userId},
+            department_id =  #{departmentId},
+            title =  #{title},
+            specialty =  #{specialty},
+            introduction =  #{introduction},
+            registration_fee =  #{registrationFee},
+            rating =  #{rating},
+            consultation_count =  #{consultationCount},
+            status =  #{status},
+            create_time =  #{createTime},
+            update_time =  #{updateTime}
+        where   id = #{id} 
+    </update>
+
+    <!-- 根据用户ID查询医生 -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM doctor
+        WHERE user_id = #{userId}
+        AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 根据用户ID查询医生(排除指定ID) -->
+    <select id="selectByUserIdExcludeId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM doctor
+        WHERE user_id = #{userId}
+        AND id != #{excludeId}
+        AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 分页查询医生列表(关联用户和科室信息) -->
+    <select id="selectPageWithDetails" resultMap="DoctorVOResultMap">
+        SELECT <include refid="DoctorVO_Column_List" />
+        FROM doctor d
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON d.department_id = dept.id AND dept.deleted = 0
+        <where>
+            d.deleted = 0
+            <if test="keyword != null and keyword != ''">
+                AND (
+                u.real_name LIKE CONCAT('%', #{keyword}, '%')
+                OR d.title LIKE CONCAT('%', #{keyword}, '%')
+                OR d.specialty LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="departmentId != null">
+                AND d.department_id = #{departmentId}
+            </if>
+            <if test="status != null">
+                AND d.status = #{status}
+            </if>
+        </where>
+        ORDER BY d.create_time DESC
+    </select>
+
+    <!-- 根据ID查询医生详情(关联用户和科室信息) -->
+    <select id="selectDetailById" resultMap="DoctorVOResultMap">
+        SELECT <include refid="DoctorVO_Column_List" />
+        FROM doctor d
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON d.department_id = dept.id AND dept.deleted = 0
+        WHERE d.id = #{id}
+        AND d.deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 查询指定科室的所有启用医生 -->
+    <select id="selectActiveDoctorsByDepartment" resultMap="DoctorVOResultMap">
+        SELECT <include refid="DoctorVO_Column_List" />
+        FROM doctor d
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON d.department_id = dept.id AND dept.deleted = 0
+        WHERE d.department_id = #{departmentId}
+        AND d.status = 1
+        AND d.deleted = 0
+        ORDER BY d.rating DESC, d.consultation_count DESC
+    </select>
+
+    <!-- 统计科室下的医生数量 -->
+    <select id="countByDepartmentId" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM doctor
+        WHERE department_id = #{departmentId}
+          AND deleted = 0
+    </select>
+</mapper>
