@@ -5,113 +5,162 @@
 <mapper namespace="com.hospital.registration.mapper.ScheduleMapper">
 
     <resultMap id="BaseResultMap" type="com.hospital.registration.entity.Schedule">
-            <id property="id" column="id" />
-            <result property="doctorId" column="doctor_id" />
-            <result property="departmentId" column="department_id" />
-            <result property="scheduleDate" column="schedule_date" />
-            <result property="timeSlot" column="time_slot" />
-            <result property="totalNumber" column="total_number" />
-            <result property="remainingNumber" column="remaining_number" />
-            <result property="status" column="status" />
-            <result property="createTime" column="create_time" />
-            <result property="updateTime" column="update_time" />
+        <id property="id" column="id" />
+        <result property="doctorId" column="doctor_id" />
+        <result property="departmentId" column="department_id" />
+        <result property="scheduleDate" column="schedule_date" />
+        <result property="timeSlot" column="time_slot" />
+        <result property="totalNumber" column="total_number" />
+        <result property="remainingNumber" column="remaining_number" />
+        <result property="status" column="status" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="deleted" column="deleted" />
+    </resultMap>
+
+    <resultMap id="ScheduleVOResultMap" type="com.hospital.registration.vo.ScheduleVO">
+        <id property="id" column="id" />
+        <result property="doctorId" column="doctor_id" />
+        <result property="doctorName" column="doctor_name" />
+        <result property="departmentId" column="department_id" />
+        <result property="departmentName" column="department_name" />
+        <result property="scheduleDate" column="schedule_date" />
+        <result property="timeSlot" column="time_slot" />
+        <result property="totalNumber" column="total_number" />
+        <result property="remainingNumber" column="remaining_number" />
+        <result property="status" column="status" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,doctor_id,department_id,schedule_date,time_slot,total_number,
-        remaining_number,status,create_time,update_time
+        id, doctor_id, department_id, schedule_date, time_slot,
+          total_number, remaining_number, status,
+          create_time, update_time, deleted
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from schedule
-        where  id = #{id}
+    <sql id="ScheduleVO_Column_List">
+        s.id, s.doctor_id, u.real_name as doctor_name,
+          s.department_id, dept.name as department_name,
+          s.schedule_date, s.time_slot,
+          s.total_number, s.remaining_number, s.status,
+          s.create_time, s.update_time
+    </sql>
+
+    <!-- 查询指定医生在指定日期和时间段的排班 -->
+    <select id="selectByDoctorDateAndTime" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM schedule
+        WHERE doctor_id = #{doctorId}
+        AND schedule_date = #{scheduleDate}
+        AND time_slot = #{timeSlot}
+        AND deleted = 0
+        LIMIT 1
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from schedule
-        where  id = #{id}
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Schedule" useGeneratedKeys="true">
-        insert into schedule
-        ( id,doctor_id,department_id,schedule_date,time_slot,total_number,
-        remaining_number,status,create_time,update_time)
-        values (#{id},#{doctorId},#{departmentId},#{scheduleDate},#{timeSlot},#{totalNumber},
-        #{remainingNumber},#{status},#{createTime},#{updateTime})
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Schedule" useGeneratedKeys="true">
-        insert into schedule
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="doctorId != null">doctor_id,</if>
-                <if test="departmentId != null">department_id,</if>
-                <if test="scheduleDate != null">schedule_date,</if>
-                <if test="timeSlot != null">time_slot,</if>
-                <if test="totalNumber != null">total_number,</if>
-                <if test="remainingNumber != null">remaining_number,</if>
-                <if test="status != null">status,</if>
-                <if test="createTime != null">create_time,</if>
-                <if test="updateTime != null">update_time,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id},</if>
-                <if test="doctorId != null">#{doctorId},</if>
-                <if test="departmentId != null">#{departmentId},</if>
-                <if test="scheduleDate != null">#{scheduleDate},</if>
-                <if test="timeSlot != null">#{timeSlot},</if>
-                <if test="totalNumber != null">#{totalNumber},</if>
-                <if test="remainingNumber != null">#{remainingNumber},</if>
-                <if test="status != null">#{status},</if>
-                <if test="createTime != null">#{createTime},</if>
-                <if test="updateTime != null">#{updateTime},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.Schedule">
-        update schedule
-        <set>
-                <if test="doctorId != null">
-                    doctor_id = #{doctorId},
-                </if>
-                <if test="departmentId != null">
-                    department_id = #{departmentId},
-                </if>
-                <if test="scheduleDate != null">
-                    schedule_date = #{scheduleDate},
-                </if>
-                <if test="timeSlot != null">
-                    time_slot = #{timeSlot},
-                </if>
-                <if test="totalNumber != null">
-                    total_number = #{totalNumber},
-                </if>
-                <if test="remainingNumber != null">
-                    remaining_number = #{remainingNumber},
-                </if>
-                <if test="status != null">
-                    status = #{status},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime},
-                </if>
-        </set>
-        where   id = #{id}
+    <!-- 查询指定医生在指定日期和时间段的排班(排除指定ID) -->
+    <select id="selectByDoctorDateAndTimeExcludeId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM schedule
+        WHERE doctor_id = #{doctorId}
+        AND schedule_date = #{scheduleDate}
+        AND time_slot = #{timeSlot}
+        AND id != #{excludeId}
+        AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 分页查询排班列表(关联医生和科室信息) -->
+    <select id="selectPageWithDetails" resultMap="ScheduleVOResultMap">
+        SELECT <include refid="ScheduleVO_Column_List" />
+        FROM schedule s
+        LEFT JOIN doctor d ON s.doctor_id = d.id AND d.deleted = 0
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON s.department_id = dept.id AND dept.deleted = 0
+        <where>
+            s.deleted = 0
+            <if test="doctorId != null">
+                AND s.doctor_id = #{doctorId}
+            </if>
+            <if test="departmentId != null">
+                AND s.department_id = #{departmentId}
+            </if>
+            <if test="scheduleDate != null">
+                AND s.schedule_date = #{scheduleDate}
+            </if>
+            <if test="status != null">
+                AND s.status = #{status}
+            </if>
+        </where>
+        ORDER BY s.schedule_date ASC, s.time_slot ASC
+    </select>
+
+    <!-- 根据ID查询排班详情(关联医生和科室信息) -->
+    <select id="selectDetailById" resultMap="ScheduleVOResultMap">
+        SELECT <include refid="ScheduleVO_Column_List" />
+        FROM schedule s
+        LEFT JOIN doctor d ON s.doctor_id = d.id AND d.deleted = 0
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON s.department_id = dept.id AND dept.deleted = 0
+        WHERE s.id = #{id}
+        AND s.deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 查询指定医生的可预约排班列表 -->
+    <select id="selectAvailableByDoctor" resultMap="ScheduleVOResultMap">
+        SELECT <include refid="ScheduleVO_Column_List" />
+        FROM schedule s
+        LEFT JOIN doctor d ON s.doctor_id = d.id AND d.deleted = 0
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON s.department_id = dept.id AND dept.deleted = 0
+        WHERE s.doctor_id = #{doctorId}
+        AND s.schedule_date BETWEEN #{startDate} AND #{endDate}
+        AND s.status = 1
+        AND s.remaining_number > 0
+        AND s.deleted = 0
+        ORDER BY s.schedule_date ASC, s.time_slot ASC
+    </select>
+
+    <!-- 查询指定科室的可预约排班列表 -->
+    <select id="selectAvailableByDepartment" resultMap="ScheduleVOResultMap">
+        SELECT <include refid="ScheduleVO_Column_List" />
+        FROM schedule s
+        LEFT JOIN doctor d ON s.doctor_id = d.id AND d.deleted = 0
+        LEFT JOIN user u ON d.user_id = u.id AND u.deleted = 0
+        LEFT JOIN department dept ON s.department_id = dept.id AND dept.deleted = 0
+        WHERE s.department_id = #{departmentId}
+        AND s.schedule_date BETWEEN #{startDate} AND #{endDate}
+        AND s.status = 1
+        AND s.remaining_number > 0
+        AND s.deleted = 0
+        ORDER BY s.schedule_date ASC, s.time_slot ASC
+    </select>
+
+    <!-- 减少剩余号源数 -->
+    <update id="decreaseRemainingNumber">
+        UPDATE schedule
+        SET remaining_number = remaining_number - 1,
+            status = CASE
+                         WHEN remaining_number - 1 = 0 THEN 2
+                         ELSE status
+                END
+        WHERE id = #{id}
+          AND remaining_number > 0
+          AND deleted = 0
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.Schedule">
-        update schedule
-        set
-            doctor_id =  #{doctorId},
-            department_id =  #{departmentId},
-            schedule_date =  #{scheduleDate},
-            time_slot =  #{timeSlot},
-            total_number =  #{totalNumber},
-            remaining_number =  #{remainingNumber},
-            status =  #{status},
-            create_time =  #{createTime},
-            update_time =  #{updateTime}
-        where   id = #{id}
+
+    <!-- 增加剩余号源数 -->
+    <update id="increaseRemainingNumber">
+        UPDATE schedule
+        SET remaining_number = remaining_number + 1,
+            status = CASE
+                WHEN status = 2 THEN 1
+                ELSE status
+            END
+        WHERE id = #{id}
+            AND remaining_number &lt; total_number
+            AND deleted = 0
     </update>
+
 </mapper>
