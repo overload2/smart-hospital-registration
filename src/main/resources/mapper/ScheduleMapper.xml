@@ -44,6 +44,7 @@
           s.department_id, dept.name as department_name,
           s.schedule_date, s.time_slot,
           s.total_number, s.remaining_number, s.status,
+          d.registration_fee,
           s.create_time, s.update_time
     </sql>
 

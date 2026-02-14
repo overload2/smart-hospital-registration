@@ -3,6 +3,7 @@ package com.hospital.registration.vo;
 import com.hospital.registration.common.TimeSlot;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -51,6 +52,9 @@ public class ScheduleVO {
 
     // 状态：0-已取消，1-可预约，2-已满
     private Integer status;
+
+    // 挂号费
+    private BigDecimal registrationFee;
 
     // 创建时间
     private LocalDateTime createTime;

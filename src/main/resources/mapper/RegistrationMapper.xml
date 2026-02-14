@@ -5,158 +5,158 @@
 <mapper namespace="com.hospital.registration.mapper.RegistrationMapper">
 
     <resultMap id="BaseResultMap" type="com.hospital.registration.entity.Registration">
-            <id property="id" column="id" />
-            <result property="registrationNo" column="registration_no" />
-            <result property="patientId" column="patient_id" />
-            <result property="doctorId" column="doctor_id" />
-            <result property="departmentId" column="department_id" />
-            <result property="scheduleId" column="schedule_id" />
-            <result property="registrationDate" column="registration_date" />
-            <result property="timeSlot" column="time_slot" />
-            <result property="queueNumber" column="queue_number" />
-            <result property="registrationFee" column="registration_fee" />
-            <result property="status" column="status" />
-            <result property="symptom" column="symptom" />
-            <result property="paymentStatus" column="payment_status" />
-            <result property="paymentTime" column="payment_time" />
-            <result property="createTime" column="create_time" />
-            <result property="updateTime" column="update_time" />
+        <id property="id" column="id" />
+        <result property="registrationNo" column="registration_no" />
+        <result property="patientId" column="patient_id" />
+        <result property="doctorId" column="doctor_id" />
+        <result property="departmentId" column="department_id" />
+        <result property="scheduleId" column="schedule_id" />
+        <result property="registrationDate" column="registration_date" />
+        <result property="timeSlot" column="time_slot" />
+        <result property="queueNumber" column="queue_number" />
+        <result property="registrationFee" column="registration_fee" />
+        <result property="status" column="status" />
+        <result property="symptom" column="symptom" />
+        <result property="paymentStatus" column="payment_status" />
+        <result property="paymentTime" column="payment_time" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="deleted" column="deleted" />
+    </resultMap>
+
+    <resultMap id="RegistrationVOResultMap" type="com.hospital.registration.vo.RegistrationVO">
+        <id property="id" column="id" />
+        <result property="registrationNo" column="registration_no" />
+        <result property="patientId" column="patient_id" />
+        <result property="patientName" column="patient_name" />
+        <result property="patientPhone" column="patient_phone" />
+        <result property="doctorId" column="doctor_id" />
+        <result property="doctorName" column="doctor_name" />
+        <result property="doctorTitle" column="doctor_title" />
+        <result property="departmentId" column="department_id" />
+        <result property="departmentName" column="department_name" />
+        <result property="scheduleId" column="schedule_id" />
+        <result property="registrationDate" column="registration_date" />
+        <result property="timeSlot" column="time_slot" />
+        <result property="queueNumber" column="queue_number" />
+        <result property="registrationFee" column="registration_fee" />
+        <result property="status" column="status" />
+        <result property="symptom" column="symptom" />
+        <result property="paymentStatus" column="payment_status" />
+        <result property="paymentTime" column="payment_time" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,registration_no,patient_id,doctor_id,department_id,schedule_id,
-        registration_date,time_slot,queue_number,registration_fee,status,
-        symptom,payment_status,payment_time,create_time,update_time
+        id, registration_no, patient_id, doctor_id, department_id, schedule_id,
+          registration_date, time_slot, queue_number, registration_fee,
+          status, symptom, payment_status, payment_time,
+          create_time, update_time, deleted
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from registration
-        where  id = #{id} 
+    <sql id="RegistrationVO_Column_List">
+        r.id, r.registration_no, r.patient_id, p.real_name as patient_name, p.phone as patient_phone,
+          r.doctor_id, doc_user.real_name as doctor_name, doc.title as doctor_title,
+          r.department_id, dept.name as department_name,
+          r.schedule_id, r.registration_date, r.time_slot, r.queue_number,
+          r.registration_fee, r.status, r.symptom,
+          r.payment_status, r.payment_time,
+          r.create_time, r.update_time
+    </sql>
+
+    <!-- 根据挂号单号查询挂号记录 -->
+    <select id="selectByRegistrationNo" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM registration
+        WHERE registration_no = #{registrationNo}
+        AND deleted = 0
+        LIMIT 1
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from registration
-        where  id = #{id} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Registration" useGeneratedKeys="true">
-        insert into registration
-        ( id,registration_no,patient_id,doctor_id,department_id,schedule_id,
-        registration_date,time_slot,queue_number,registration_fee,status,
-        symptom,payment_status,payment_time,create_time,update_time)
-        values (#{id},#{registrationNo},#{patientId},#{doctorId},#{departmentId},#{scheduleId},
-        #{registrationDate},#{timeSlot},#{queueNumber},#{registrationFee},#{status},
-        #{symptom},#{paymentStatus},#{paymentTime},#{createTime},#{updateTime})
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Registration" useGeneratedKeys="true">
-        insert into registration
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="registrationNo != null">registration_no,</if>
-                <if test="patientId != null">patient_id,</if>
-                <if test="doctorId != null">doctor_id,</if>
-                <if test="departmentId != null">department_id,</if>
-                <if test="scheduleId != null">schedule_id,</if>
-                <if test="registrationDate != null">registration_date,</if>
-                <if test="timeSlot != null">time_slot,</if>
-                <if test="queueNumber != null">queue_number,</if>
-                <if test="registrationFee != null">registration_fee,</if>
-                <if test="status != null">status,</if>
-                <if test="symptom != null">symptom,</if>
-                <if test="paymentStatus != null">payment_status,</if>
-                <if test="paymentTime != null">payment_time,</if>
-                <if test="createTime != null">create_time,</if>
-                <if test="updateTime != null">update_time,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id},</if>
-                <if test="registrationNo != null">#{registrationNo},</if>
-                <if test="patientId != null">#{patientId},</if>
-                <if test="doctorId != null">#{doctorId},</if>
-                <if test="departmentId != null">#{departmentId},</if>
-                <if test="scheduleId != null">#{scheduleId},</if>
-                <if test="registrationDate != null">#{registrationDate},</if>
-                <if test="timeSlot != null">#{timeSlot},</if>
-                <if test="queueNumber != null">#{queueNumber},</if>
-                <if test="registrationFee != null">#{registrationFee},</if>
-                <if test="status != null">#{status},</if>
-                <if test="symptom != null">#{symptom},</if>
-                <if test="paymentStatus != null">#{paymentStatus},</if>
-                <if test="paymentTime != null">#{paymentTime},</if>
-                <if test="createTime != null">#{createTime},</if>
-                <if test="updateTime != null">#{updateTime},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.Registration">
-        update registration
-        <set>
-                <if test="registrationNo != null">
-                    registration_no = #{registrationNo},
-                </if>
-                <if test="patientId != null">
-                    patient_id = #{patientId},
-                </if>
-                <if test="doctorId != null">
-                    doctor_id = #{doctorId},
-                </if>
-                <if test="departmentId != null">
-                    department_id = #{departmentId},
-                </if>
-                <if test="scheduleId != null">
-                    schedule_id = #{scheduleId},
-                </if>
-                <if test="registrationDate != null">
-                    registration_date = #{registrationDate},
-                </if>
-                <if test="timeSlot != null">
-                    time_slot = #{timeSlot},
-                </if>
-                <if test="queueNumber != null">
-                    queue_number = #{queueNumber},
-                </if>
-                <if test="registrationFee != null">
-                    registration_fee = #{registrationFee},
-                </if>
-                <if test="status != null">
-                    status = #{status},
-                </if>
-                <if test="symptom != null">
-                    symptom = #{symptom},
-                </if>
-                <if test="paymentStatus != null">
-                    payment_status = #{paymentStatus},
-                </if>
-                <if test="paymentTime != null">
-                    payment_time = #{paymentTime},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime},
-                </if>
-        </set>
-        where   id = #{id} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.Registration">
-        update registration
-        set 
-            registration_no =  #{registrationNo},
-            patient_id =  #{patientId},
-            doctor_id =  #{doctorId},
-            department_id =  #{departmentId},
-            schedule_id =  #{scheduleId},
-            registration_date =  #{registrationDate},
-            time_slot =  #{timeSlot},
-            queue_number =  #{queueNumber},
-            registration_fee =  #{registrationFee},
-            status =  #{status},
-            symptom =  #{symptom},
-            payment_status =  #{paymentStatus},
-            payment_time =  #{paymentTime},
-            create_time =  #{createTime},
-            update_time =  #{updateTime}
-        where   id = #{id} 
-    </update>
+    <!-- 查询指定排班的当前最大排队号 -->
+    <select id="selectMaxQueueNumber" resultType="java.lang.Integer">
+        SELECT COALESCE(MAX(queue_number), 0)
+        FROM registration
+        WHERE schedule_id = #{scheduleId}
+          AND deleted = 0
+    </select>
+
+    <!-- 分页查询挂号列表(关联患者、医生、科室信息) -->
+    <select id="selectPageWithDetails" resultMap="RegistrationVOResultMap">
+        SELECT <include refid="RegistrationVO_Column_List" />
+        FROM registration r
+        LEFT JOIN user p ON r.patient_id = p.id AND p.deleted = 0
+        LEFT JOIN doctor doc ON r.doctor_id = doc.id AND doc.deleted = 0
+        LEFT JOIN user doc_user ON doc.user_id = doc_user.id AND doc_user.deleted = 0
+        LEFT JOIN department dept ON r.department_id = dept.id AND dept.deleted = 0
+        <where>
+            r.deleted = 0
+            <if test="patientId != null">
+                AND r.patient_id = #{patientId}
+            </if>
+            <if test="doctorId != null">
+                AND r.doctor_id = #{doctorId}
+            </if>
+            <if test="departmentId != null">
+                AND r.department_id = #{departmentId}
+            </if>
+            <if test="registrationDate != null">
+                AND r.registration_date = #{registrationDate}
+            </if>
+            <if test="status != null and status != ''">
+                AND r.status = #{status}
+            </if>
+        </where>
+        ORDER BY r.registration_date DESC, r.create_time DESC
+    </select>
+
+    <!-- 根据ID查询挂号详情(关联患者、医生、科室信息) -->
+    <select id="selectDetailById" resultMap="RegistrationVOResultMap">
+        SELECT <include refid="RegistrationVO_Column_List" />
+        FROM registration r
+        LEFT JOIN user p ON r.patient_id = p.id AND p.deleted = 0
+        LEFT JOIN doctor doc ON r.doctor_id = doc.id AND doc.deleted = 0
+        LEFT JOIN user doc_user ON doc.user_id = doc_user.id AND doc_user.deleted = 0
+        LEFT JOIN department dept ON r.department_id = dept.id AND dept.deleted = 0
+        WHERE r.id = #{id}
+        AND r.deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 查询患者的挂号记录列表 -->
+    <select id="selectByPatientId" resultMap="RegistrationVOResultMap">
+        SELECT <include refid="RegistrationVO_Column_List" />
+        FROM registration r
+        LEFT JOIN user p ON r.patient_id = p.id AND p.deleted = 0
+        LEFT JOIN doctor doc ON r.doctor_id = doc.id AND doc.deleted = 0
+        LEFT JOIN user doc_user ON doc.user_id = doc_user.id AND doc_user.deleted = 0
+        LEFT JOIN department dept ON r.department_id = dept.id AND dept.deleted = 0
+        WHERE r.patient_id = #{patientId}
+        AND r.deleted = 0
+        ORDER BY r.registration_date DESC, r.create_time DESC
+    </select>
+
+    <!-- 查询医生的挂号记录列表 -->
+    <select id="selectByDoctorAndDate" resultMap="RegistrationVOResultMap">
+        SELECT <include refid="RegistrationVO_Column_List" />
+        FROM registration r
+        LEFT JOIN user p ON r.patient_id = p.id AND p.deleted = 0
+        LEFT JOIN doctor doc ON r.doctor_id = doc.id AND doc.deleted = 0
+        LEFT JOIN user doc_user ON doc.user_id = doc_user.id AND doc_user.deleted = 0
+        LEFT JOIN department dept ON r.department_id = dept.id AND dept.deleted = 0
+        WHERE r.doctor_id = #{doctorId}
+        AND r.registration_date = #{registrationDate}
+        AND r.deleted = 0
+        ORDER BY r.queue_number ASC
+    </select>
+
+    <!-- 统计指定排班的挂号数量 -->
+    <select id="countByScheduleId" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM registration
+        WHERE schedule_id = #{scheduleId}
+          AND deleted = 0
+    </select>
+
 </mapper>
