@@ -21,6 +21,45 @@
         status,create_time,update_time
     </sql>
 
+    <!-- 根据科室编码查询 -->
+    <select id="selectByCode" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM department
+        WHERE code = #{code}
+        LIMIT 1
+    </select>
+
+    <!-- 根据科室编码查询(排除指定ID) -->
+    <select id="selectByCodeExcludeId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM department
+        WHERE code = #{code}
+        AND id != #{excludeId}
+        LIMIT 1
+    </select>
+
+    <!-- 分页查询科室列表(支持关键词搜索) -->
+    <select id="selectPageByKeyword" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM department
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (name LIKE CONCAT('%', #{keyword}, '%')
+                OR code LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询所有启用的科室 -->
+    <select id="selectActiveList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM department
+        WHERE status = 1
+        ORDER BY name ASC
+    </select>
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

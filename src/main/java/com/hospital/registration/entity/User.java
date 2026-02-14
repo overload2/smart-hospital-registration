@@ -63,4 +63,9 @@ public class User {
     // 更新时间（自动填充）
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    // 逻辑删除标识：0-未删除，1-已删除
+    @TableLogic
+    @TableField(value = "deleted")
+    private Integer deleted;
 }

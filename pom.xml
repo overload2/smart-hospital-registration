@@ -42,6 +42,14 @@
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>3.5.9</version>
         </dependency>
+<!--        解决mybatis-plus分页PaginationInnerInterceptor无法引入的问题-->
+<!--        3.5.9版本中，MyBatis Plus 对组件做了拆分，比如分页功能依赖的jsqlparser被单独拆成了mybatis-plus-jsqlparser包-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>3.5.9</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

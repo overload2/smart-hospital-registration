@@ -1,6 +1,8 @@
 package com.hospital.registration.service;
 
-import com.hospital.registration.entity.Department;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.dto.DepartmentDTO;
+import com.hospital.registration.vo.DepartmentVO;
 
 import java.util.List;
 
@@ -14,16 +16,43 @@ import java.util.List;
 public interface DepartmentService {
 
     /**
-     * 查询所有科室列表
-     * @return 科室列表
+     * 获取所有启用的科室列表
      */
-    List<Department> getAllDepartments();
+    List<DepartmentVO> getActiveDepartments();
+
 
     /**
      * 根据ID查询科室
      * @param id 科室ID
      * @return 科室信息
      */
-    Department getDepartmentById(Long id);
+    DepartmentVO getDepartmentById(Long id);
+
+    /**
+     * 新增科室
+     */
+    DepartmentVO addDepartment(DepartmentDTO departmentDTO);
+
+    /**
+     * 更新科室信息
+     */
+    DepartmentVO updateDepartment(Long id, DepartmentDTO departmentDTO);
+
+    /**
+     * 删除科室
+     */
+    void deleteDepartment(Long id);
+
+
+    /**
+     * 分页查询科室列表
+     */
+    Page<DepartmentVO> getDepartmentPage(Integer pageNum, Integer pageSize, String keyword);
+
+
+    /**
+     * 更新科室状态
+     */
+    void updateDepartmentStatus(Long id, Integer status);
 }
 

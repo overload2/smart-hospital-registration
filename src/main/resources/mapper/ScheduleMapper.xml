@@ -26,12 +26,12 @@
         select
         <include refid="Base_Column_List" />
         from schedule
-        where  id = #{id} 
+        where  id = #{id}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from schedule
-        where  id = #{id} 
+        where  id = #{id}
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Schedule" useGeneratedKeys="true">
         insert into schedule
@@ -98,11 +98,11 @@
                     update_time = #{updateTime},
                 </if>
         </set>
-        where   id = #{id} 
+        where   id = #{id}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.Schedule">
         update schedule
-        set 
+        set
             doctor_id =  #{doctorId},
             department_id =  #{departmentId},
             schedule_date =  #{scheduleDate},
@@ -112,6 +112,6 @@
             status =  #{status},
             create_time =  #{createTime},
             update_time =  #{updateTime}
-        where   id = #{id} 
+        where   id = #{id}
     </update>
 </mapper>
