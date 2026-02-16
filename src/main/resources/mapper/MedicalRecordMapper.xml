@@ -1,117 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.registration.mapper.MedicalRecordMapper">
 
+    <!-- 结果映射 -->
     <resultMap id="BaseResultMap" type="com.hospital.registration.entity.MedicalRecord">
-            <id property="id" column="id" />
-            <result property="registrationId" column="registration_id" />
-            <result property="patientId" column="patient_id" />
-            <result property="doctorId" column="doctor_id" />
-            <result property="diagnosis" column="diagnosis" />
-            <result property="prescription" column="prescription" />
-            <result property="advice" column="advice" />
-            <result property="visitTime" column="visit_time" />
-            <result property="createTime" column="create_time" />
-            <result property="updateTime" column="update_time" />
+        <id column="id" property="id"/>
+        <result column="registration_id" property="registrationId"/>
+        <result column="patient_id" property="patientId"/>
+        <result column="doctor_id" property="doctorId"/>
+        <result column="chief_complaint" property="chiefComplaint"/>
+        <result column="present_illness" property="presentIllness"/>
+        <result column="diagnosis" property="diagnosis"/>
+        <result column="prescription" property="prescription"/>
+        <result column="advice" property="advice"/>
+        <result column="visit_time" property="visitTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,registration_id,patient_id,doctor_id,diagnosis,prescription,
-        advice,visit_time,create_time,update_time
-    </sql>
+    <!-- 详情结果映射（包含关联信息） -->
+    <resultMap id="DetailResultMap" type="com.hospital.registration.vo.MedicalRecordVO">
+        <id column="id" property="id"/>
+        <result column="registration_id" property="registrationId"/>
+        <result column="registration_no" property="registrationNo"/>
+        <result column="patient_id" property="patientId"/>
+        <result column="patient_name" property="patientName"/>
+        <result column="patient_gender" property="patientGender"/>
+        <result column="patient_age" property="patientAge"/>
+        <result column="doctor_id" property="doctorId"/>
+        <result column="doctor_name" property="doctorName"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="chief_complaint" property="chiefComplaint"/>
+        <result column="present_illness" property="presentIllness"/>
+        <result column="diagnosis" property="diagnosis"/>
+        <result column="prescription" property="prescription"/>
+        <result column="advice" property="advice"/>
+        <result column="visit_time" property="visitTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from medical_record
-        where  id = #{id} 
+    <!-- 根据挂号ID查询病历 -->
+    <select id="selectByRegistrationId" resultMap="BaseResultMap">
+        SELECT *
+        FROM medical_record
+        WHERE registration_id = #{registrationId}
+          AND deleted = 0
+        LIMIT 1
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from medical_record
-        where  id = #{id} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.MedicalRecord" useGeneratedKeys="true">
-        insert into medical_record
-        ( id,registration_id,patient_id,doctor_id,diagnosis,prescription,
-        advice,visit_time,create_time,update_time)
-        values (#{id},#{registrationId},#{patientId},#{doctorId},#{diagnosis},#{prescription},
-        #{advice},#{visitTime},#{createTime},#{updateTime})
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.MedicalRecord" useGeneratedKeys="true">
-        insert into medical_record
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="registrationId != null">registration_id,</if>
-                <if test="patientId != null">patient_id,</if>
-                <if test="doctorId != null">doctor_id,</if>
-                <if test="diagnosis != null">diagnosis,</if>
-                <if test="prescription != null">prescription,</if>
-                <if test="advice != null">advice,</if>
-                <if test="visitTime != null">visit_time,</if>
-                <if test="createTime != null">create_time,</if>
-                <if test="updateTime != null">update_time,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id},</if>
-                <if test="registrationId != null">#{registrationId},</if>
-                <if test="patientId != null">#{patientId},</if>
-                <if test="doctorId != null">#{doctorId},</if>
-                <if test="diagnosis != null">#{diagnosis},</if>
-                <if test="prescription != null">#{prescription},</if>
-                <if test="advice != null">#{advice},</if>
-                <if test="visitTime != null">#{visitTime},</if>
-                <if test="createTime != null">#{createTime},</if>
-                <if test="updateTime != null">#{updateTime},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.MedicalRecord">
-        update medical_record
-        <set>
-                <if test="registrationId != null">
-                    registration_id = #{registrationId},
-                </if>
-                <if test="patientId != null">
-                    patient_id = #{patientId},
-                </if>
-                <if test="doctorId != null">
-                    doctor_id = #{doctorId},
-                </if>
-                <if test="diagnosis != null">
-                    diagnosis = #{diagnosis},
-                </if>
-                <if test="prescription != null">
-                    prescription = #{prescription},
-                </if>
-                <if test="advice != null">
-                    advice = #{advice},
-                </if>
-                <if test="visitTime != null">
-                    visit_time = #{visitTime},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime},
-                </if>
-        </set>
-        where   id = #{id} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.MedicalRecord">
-        update medical_record
-        set 
-            registration_id =  #{registrationId},
-            patient_id =  #{patientId},
-            doctor_id =  #{doctorId},
-            diagnosis =  #{diagnosis},
-            prescription =  #{prescription},
-            advice =  #{advice},
-            visit_time =  #{visitTime},
-            create_time =  #{createTime},
-            update_time =  #{updateTime}
-        where   id = #{id} 
-    </update>
+    <!-- 查询病历详情（包含关联信息） -->
+    <select id="selectDetailById" resultMap="DetailResultMap">
+        SELECT mr.id,
+               mr.registration_id,
+               r.registration_no,
+               mr.patient_id,
+               u1.real_name AS patient_name,
+               u1.gender AS patient_gender,
+               TIMESTAMPDIFF(YEAR, u1.birth_date, CURDATE()) AS patient_age,
+               mr.doctor_id,
+               u2.real_name AS doctor_name,
+               dep.name AS department_name,
+               mr.chief_complaint,
+               mr.present_illness,
+               mr.diagnosis,
+               mr.prescription,
+               mr.advice,
+               mr.visit_time,
+               mr.create_time,
+               mr.update_time
+        FROM medical_record mr
+                 LEFT JOIN registration r ON mr.registration_id = r.id
+                 LEFT JOIN user u1 ON mr.patient_id = u1.id
+                 LEFT JOIN user u2 ON mr.doctor_id = u2.id
+                 LEFT JOIN doctor d ON mr.doctor_id = d.user_id
+                 LEFT JOIN department dep ON d.department_id = dep.id
+        WHERE mr.id = #{id}
+          AND mr.deleted = 0
+    </select>
+
+    <!-- 查询患者的病历列表 -->
+    <select id="selectByPatientId" resultMap="DetailResultMap">
+        SELECT mr.id,
+               mr.registration_id,
+               r.registration_no,
+               mr.patient_id,
+               u1.real_name AS patient_name,
+               mr.doctor_id,
+               u2.real_name AS doctor_name,
+               dep.name AS department_name,
+               mr.diagnosis,
+               mr.visit_time,
+               mr.create_time
+        FROM medical_record mr
+                 LEFT JOIN registration r ON mr.registration_id = r.id
+                 LEFT JOIN user u1 ON mr.patient_id = u1.id
+                 LEFT JOIN user u2 ON mr.doctor_id = u2.id
+                 LEFT JOIN doctor d ON mr.doctor_id = d.user_id
+                 LEFT JOIN department dep ON d.department_id = dep.id
+        WHERE mr.patient_id = #{patientId}
+          AND mr.deleted = 0
+        ORDER BY mr.visit_time DESC
+    </select>
+
+    <!-- 查询医生的病历列表 -->
+    <select id="selectByDoctorId" resultMap="DetailResultMap">
+        SELECT mr.id,
+               mr.registration_id,
+               r.registration_no,
+               mr.patient_id,
+               u1.real_name AS patient_name,
+               u1.gender AS patient_gender,
+               mr.doctor_id,
+               u2.real_name AS doctor_name,
+               mr.diagnosis,
+               mr.visit_time,
+               mr.create_time
+        FROM medical_record mr
+                 LEFT JOIN registration r ON mr.registration_id = r.id
+                 LEFT JOIN user u1 ON mr.patient_id = u1.id
+                 LEFT JOIN user u2 ON mr.doctor_id = u2.id
+        WHERE mr.doctor_id = #{doctorId}
+          AND mr.deleted = 0
+        ORDER BY mr.visit_time DESC
+    </select>
+
 </mapper>
