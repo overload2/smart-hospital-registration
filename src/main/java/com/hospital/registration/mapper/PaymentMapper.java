@@ -3,26 +3,32 @@ package com.hospital.registration.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hospital.registration.entity.Payment;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
-* @author suzd
-* @description 针对表【payment(支付记录表)】的数据库操作Mapper
-* @createDate 2026-01-18 18:55:48
-* @Entity com.hospital.registration.entity.Payment
-*/
+ * @title: PaymentMapper
+ * @author: Su
+ * @date: 2026/2/16
+ * @version: 1.0
+ * @description: 支付Mapper
+ */
 @Mapper
 public interface PaymentMapper extends BaseMapper<Payment> {
 
-    int deleteByPrimaryKey(Long id);
+    /**
+     * 根据挂号ID查询支付记录
+     */
+    Payment selectByRegistrationId(@Param("registrationId") Long registrationId);
 
-    int insert(Payment record);
+    /**
+     * 根据交易流水号查询支付记录
+     */
+    Payment selectByTransactionNo(@Param("transactionNo") String transactionNo);
 
-    int insertSelective(Payment record);
-
-    Payment selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(Payment record);
-
-    int updateByPrimaryKey(Payment record);
-
+    /**
+     * 查询用户的支付记录
+     */
+    List<Payment> selectByUserId(@Param("userId") Long userId);
 }

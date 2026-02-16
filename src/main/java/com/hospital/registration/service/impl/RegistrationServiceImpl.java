@@ -11,6 +11,7 @@ import com.hospital.registration.entity.User;
 import com.hospital.registration.mapper.RegistrationMapper;
 import com.hospital.registration.mapper.ScheduleMapper;
 import com.hospital.registration.mapper.UserMapper;
+import com.hospital.registration.service.PaymentService;
 import com.hospital.registration.service.RegistrationService;
 import com.hospital.registration.vo.RegistrationVO;
 import com.hospital.registration.vo.ScheduleVO;
@@ -37,16 +38,19 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final RegistrationMapper registrationMapper;
     private final ScheduleMapper scheduleMapper;
     private final UserMapper userMapper;
+    private final PaymentService paymentService;
 
     /**
      * 构造器注入
      */
     public RegistrationServiceImpl(RegistrationMapper registrationMapper,
                                    ScheduleMapper scheduleMapper,
-                                   UserMapper userMapper) {
+                                   UserMapper userMapper,
+                                   PaymentService paymentService) {
         this.registrationMapper = registrationMapper;
         this.scheduleMapper = scheduleMapper;
         this.userMapper = userMapper;
+        this.paymentService = paymentService;
     }
 
     /**
@@ -180,40 +184,25 @@ public class RegistrationServiceImpl implements RegistrationService {
             log.error("增加号源失败 - 排班ID: {}", registration.getScheduleId());
             throw new BusinessException(ResultCode.FAIL.getCode(), "取消挂号失败");
         }
-
+        // 更新挂号状态为已取消
+        Registration updateRegistration = new Registration();
+        updateRegistration.setId(id);
+        updateRegistration.setStatus(RegistrationStatus.CANCELLED);
         //处理退费逻辑
         if (registration.getPaymentStatus() == PaymentStatus.PAID) {
             log.info("挂号已支付，需要退费 - ID: {}，挂号单号: {}，挂号费: {}", id, registration.getRegistrationNo(), registration.getRegistrationFee());
             //更新支付状态为已退款
-            Registration updateRegistration = new Registration();
-            updateRegistration.setId(id);
-            updateRegistration.setStatus(RegistrationStatus.CANCELLED);
             updateRegistration.setPaymentStatus(PaymentStatus.REFUNDED);
-
-            int result = registrationMapper.updateById(updateRegistration);
-            if (result <= 0) {
-                log.error("挂号取消失败 - ID: {}", id);
-                throw new BusinessException(ResultCode.FAIL.getCode(), "挂号取消失败");
-            }
-            // TODO: 调用支付系统进行退款
-            // 这里可以集成第三方支付接口(微信、支付宝等)进行退款
-            // 或者记录退款申请,由后台异步处理
-            // 示例:
-            // paymentService.refund(registration.getRegistrationNo(), registration.getRegistrationFee());
+            //发送退款消息到RabbitMQ队列，由消费者异步处理退款
+            paymentService.refundAsync(registration.getRegistrationNo(), registration.getRegistrationFee());
             log.info("挂号取消成功，已发起退款 - ID: {}，退款金额: {}", id, registration.getRegistrationFee());
-        }else {
-            //未支付，直接取消挂号
-            Registration updateRegistration = new Registration();
-            updateRegistration.setId(id);
-            updateRegistration.setStatus(RegistrationStatus.CANCELLED);
-            int result = registrationMapper.updateById(updateRegistration);
-            if (result <= 0) {
-                log.error("挂号取消失败 - ID: {}", id);
-                throw new BusinessException(ResultCode.FAIL.getCode(), "挂号取消失败");
-            }
-            log.info("挂号取消成功 - ID: {}", id);
         }
-
+        int result = registrationMapper.updateById(updateRegistration);
+        if (result <= 0) {
+            log.error("挂号取消失败 - ID: {}", id);
+            throw new BusinessException(ResultCode.FAIL.getCode(), "挂号取消失败");
+        }
+        log.info("挂号取消成功 - ID: {}", id);
     }
 
     /**
