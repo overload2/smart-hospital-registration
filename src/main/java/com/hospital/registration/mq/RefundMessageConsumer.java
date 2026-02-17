@@ -6,6 +6,7 @@ import com.hospital.registration.config.RabbitMQConfig;
 import com.hospital.registration.dto.RefundMessage;
 import com.hospital.registration.entity.Payment;
 import com.hospital.registration.mapper.PaymentMapper;
+import com.hospital.registration.service.MessageService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -27,9 +28,11 @@ import java.time.LocalDateTime;
 public class RefundMessageConsumer {
 
     private final PaymentMapper paymentMapper;
+    private final MessageService messageService;
 
-    public RefundMessageConsumer(PaymentMapper paymentMapper) {
+    public RefundMessageConsumer(PaymentMapper paymentMapper, MessageService messageService) {
         this.paymentMapper = paymentMapper;
+        this.messageService = messageService;
     }
 
     /**
@@ -55,6 +58,9 @@ public class RefundMessageConsumer {
                 updatePayment.setRefundTime(LocalDateTime.now());
                 updatePayment.setRemark("取消挂号退款");
                 paymentMapper.updateById(updatePayment);
+                //发送退款成功通知
+                payment=paymentMapper.selectById(payment.getId());
+                messageService.sendRefundSuccessNotice(payment);
             }
 
             // 手动确认消息

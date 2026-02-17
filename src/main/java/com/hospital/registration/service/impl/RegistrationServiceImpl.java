@@ -11,6 +11,7 @@ import com.hospital.registration.entity.User;
 import com.hospital.registration.mapper.RegistrationMapper;
 import com.hospital.registration.mapper.ScheduleMapper;
 import com.hospital.registration.mapper.UserMapper;
+import com.hospital.registration.service.MessageService;
 import com.hospital.registration.service.PaymentService;
 import com.hospital.registration.service.RegistrationService;
 import com.hospital.registration.vo.RegistrationVO;
@@ -39,6 +40,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final ScheduleMapper scheduleMapper;
     private final UserMapper userMapper;
     private final PaymentService paymentService;
+    private final MessageService messageService;
 
     /**
      * 构造器注入
@@ -46,11 +48,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     public RegistrationServiceImpl(RegistrationMapper registrationMapper,
                                    ScheduleMapper scheduleMapper,
                                    UserMapper userMapper,
-                                   PaymentService paymentService) {
+                                   PaymentService paymentService,
+                                   MessageService messageService) {
         this.registrationMapper = registrationMapper;
         this.scheduleMapper = scheduleMapper;
         this.userMapper = userMapper;
         this.paymentService = paymentService;
+        this.messageService = messageService;
     }
 
     /**
@@ -141,6 +145,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         // 查询并返回完整的挂号信息
         RegistrationVO registrationVO = registrationMapper.selectDetailById(registration.getId());
         enrichRegistrationVO(registrationVO);
+        //发送挂号成功通知
+        messageService.sendRegistrationSuccessNotice(registration, scheduleVO.getDepartmentName(), scheduleVO.getDoctorName());
         return registrationVO;
     }
 
@@ -203,6 +209,9 @@ public class RegistrationServiceImpl implements RegistrationService {
             throw new BusinessException(ResultCode.FAIL.getCode(), "挂号取消失败");
         }
         log.info("挂号取消成功 - ID: {}", id);
+        // 发送挂号取消通知
+        RegistrationVO registrationVO = registrationMapper.selectDetailById(id);
+        messageService.sendRegistrationCancelNotice(registration, registrationVO.getDepartmentName(), registrationVO.getDoctorName());
     }
 
     /**

@@ -52,7 +52,7 @@ public class MedicalRecordController {
     /**
      * 修改病历（医生）
      */
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     public Result updateMedicalRecord(@PathVariable Long id,
                                       @Validated @RequestBody MedicalRecordDTO medicalRecordDTO,
                                       @RequestHeader("Authorization") String authHeader) {

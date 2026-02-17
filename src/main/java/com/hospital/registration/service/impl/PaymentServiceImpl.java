@@ -10,6 +10,7 @@ import com.hospital.registration.entity.Payment;
 import com.hospital.registration.entity.Registration;
 import com.hospital.registration.mapper.PaymentMapper;
 import com.hospital.registration.mapper.RegistrationMapper;
+import com.hospital.registration.service.MessageService;
 import com.hospital.registration.service.PaymentService;
 import com.hospital.registration.vo.PaymentVO;
 import lombok.extern.slf4j.Slf4j;
@@ -39,13 +40,16 @@ public class PaymentServiceImpl implements PaymentService {
     private final RabbitTemplate rabbitTemplate;
     private final PaymentMapper paymentMapper;
     private final RegistrationMapper registrationMapper;
+    private final MessageService messageService;
 
     public PaymentServiceImpl(RabbitTemplate rabbitTemplate,
                               PaymentMapper paymentMapper,
-                              RegistrationMapper registrationMapper) {
+                              RegistrationMapper registrationMapper,
+                              MessageService messageService) {
         this.rabbitTemplate = rabbitTemplate;
         this.paymentMapper = paymentMapper;
         this.registrationMapper = registrationMapper;
+        this.messageService = messageService;
     }
 
     /**
@@ -144,6 +148,9 @@ public class PaymentServiceImpl implements PaymentService {
 
         registrationMapper.updateById(registration);
 
+        // 发送支付成功通知
+        registration = registrationMapper.selectById(payment.getRegistrationId());
+        messageService.sendPaymentSuccessNotice(payment, registration);
         log.info("支付回调处理成功 - 交易流水号: {}", transactionNo);
         return true;
     }
