@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.DepartmentDTO;
 import com.hospital.registration.service.DepartmentService;
@@ -33,6 +34,7 @@ public class DepartmentController {
      * 新增科室
      */
     @PostMapping("/add")
+    @RequirePermission("department:add")
     public Result addDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentVO departmentVO = departmentService.addDepartment(departmentDTO);
         return Result.ok("科室新增成功").data("department", departmentVO);
@@ -42,6 +44,7 @@ public class DepartmentController {
      * 更新科室信息
      */
     @PostMapping("/{id}")
+    @RequirePermission("department:edit")
     public Result updateDepartment(@PathVariable Long id,
                                    @Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentVO departmentVO = departmentService.updateDepartment(id, departmentDTO);
@@ -52,6 +55,7 @@ public class DepartmentController {
      * 删除科室
      */
     @PostMapping("/delete/{id}")
+    @RequirePermission("department:delete")
     public Result deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
         return Result.ok("科室删除成功");

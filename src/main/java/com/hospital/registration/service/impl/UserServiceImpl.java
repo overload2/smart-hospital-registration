@@ -2,11 +2,12 @@ package com.hospital.registration.service.impl;
 
 import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.ResultCode;
-import com.hospital.registration.common.UserRole;
+import com.hospital.registration.entity.UserRole;
 import com.hospital.registration.dto.LoginDTO;
 import com.hospital.registration.dto.RegisterDTO;
 import com.hospital.registration.entity.User;
 import com.hospital.registration.mapper.UserMapper;
+import com.hospital.registration.mapper.UserRoleMapper;
 import com.hospital.registration.service.UserService;
 import com.hospital.registration.utils.JwtUtil;
 import com.hospital.registration.utils.PasswordUtil;
@@ -33,14 +34,19 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordUtil passwordUtil;
     private final JwtUtil jwtUtil;
+    private final UserRoleMapper userRoleMapper;
 
-    // 构造器注入（推荐方式）
+    /**
+     * 构造器注入
+     */
     public UserServiceImpl(UserMapper userMapper,
                            PasswordUtil passwordUtil,
-                           JwtUtil jwtUtil) {
+                           JwtUtil jwtUtil,
+                           UserRoleMapper userRoleMapper) {
         this.userMapper = userMapper;
         this.passwordUtil = passwordUtil;
         this.jwtUtil = jwtUtil;
+        this.userRoleMapper = userRoleMapper;
     }
 
     /**
@@ -66,11 +72,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
 
         // 4. 设置默认值
-        user.setRole(UserRole.PATIENT);  // 默认角色：患者
         user.setStatus(1);  // 默认启用
 
         // 5. 保存到数据库
         userMapper.insert(user);
+        // 6. 为用户分配默认角色（患者角色ID为4）
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(4L);
+        userRoleMapper.insert(userRole);
+
         User savedUser = user;
 
         log.info("用户注册成功 - ID: {}, 用户名: {}", savedUser.getId(), savedUser.getUsername());

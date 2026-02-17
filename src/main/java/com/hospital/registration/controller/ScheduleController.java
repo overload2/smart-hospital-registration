@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.ScheduleDTO;
 import com.hospital.registration.service.ScheduleService;
@@ -35,6 +36,7 @@ public class ScheduleController {
      * 新增排班
      */
     @PostMapping("/add")
+    @RequirePermission("schedule:add")
     public Result addSchedule(@Valid @RequestBody ScheduleDTO scheduleDTO) {
         ScheduleVO scheduleVO = scheduleService.addSchedule(scheduleDTO);
         return Result.ok("排班新增成功").data("schedule", scheduleVO);
@@ -44,6 +46,7 @@ public class ScheduleController {
      * 批量新增排班
      */
     @PostMapping("/batch")
+    @RequirePermission("schedule:add")
     public Result batchAddSchedules(@RequestBody List<@Valid ScheduleDTO> scheduleDTOList) {
         List<ScheduleVO> scheduleVOList = scheduleService.batchAddSchedules(scheduleDTOList);
         return Result.ok("批量排班创建完成").data("schedules", scheduleVOList);
@@ -53,6 +56,7 @@ public class ScheduleController {
      * 更新排班信息
      */
     @PostMapping("/{id}")
+    @RequirePermission("schedule:edit")
     public Result updateSchedule(@PathVariable Long id,
                                  @Valid @RequestBody ScheduleDTO scheduleDTO) {
         ScheduleVO scheduleVO = scheduleService.updateSchedule(id, scheduleDTO);
@@ -63,6 +67,7 @@ public class ScheduleController {
      * 删除排班
      */
     @PostMapping("/delete/{id}")
+    @RequirePermission("schedule:delete")
     public Result deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
         return Result.ok("排班删除成功");
@@ -121,6 +126,7 @@ public class ScheduleController {
      * 更新排班状态
      */
     @PostMapping("/{id}/status")
+    @RequirePermission("schedule:edit")
     public Result updateScheduleStatus(@PathVariable Long id,
                                        @RequestParam Integer status) {
         scheduleService.updateScheduleStatus(id, status);

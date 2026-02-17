@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.RegistrationDTO;
 import com.hospital.registration.service.RegistrationService;
@@ -35,6 +36,7 @@ public class RegistrationController {
      * 创建挂号
      */
     @PostMapping("/create")
+    @RequirePermission("registration:create")
     public Result createRegistration(@Valid @RequestBody RegistrationDTO registrationDTO) {
         RegistrationVO registrationVO = registrationService.createRegistration(registrationDTO);
         return Result.ok("挂号成功").data("registration", registrationVO);
@@ -44,6 +46,7 @@ public class RegistrationController {
      * 取消挂号
      */
     @PostMapping("/cancel/{id}")
+    @RequirePermission("registration:cancel")
     public Result cancelRegistration(@PathVariable Long id) {
         registrationService.cancelRegistration(id);
         return Result.ok("挂号取消成功");
