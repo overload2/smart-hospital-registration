@@ -42,7 +42,7 @@ public final class Constants {
      */
     public static final class Jwt {
         // Token过期时间（毫秒）7天
-        public static final Long EXPIRATION = 7 * 24 * 60 * 60 * 1000L;
+        public static final Long EXPIRATION = 1 * 60 * 60 * 1000L;
         // Token请求头名称
         public static final String HEADER = "Authorization";
         // Token前缀

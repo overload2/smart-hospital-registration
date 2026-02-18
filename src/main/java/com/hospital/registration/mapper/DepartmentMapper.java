@@ -57,4 +57,7 @@ public interface DepartmentMapper extends BaseMapper<Department> {
      * @return 科室列表
      */
     List<Department> selectActiveList();
+
+    // 根据科室名称查询
+    Department selectByName(@Param("name") String name);
 }

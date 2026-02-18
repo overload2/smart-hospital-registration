@@ -60,6 +60,7 @@ spring:
           initial-interval: 3000  # 初始重试间隔(3秒)
           multiplier: 2  # 重试间隔倍数
 
+
   # JPA配置
 #  jpa:
 #    hibernate:

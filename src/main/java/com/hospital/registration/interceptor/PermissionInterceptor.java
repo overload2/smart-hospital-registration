@@ -43,6 +43,29 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
+        // 从请求头获取Token
+        String token = request.getHeader("Authorization");
+        if (token == null || token.isEmpty()) {
+            log.warn("权限校验失败 - 未提供Token");
+            throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "请先登录");
+        }
+        // 去掉Bearer前缀
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        // 验证Token并获取用户ID
+        Long userId;
+        try {
+            userId = jwtUtil.getUserIdFromToken(token);
+        } catch (Exception e) {
+            log.warn("权限校验失败 - Token无效: {}", e.getMessage());
+            throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "登录已过期，请重新登录");
+        }
+        if (userId == null) {
+            log.warn("权限校验失败 - 无法获取用户ID");
+            throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "登录已过期，请重新登录");
+        }
+
         // 获取方法上的权限注解
         RequirePermission requirePermission = handlerMethod.getMethodAnnotation(RequirePermission.class);
 
@@ -54,32 +77,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
         // 获取需要的权限编码
         String permissionCode = requirePermission.value();
         log.info("权限校验 - 接口: {}, 需要权限: {}", request.getRequestURI(), permissionCode);
-
-        // 从请求头获取Token
-        String token = request.getHeader("Authorization");
-        if (token == null || token.isEmpty()) {
-            log.warn("权限校验失败 - 未提供Token");
-            throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "请先登录");
-        }
-
-        // 去掉Bearer前缀
-        if (token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-
-        // 验证Token并获取用户ID
-        Long userId;
-        try {
-            userId = jwtUtil.getUserIdFromToken(token);
-        } catch (Exception e) {
-            log.warn("权限校验失败 - Token无效: {}", e.getMessage());
-            throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "登录已过期，请重新登录");
-        }
-
-        if (userId == null) {
-            log.warn("权限校验失败 - 无法获取用户ID");
-            throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "登录已过期，请重新登录");
-        }
 
         // 校验用户是否拥有该权限
         boolean hasPermission = permissionService.hasPermission(userId, permissionCode);

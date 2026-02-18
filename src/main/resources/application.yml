@@ -26,6 +26,14 @@ spring:
 #      max-file-size: 10MB
 #      max-request-size: 100MB
 
+  # DeepSeek AI配置
+deepseek:
+  api-key: sk-978bf92edc714c2f98e9a2dd39c7677c
+  base-url: https://api.deepseek.com
+  model: deepseek-reasoner
+  max-tokens: 2000
+  temperature: 0.7
+
 # 日志配置
 logging:
   level:
