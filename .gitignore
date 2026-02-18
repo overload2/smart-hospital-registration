@@ -35,3 +35,4 @@ build/
 #生产环境配置
 application-prod.yml
 logs/
+.env
