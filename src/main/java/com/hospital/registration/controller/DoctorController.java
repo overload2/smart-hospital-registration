@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.DoctorDTO;
@@ -35,6 +36,7 @@ public class DoctorController {
      */
     @PostMapping("/add")
     @RequirePermission("doctor:add")
+    @OperationLog(module = "医生管理", operation = "ADD")
     public Result addDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         DoctorVO doctorVO = doctorService.addDoctor(doctorDTO);
         return Result.ok("医生新增成功").data("doctor", doctorVO);
@@ -45,6 +47,7 @@ public class DoctorController {
      */
     @PostMapping("/{id}")
     @RequirePermission("doctor:edit")
+    @OperationLog(module = "医生管理", operation = "UPDATE")
     public Result updateDoctor(@PathVariable Long id,
                                @Valid @RequestBody DoctorDTO doctorDTO) {
         DoctorVO doctorVO = doctorService.updateDoctor(id, doctorDTO);
@@ -56,6 +59,7 @@ public class DoctorController {
      */
     @PostMapping("/delete/{id}")
     @RequirePermission("doctor:delete")
+    @OperationLog(module = "医生管理", operation = "DELETE")
     public Result deleteDoctor(@PathVariable Long id) {
         doctorService.deleteDoctor(id);
         return Result.ok("医生删除成功");
@@ -98,6 +102,7 @@ public class DoctorController {
      */
     @PostMapping("/{id}/status")
     @RequirePermission("doctor:edit")
+    @OperationLog(module = "医生管理", operation = "UPDATE")
     public Result updateDoctorStatus(@PathVariable Long id,
                                      @RequestParam Integer status) {
         doctorService.updateDoctorStatus(id, status);

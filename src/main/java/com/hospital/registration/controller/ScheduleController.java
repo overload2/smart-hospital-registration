@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.ScheduleDTO;
@@ -37,6 +38,7 @@ public class ScheduleController {
      */
     @PostMapping("/add")
     @RequirePermission("schedule:add")
+    @OperationLog(module = "排班管理", operation = "ADD")
     public Result addSchedule(@Valid @RequestBody ScheduleDTO scheduleDTO) {
         ScheduleVO scheduleVO = scheduleService.addSchedule(scheduleDTO);
         return Result.ok("排班新增成功").data("schedule", scheduleVO);
@@ -47,6 +49,7 @@ public class ScheduleController {
      */
     @PostMapping("/batch")
     @RequirePermission("schedule:add")
+    @OperationLog(module = "排班管理", operation = "ADD")
     public Result batchAddSchedules(@RequestBody List<@Valid ScheduleDTO> scheduleDTOList) {
         List<ScheduleVO> scheduleVOList = scheduleService.batchAddSchedules(scheduleDTOList);
         return Result.ok("批量排班创建完成").data("schedules", scheduleVOList);
@@ -57,6 +60,7 @@ public class ScheduleController {
      */
     @PostMapping("/{id}")
     @RequirePermission("schedule:edit")
+    @OperationLog(module = "排班管理", operation = "UPDATE")
     public Result updateSchedule(@PathVariable Long id,
                                  @Valid @RequestBody ScheduleDTO scheduleDTO) {
         ScheduleVO scheduleVO = scheduleService.updateSchedule(id, scheduleDTO);
@@ -68,6 +72,7 @@ public class ScheduleController {
      */
     @PostMapping("/delete/{id}")
     @RequirePermission("schedule:delete")
+    @OperationLog(module = "排班管理", operation = "DELETE")
     public Result deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
         return Result.ok("排班删除成功");
@@ -127,6 +132,7 @@ public class ScheduleController {
      */
     @PostMapping("/{id}/status")
     @RequirePermission("schedule:edit")
+    @OperationLog(module = "排班管理", operation = "UPDATE")
     public Result updateScheduleStatus(@PathVariable Long id,
                                        @RequestParam Integer status) {
         scheduleService.updateScheduleStatus(id, status);

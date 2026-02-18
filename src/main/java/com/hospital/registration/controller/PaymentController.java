@@ -1,5 +1,6 @@
 package com.hospital.registration.controller;
 
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.PaymentDTO;
 import com.hospital.registration.service.PaymentService;
@@ -35,6 +36,7 @@ public class PaymentController {
      * 创建支付订单
      */
     @PostMapping
+    @OperationLog(module = "支付管理", operation = "ADD")
     public Result createPayment(@Validated @RequestBody PaymentDTO paymentDTO) {
         log.info("创建支付订单 - 挂号ID: {}", paymentDTO.getRegistrationId());
         PaymentVO paymentVO = paymentService.createPayment(paymentDTO);
@@ -45,6 +47,7 @@ public class PaymentController {
      * 支付回调（模拟）
      */
     @PostMapping("/callback/{transactionNo}")
+    @OperationLog(module = "支付管理", operation = "UPDATE")
     public Result paymentCallback(@PathVariable String transactionNo) {
         log.info("支付回调 - 交易流水号: {}", transactionNo);
         boolean success = paymentService.handlePaymentCallback(transactionNo);

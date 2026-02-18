@@ -1,5 +1,6 @@
 package com.hospital.registration.controller;
 
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.AssignPermissionDTO;
@@ -65,6 +66,7 @@ public class RoleController {
      */
     @PostMapping("/add")
     @RequirePermission("system:role:add")
+    @OperationLog(module = "角色管理", operation = "ADD")
     public Result add(@RequestBody RoleDTO roleDTO) {
         log.info("创建角色 - 角色编码: {}", roleDTO.getRoleCode());
         RoleVO role = roleService.createRole(roleDTO);
@@ -80,6 +82,7 @@ public class RoleController {
      */
     @PutMapping("/{id}")
     @RequirePermission("system:role:edit")
+    @OperationLog(module = "角色管理", operation = "UPDATE")
     public Result update(@PathVariable Long id, @RequestBody RoleDTO roleDTO) {
         log.info("修改角色 - ID: {}", id);
         RoleVO role = roleService.updateRole(id, roleDTO);
@@ -94,6 +97,7 @@ public class RoleController {
      */
     @DeleteMapping("/{id}")
     @RequirePermission("system:role:delete")
+    @OperationLog(module = "角色管理", operation = "DELETE")
     public Result delete(@PathVariable Long id) {
         log.info("删除角色 - ID: {}", id);
         roleService.deleteRole(id);
@@ -108,6 +112,7 @@ public class RoleController {
      */
     @PostMapping("/assign-permissions")
     @RequirePermission("system:role:assign")
+    @OperationLog(module = "角色管理", operation = "UPDATE")
     public Result assignPermissions(@RequestBody AssignPermissionDTO assignPermissionDTO) {
         log.info("为角色分配权限 - 角色ID: {}", assignPermissionDTO.getRoleId());
         roleService.assignPermissions(assignPermissionDTO);

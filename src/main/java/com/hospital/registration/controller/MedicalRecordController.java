@@ -1,5 +1,6 @@
 package com.hospital.registration.controller;
 
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.MedicalRecordDTO;
@@ -37,6 +38,7 @@ public class MedicalRecordController {
      */
     @PostMapping
     @RequirePermission("medical:add")
+    @OperationLog(module = "病历管理", operation = "ADD")
     public Result createMedicalRecord(@Validated @RequestBody MedicalRecordDTO medicalRecordDTO,
                                       @RequestHeader("Authorization") String authHeader) {
         // 从 token 中获取医生ID
@@ -56,6 +58,7 @@ public class MedicalRecordController {
      */
     @PostMapping("/{id}")
     @RequirePermission("medical:edit")
+    @OperationLog(module = "病历管理", operation = "UPDATE")
     public Result updateMedicalRecord(@PathVariable Long id,
                                       @Validated @RequestBody MedicalRecordDTO medicalRecordDTO,
                                       @RequestHeader("Authorization") String authHeader) {

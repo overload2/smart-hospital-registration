@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.RegistrationDTO;
@@ -37,6 +38,7 @@ public class RegistrationController {
      */
     @PostMapping("/create")
     @RequirePermission("registration:create")
+    @OperationLog(module = "挂号管理", operation = "ADD")
     public Result createRegistration(@Valid @RequestBody RegistrationDTO registrationDTO) {
         RegistrationVO registrationVO = registrationService.createRegistration(registrationDTO);
         return Result.ok("挂号成功").data("registration", registrationVO);
@@ -47,6 +49,7 @@ public class RegistrationController {
      */
     @PostMapping("/cancel/{id}")
     @RequirePermission("registration:cancel")
+    @OperationLog(module = "挂号管理", operation = "UPDATE")
     public Result cancelRegistration(@PathVariable Long id) {
         registrationService.cancelRegistration(id);
         return Result.ok("挂号取消成功");
@@ -112,19 +115,20 @@ public class RegistrationController {
      * 更新挂号状态
      */
     @PostMapping("/{id}/status")
+    @OperationLog(module = "挂号管理", operation = "UPDATE")
     public Result updateRegistrationStatus(@PathVariable Long id,
                                            @RequestParam String status) {
         registrationService.updateRegistrationStatus(id, status);
         return Result.ok("挂号状态更新成功");
     }
 
-    /**
-     * 确认支付
-     */
-    @PostMapping("/{id}/pay")
-    public Result confirmPayment(@PathVariable Long id) {
-        registrationService.confirmPayment(id);
-        return Result.ok("支付成功");
-    }
+//    /**
+//     * 确认支付
+//     */
+//    @PostMapping("/{id}/pay")
+//    public Result confirmPayment(@PathVariable Long id) {
+//        registrationService.confirmPayment(id);
+//        return Result.ok("支付成功");
+//    }
 }
 

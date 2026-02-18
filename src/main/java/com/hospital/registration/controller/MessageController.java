@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.service.MessageService;
 import com.hospital.registration.vo.MessageRecordVO;
@@ -71,6 +72,7 @@ public class MessageController {
      * @return 操作结果
      */
     @PostMapping("/{id}/read")
+    @OperationLog(module = "消息管理", operation = "UPDATE")
     public Result markAsRead(@PathVariable Long id, @RequestParam Long userId) {
         log.info("标记消息已读 - 消息ID: {}, 用户ID: {}", id, userId);
         messageService.markAsRead(id, userId);
@@ -84,6 +86,7 @@ public class MessageController {
      * @return 操作结果
      */
     @PostMapping("/read-all")
+    @OperationLog(module = "消息管理", operation = "UPDATE")
     public Result markAllAsRead(@RequestParam Long userId) {
         log.info("全部标记已读 - 用户ID: {}", userId);
         messageService.markAllAsRead(userId);

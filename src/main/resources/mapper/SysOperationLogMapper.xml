@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.SysOperationLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.hospital.registration.entity.SysOperationLog">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="module" property="module"/>
+        <result column="operation" property="operation"/>
+        <result column="method" property="method"/>
+        <result column="params" property="params"/>
+        <result column="ip" property="ip"/>
+        <result column="status" property="status"/>
+        <result column="error_msg" property="errorMsg"/>
+        <result column="operation_time" property="operationTime"/>
+        <result column="cost_time" property="costTime"/>
+    </resultMap>
+
+    <resultMap id="VOResultMap" type="com.hospital.registration.vo.SysOperationLogVO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="module" property="module"/>
+        <result column="operation" property="operation"/>
+        <result column="method" property="method"/>
+        <result column="ip" property="ip"/>
+        <result column="status" property="status"/>
+        <result column="error_msg" property="errorMsg"/>
+        <result column="operation_time" property="operationTime"/>
+        <result column="cost_time" property="costTime"/>
+    </resultMap>
+
+    <!-- 分页条件查询操作日志 -->
+    <select id="selectPageByCondition" resultMap="VOResultMap">
+        SELECT id, username, module, operation, method, ip, status, error_msg, operation_time, cost_time
+        FROM sys_operation_log
+        <where>
+            <if test="username != null and username != ''">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="module != null and module != ''">
+                AND module = #{module}
+            </if>
+            <if test="operation != null and operation != ''">
+                AND operation = #{operation}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                AND operation_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND operation_time &lt;= #{endTime}
+            </if>
+        </where>
+        ORDER BY operation_time DESC
+    </select>
+
+    <!-- 删除指定天数之前的日志 -->
+    <delete id="deleteByDaysBefore">
+        DELETE FROM sys_operation_log WHERE operation_time &lt; DATE_SUB(NOW(), INTERVAL #{days} DAY)
+    </delete>
+
+</mapper>

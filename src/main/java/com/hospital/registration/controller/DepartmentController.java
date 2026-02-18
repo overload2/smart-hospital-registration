@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.DepartmentDTO;
@@ -35,6 +36,7 @@ public class DepartmentController {
      */
     @PostMapping("/add")
     @RequirePermission("department:add")
+    @OperationLog(module = "科室管理", operation = "ADD")
     public Result addDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentVO departmentVO = departmentService.addDepartment(departmentDTO);
         return Result.ok("科室新增成功").data("department", departmentVO);
@@ -45,6 +47,7 @@ public class DepartmentController {
      */
     @PostMapping("/{id}")
     @RequirePermission("department:edit")
+    @OperationLog(module = "科室管理", operation = "UPDATE")
     public Result updateDepartment(@PathVariable Long id,
                                    @Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentVO departmentVO = departmentService.updateDepartment(id, departmentDTO);
@@ -56,6 +59,7 @@ public class DepartmentController {
      */
     @PostMapping("/delete/{id}")
     @RequirePermission("department:delete")
+    @OperationLog(module = "科室管理", operation = "DELETE")
     public Result deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
         return Result.ok("科室删除成功");
@@ -95,6 +99,7 @@ public class DepartmentController {
      * 更新科室状态
      */
     @PostMapping("/{id}/status")
+    @OperationLog(module = "科室管理", operation = "UPDATE")
     public Result updateDepartmentStatus(@PathVariable Long id,
                                          @RequestParam Integer status) {
         departmentService.updateDepartmentStatus(id, status);
