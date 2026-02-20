@@ -5,6 +5,8 @@ import com.hospital.registration.entity.Payment;
 import com.hospital.registration.entity.Registration;
 import com.hospital.registration.vo.MessageRecordVO;
 
+import java.util.List;
+
 /**
  * @title: MessageService
  * @author: Su
@@ -79,5 +81,52 @@ public interface MessageService {
      * @param userId 用户ID
      */
     void markAllAsRead(Long userId);
+
+    /**
+     * 分页查询消息记录（管理端）
+     *
+     * @param pageNum     页码
+     * @param pageSize    每页大小
+     * @param userId      用户ID
+     * @param messageType 消息类型
+     * @param channel     渠道
+     * @param sendStatus  发送状态
+     * @param readStatus  阅读状态
+     * @return 分页结果
+     */
+    IPage<MessageRecordVO> getMessagePage(Integer pageNum, Integer pageSize,
+                                          Long userId, String messageType, String channel,
+                                          Integer sendStatus, Integer readStatus);
+
+    /**
+     * 发送系统公告
+     *
+     * @param title   标题
+     * @param content 内容
+     */
+    void sendSystemAnnouncement(String title, String content);
+
+    /**
+     * 重发失败消息
+     *
+     * @param messageId 消息ID
+     */
+    void resendMessage(Long messageId);
+
+    /**
+     * 删除消息记录
+     *
+     * @param messageId 消息ID
+     */
+    void deleteMessage(Long messageId);
+
+    /**
+     * 批量删除消息记录
+     *
+     * @param ids 消息ID列表
+     */
+    void batchDeleteMessage(List<Long> ids);
+
+
 }
 

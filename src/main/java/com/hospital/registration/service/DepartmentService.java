@@ -54,5 +54,12 @@ public interface DepartmentService {
      * 更新科室状态
      */
     void updateDepartmentStatus(Long id, Integer status);
+
+    /**
+     * 批量更新科室状态
+     * @param ids 科室ID列表
+     * @param status 状态
+     */
+    void batchUpdateStatus(List<Long> ids, Integer status);
 }
 

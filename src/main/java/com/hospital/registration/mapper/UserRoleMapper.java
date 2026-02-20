@@ -33,4 +33,9 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
      * @return 删除数量
      */
     int deleteByUserId(@Param("userId") Long userId);
+
+    /**
+     * 查询用户的角色编码列表
+     */
+    List<String> selectRoleCodesByUserId(@Param("userId") Long userId);
 }

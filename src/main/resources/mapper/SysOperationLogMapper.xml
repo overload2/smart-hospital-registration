@@ -23,6 +23,7 @@
         <result column="module" property="module"/>
         <result column="operation" property="operation"/>
         <result column="method" property="method"/>
+        <result column="params" property="params"/>
         <result column="ip" property="ip"/>
         <result column="status" property="status"/>
         <result column="error_msg" property="errorMsg"/>
@@ -32,7 +33,7 @@
 
     <!-- 分页条件查询操作日志 -->
     <select id="selectPageByCondition" resultMap="VOResultMap">
-        SELECT id, username, module, operation, method, ip, status, error_msg, operation_time, cost_time
+        SELECT id, username, module, operation, method, params, ip, status, error_msg, operation_time, cost_time
         FROM sys_operation_log
         <where>
             <if test="username != null and username != ''">

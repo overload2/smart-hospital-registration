@@ -28,14 +28,14 @@
         ORDER BY p.sort_order
     </select>
 
-    <!-- 根据用户ID查询权限列表 -->
+    <!-- 根据用户ID查询权限列表（只查询启用的权限） -->
     <select id="selectByUserId" resultMap="PermissionResultMap">
         SELECT DISTINCT p.id, p.parent_id, p.permission_code, p.permission_name, p.permission_type,
                         p.path, p.icon, p.sort_order, p.status, p.create_time, p.update_time, p.deleted
         FROM permission p
                  INNER JOIN role_permission rp ON p.id = rp.permission_id
                  INNER JOIN user_role ur ON rp.role_id = ur.role_id
-        WHERE ur.user_id = #{userId} AND p.deleted = 0
+        WHERE ur.user_id = #{userId} AND p.deleted = 0 AND p.status = 1
         ORDER BY p.sort_order
     </select>
 
@@ -62,5 +62,26 @@
         FROM permission
         WHERE parent_id = #{parentId} AND deleted = 0
     </select>
+
+    <!-- 查询直接子权限ID -->
+    <select id="selectDirectChildrenIds" resultType="java.lang.Long">
+        SELECT id FROM permission WHERE parent_id = #{parentId} AND deleted = 0
+    </select>
+
+    <!-- 根据ID查询权限（获取parentId） -->
+    <select id="selectParentIdById" resultType="java.lang.Long">
+        SELECT parent_id FROM permission WHERE id = #{id} AND deleted = 0
+    </select>
+
+    <!-- 批量更新权限状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE permission
+        SET status = #{status}, update_time = NOW()
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND deleted = 0
+    </update>
 
 </mapper>

@@ -1,7 +1,10 @@
 package com.hospital.registration.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.MedicalRecordDTO;
+import com.hospital.registration.dto.MedicalRecordQueryDTO;
 import com.hospital.registration.vo.MedicalRecordVO;
+import com.hospital.registration.vo.RegistrationVO;
 
 import java.util.List;
 
@@ -58,4 +61,24 @@ public interface MedicalRecordService {
      * @return 病历列表
      */
     List<MedicalRecordVO> getDoctorMedicalRecords(Long doctorId);
+
+    /**
+     * 获取医生今日待诊列表
+     */
+    List<RegistrationVO> getDoctorTodayPatients(Long userId);
+
+    /**
+     * 开始接诊
+     */
+    void startConsultation(Long registrationId, Long userId);
+
+    /**
+     * 完成接诊（保存病历并更新状态）
+     */
+    MedicalRecordVO completeConsultation(MedicalRecordDTO medicalRecordDTO, Long userId);
+
+    /**
+     * 分页查询医生历史病历
+     */
+    Page<MedicalRecordVO> getDoctorHistoryPage(MedicalRecordQueryDTO queryDTO, Long userId);
 }

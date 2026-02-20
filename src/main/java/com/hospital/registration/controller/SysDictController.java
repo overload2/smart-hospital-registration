@@ -1,5 +1,6 @@
 package com.hospital.registration.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.SysDictDataDTO;
@@ -26,6 +27,19 @@ public class SysDictController {
 
     @Autowired
     private SysDictService sysDictService;
+
+    /**
+     * 分页查询字典类型
+     */
+    @GetMapping("/type/page")
+    public Result pageTypes(
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false) String dictName,
+            @RequestParam(required = false) String dictType) {
+        IPage<SysDictTypeVO> page = sysDictService.getDictTypePage(pageNum, pageSize, dictName, dictType);
+        return Result.ok().data("page", page);
+    }
 
     /**
      * 获取所有字典类型(包含字典数据)

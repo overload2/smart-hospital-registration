@@ -3,9 +3,7 @@ package com.hospital.registration.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hospital.registration.common.MessageChannel;
-import com.hospital.registration.common.MessageType;
-import com.hospital.registration.common.SendStatus;
+import com.hospital.registration.common.*;
 import com.hospital.registration.entity.MessageRecord;
 import com.hospital.registration.entity.Payment;
 import com.hospital.registration.entity.Registration;
@@ -18,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /**
@@ -231,6 +230,100 @@ public class MessageServiceImpl implements MessageService {
 
         // 模拟发送短信（实际项目中对接短信服务商）
         log.info("【短信模拟】发送至：{}，内容：{}", phone, content);
+    }
+
+    /**
+     * 分页查询消息记录（管理端）
+     */
+    @Override
+    public IPage<MessageRecordVO> getMessagePage(Integer pageNum, Integer pageSize,
+                                                 Long userId, String messageType, String channel,
+                                                 Integer sendStatus, Integer readStatus) {
+        log.info("分页查询消息记录 - 页码: {}, 每页大小: {}", pageNum, pageSize);
+
+        Page<MessageRecordVO> page = new Page<>(pageNum, pageSize);
+        IPage<MessageRecordVO> result = messageRecordMapper.selectMessagePage(
+                page, userId, messageType, channel, sendStatus, readStatus);
+
+        // 填充名称字段
+        for (MessageRecordVO vo : result.getRecords()) {
+            enrichMessageRecordVO(vo);
+        }
+
+        return result;
+    }
+
+    /**
+     * 发送系统公告（发送给所有用户）
+     */
+    @Override
+    public void sendSystemAnnouncement(String title, String content) {
+        log.info("发送系统公告 - 标题: {}", title);
+
+        // 查询所有启用的用户
+        List<User> users = userMapper.selectActiveUsers();
+
+        for (User user : users) {
+            MessageRecord record = new MessageRecord();
+            record.setUserId(user.getId());
+            record.setMessageType(MessageType.SYSTEM_ANNOUNCEMENT.getCode());
+            record.setChannel(MessageChannel.SYSTEM.getCode());
+            record.setTitle(title);
+            record.setContent(content);
+            record.setReceiver(user.getPhone() != null ? user.getPhone() : "");
+            record.setSendStatus(SendStatus.SENT.getCode());
+            record.setSendTime(LocalDateTime.now());
+            record.setReadStatus(0);
+
+            messageRecordMapper.insert(record);
+        }
+
+        log.info("系统公告发送完成，共发送给 {} 个用户", users.size());
+    }
+
+    /**
+     * 重发失败消息
+     */
+    @Override
+    public void resendMessage(Long messageId) {
+        log.info("重发消息 - 消息ID: {}", messageId);
+
+        MessageRecord record = messageRecordMapper.selectById(messageId);
+        if (record == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "消息不存在");
+        }
+
+        if (!SendStatus.FAILED.getCode().equals(record.getSendStatus())) {
+            throw new BusinessException(ResultCode.PARAM_ERROR.getCode(), "只能重发失败的消息");
+        }
+
+        // 模拟重发（实际项目中对接短信/微信服务商）
+        MessageRecord updateRecord = new MessageRecord();
+        updateRecord.setId(messageId);
+        updateRecord.setSendStatus(SendStatus.SENT.getCode());
+        updateRecord.setSendTime(LocalDateTime.now());
+        updateRecord.setErrorMsg(null);
+
+        messageRecordMapper.updateById(updateRecord);
+        log.info("消息重发成功 - 消息ID: {}", messageId);
+    }
+
+    /**
+     * 删除消息记录
+     */
+    @Override
+    public void deleteMessage(Long messageId) {
+        log.info("删除消息 - 消息ID: {}", messageId);
+        messageRecordMapper.deleteById(messageId);
+    }
+
+    /**
+     * 批量删除消息记录
+     */
+    @Override
+    public void batchDeleteMessage(List<Long> ids) {
+        log.info("批量删除消息 - ids: {}", ids);
+        messageRecordMapper.batchDelete(ids);
     }
 
     /**

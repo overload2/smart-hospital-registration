@@ -249,6 +249,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     /**
+     * 批量更新科室状态
+     */
+    @Override
+    public void batchUpdateStatus(List<Long> ids, Integer status) {
+        log.info("批量更新科室状态 - ids: {}, status: {}", ids, status);
+        departmentMapper.batchUpdateStatus(ids, status);
+    }
+
+    /**
      * 将Department实体转换为DepartmentVO
      */
     private DepartmentVO convertToVO(Department department) {

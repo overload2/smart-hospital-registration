@@ -22,4 +22,19 @@
         SELECT * FROM sys_dict_type WHERE status = 1 ORDER BY id
     </select>
 
+    <!-- 分页查询字典类型 -->
+    <select id="selectDictTypePage" resultType="com.hospital.registration.vo.SysDictTypeVO">
+        SELECT id, dict_name, dict_type, status, remark, create_time, update_time
+        FROM sys_dict_type
+        <where>
+            <if test="dictName != null and dictName != ''">
+                AND dict_name LIKE CONCAT('%', #{dictName}, '%')
+            </if>
+            <if test="dictType != null and dictType != ''">
+                AND dict_type LIKE CONCAT('%', #{dictType}, '%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>

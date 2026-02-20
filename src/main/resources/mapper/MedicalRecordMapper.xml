@@ -127,4 +127,47 @@
         ORDER BY mr.visit_time DESC
     </select>
 
+    <!-- 分页查询医生历史病历 -->
+    <select id="selectDoctorHistoryPage" resultMap="DetailResultMap">
+        SELECT mr.id,
+        mr.registration_id,
+        r.registration_no,
+        mr.patient_id,
+        u1.real_name AS patient_name,
+        u1.gender AS patient_gender,
+        TIMESTAMPDIFF(YEAR, u1.birth_date, CURDATE()) AS patient_age,
+        mr.doctor_id,
+        u2.real_name AS doctor_name,
+        dep.name AS department_name,
+        mr.chief_complaint,
+        mr.present_illness,
+        mr.diagnosis,
+        mr.prescription,
+        mr.advice,
+        mr.visit_time,
+        mr.create_time,
+        mr.update_time
+        FROM medical_record mr
+        LEFT JOIN registration r ON mr.registration_id = r.id
+        LEFT JOIN user u1 ON mr.patient_id = u1.id
+        LEFT JOIN user u2 ON mr.doctor_id = u2.id
+        LEFT JOIN doctor d ON mr.doctor_id = d.user_id
+        LEFT JOIN department dep ON d.department_id = dep.id
+        <where>
+            mr.doctor_id = #{doctorId} AND mr.deleted = 0
+            <if test="patientName != null and patientName != ''">
+                AND u1.real_name LIKE CONCAT('%', #{patientName}, '%')
+            </if>
+            <if test="diagnosis != null and diagnosis != ''">
+                AND mr.diagnosis LIKE CONCAT('%', #{diagnosis}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND DATE(mr.visit_time) &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND DATE(mr.visit_time) &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY mr.visit_time DESC
+    </select>
 </mapper>

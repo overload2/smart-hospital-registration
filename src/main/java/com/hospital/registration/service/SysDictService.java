@@ -1,5 +1,6 @@
 package com.hospital.registration.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hospital.registration.dto.SysDictDataDTO;
 import com.hospital.registration.dto.SysDictTypeDTO;
 import com.hospital.registration.vo.SysDictDataVO;
@@ -42,4 +43,8 @@ public interface SysDictService {
 
     // 删除字典数据
     void deleteDictData(Long id);
+    /**
+     * 分页查询字典类型
+     */
+    IPage<SysDictTypeVO> getDictTypePage(Integer pageNum, Integer pageSize, String dictName, String dictType);
 }

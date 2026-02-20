@@ -1,5 +1,6 @@
 package com.hospital.registration.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.ResultCode;
 import com.hospital.registration.dto.AssignPermissionDTO;
@@ -213,6 +214,39 @@ public class RoleServiceImpl implements RoleService {
     public List<Long> getRolePermissionIds(Long roleId) {
         log.info("查询角色权限ID列表 - 角色ID: {}", roleId);
         return rolePermissionMapper.selectPermissionIdsByRoleId(roleId);
+    }
+
+    /**
+     * 分页查询角色列表
+     */
+    @Override
+    public Page<RoleVO> getRolePage(Integer current, Integer size, String roleName, String roleCode, Integer status) {
+        log.info("分页查询角色列表 - current: {}, size: {}, roleName: {}, roleCode: {}, status: {}",
+                current, size, roleName, roleCode, status);
+
+        // 创建分页对象
+        Page<Role> page = new Page<>(current, size);
+
+        // 调用Mapper查询
+        Page<Role> rolePage = roleMapper.selectRolePage(page, roleName, roleCode, status);
+
+        // 转换为VO
+        Page<RoleVO> voPage = new Page<>(current, size, rolePage.getTotal());
+        List<RoleVO> voList = new ArrayList<>();
+        for (Role role : rolePage.getRecords()) {
+            voList.add(convertToVO(role));
+        }
+        voPage.setRecords(voList);
+
+        return voPage;
+    }
+    /**
+     * 批量更新角色状态
+     */
+    @Override
+    public void batchUpdateStatus(List<Long> ids, Integer status) {
+        log.info("批量更新角色状态 - ids: {}, status: {}", ids, status);
+        roleMapper.batchUpdateStatus(ids, status);
     }
 
     /**

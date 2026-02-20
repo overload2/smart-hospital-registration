@@ -60,4 +60,12 @@ public interface DepartmentMapper extends BaseMapper<Department> {
 
     // 根据科室名称查询
     Department selectByName(@Param("name") String name);
+
+    /**
+     * 批量更新科室状态
+     * @param ids 科室ID列表
+     * @param status 状态
+     * @return 影响行数
+     */
+    int batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status);
 }

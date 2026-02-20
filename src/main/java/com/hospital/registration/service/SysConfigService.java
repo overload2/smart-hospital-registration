@@ -1,5 +1,6 @@
 package com.hospital.registration.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hospital.registration.dto.SysConfigDTO;
 import com.hospital.registration.vo.SysConfigVO;
 
@@ -31,4 +32,9 @@ public interface SysConfigService {
 
     // 删除配置
     void deleteConfig(Long id);
+
+    /**
+     * 分页查询配置
+     */
+    IPage<SysConfigVO> getConfigPage(Integer pageNum, Integer pageSize, String configName, String configKey);
 }

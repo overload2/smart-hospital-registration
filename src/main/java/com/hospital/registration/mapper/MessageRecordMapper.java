@@ -8,6 +8,8 @@ import com.hospital.registration.vo.MessageRecordVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @title: MessageRecordMapper
  * @author: Su
@@ -34,5 +36,20 @@ public interface MessageRecordMapper extends BaseMapper<MessageRecord> {
      * @return 未读消息数量
      */
     Integer countUnread(@Param("userId") Long userId);
+
+    /**
+     * 分页查询消息记录（管理端）
+     */
+    IPage<MessageRecordVO> selectMessagePage(Page<MessageRecordVO> page,
+                                             @Param("userId") Long userId,
+                                             @Param("messageType") String messageType,
+                                             @Param("channel") String channel,
+                                             @Param("sendStatus") Integer sendStatus,
+                                             @Param("readStatus") Integer readStatus);
+
+    /**
+     * 批量删除消息记录
+     */
+    void batchDelete(@Param("ids") List<Long> ids);
 }
 

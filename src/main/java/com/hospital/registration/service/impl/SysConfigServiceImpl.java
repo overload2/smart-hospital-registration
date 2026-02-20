@@ -1,5 +1,7 @@
 package com.hospital.registration.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.SysConfigDTO;
 import com.hospital.registration.entity.SysConfig;
 import com.hospital.registration.mapper.SysConfigMapper;
@@ -130,5 +132,13 @@ public class SysConfigServiceImpl implements SysConfigService {
             throw new RuntimeException("配置不存在");
         }
         sysConfigMapper.deleteById(id);
+    }
+    /**
+     * 分页查询配置
+     */
+    @Override
+    public IPage<SysConfigVO> getConfigPage(Integer pageNum, Integer pageSize, String configName, String configKey) {
+        Page<SysConfigVO> page = new Page<>(pageNum, pageSize);
+        return sysConfigMapper.selectConfigPage(page, configName, configKey);
     }
 }

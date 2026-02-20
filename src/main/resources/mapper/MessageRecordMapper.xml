@@ -35,4 +35,38 @@
           AND send_status = 1
     </select>
 
+    <!-- 分页查询消息记录（管理端） -->
+    <select id="selectMessagePage" resultType="com.hospital.registration.vo.MessageRecordVO">
+        SELECT mr.*, u.real_name AS userName, u.phone AS userPhone
+        FROM message_record mr
+        LEFT JOIN user u ON mr.user_id = u.id
+        <where>
+            <if test="userId != null">
+                AND mr.user_id = #{userId}
+            </if>
+            <if test="messageType != null and messageType != ''">
+                AND mr.message_type = #{messageType}
+            </if>
+            <if test="channel != null and channel != ''">
+                AND mr.channel = #{channel}
+            </if>
+            <if test="sendStatus != null">
+                AND mr.send_status = #{sendStatus}
+            </if>
+            <if test="readStatus != null">
+                AND mr.read_status = #{readStatus}
+            </if>
+        </where>
+        ORDER BY mr.create_time DESC
+    </select>
+
+    <!-- 批量删除消息记录 -->
+    <delete id="batchDelete">
+        DELETE FROM message_record
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @title: DoctorController
@@ -107,6 +108,24 @@ public class DoctorController {
                                      @RequestParam Integer status) {
         doctorService.updateDoctorStatus(id, status);
         return Result.ok("医生状态更新成功");
+    }
+
+    /**
+     * 批量更新医生状态
+     */
+    @PostMapping("/batch-status")
+    @RequirePermission("doctor:edit")
+    @OperationLog(module = "医生管理", operation = "UPDATE")
+    public Result batchUpdateStatus(@RequestBody Map<String, Object> params) {
+        List<Integer> idList = (List<Integer>) params.get("ids");
+        Integer status = (Integer) params.get("status");
+
+        log.info("批量更新医生状态 - ids: {}, status: {}", idList, status);
+
+        List<Long> ids = idList.stream().map(Integer::longValue).toList();
+        doctorService.batchUpdateStatus(ids, status);
+
+        return Result.ok("批量更新状态成功");
     }
 }
 

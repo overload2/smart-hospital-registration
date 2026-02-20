@@ -1,20 +1,24 @@
 package com.hospital.registration.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.RegistrationStatus;
 import com.hospital.registration.common.ResultCode;
 import com.hospital.registration.dto.MedicalRecordDTO;
+import com.hospital.registration.dto.MedicalRecordQueryDTO;
 import com.hospital.registration.entity.MedicalRecord;
 import com.hospital.registration.entity.Registration;
 import com.hospital.registration.mapper.MedicalRecordMapper;
 import com.hospital.registration.mapper.RegistrationMapper;
 import com.hospital.registration.service.MedicalRecordService;
 import com.hospital.registration.vo.MedicalRecordVO;
+import com.hospital.registration.vo.RegistrationVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -176,5 +180,111 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         log.info("查询到 {} 条病历记录", records.size());
 
         return records;
+    }
+
+    /**
+     * 获取医生今日待诊列表
+     */
+    @Override
+    public List<RegistrationVO> getDoctorTodayPatients(Long userId) {
+        log.info("获取医生今日待诊列表 - 用户ID: {}", userId);
+        LocalDate today = LocalDate.now();
+        return registrationMapper.selectDoctorTodayPatients(userId, today);
+    }
+
+    /**
+     * 开始接诊
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void startConsultation(Long registrationId, Long userId) {
+        log.info("开始接诊 - 挂号ID: {}, 用户ID: {}", registrationId, userId);
+
+        Registration registration = registrationMapper.selectById(registrationId);
+        if (registration == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "挂号记录不存在");
+        }
+
+        // 验证是否是该医生的患者
+        if (!registration.getDoctorId().equals(userId)) {
+            throw new BusinessException(ResultCode.FAIL.getCode(), "无权操作此挂号记录");
+        }
+
+        // 验证挂号状态
+        if (registration.getStatus() != RegistrationStatus.PENDING) {
+            throw new BusinessException(ResultCode.FAIL.getCode(), "该患者不是待就诊状态");
+        }
+
+        // 更新状态为就诊中
+        Registration updateRegistration = new Registration();
+        updateRegistration.setId(registrationId);
+        updateRegistration.setStatus(RegistrationStatus.CONSULTING);
+        registrationMapper.updateById(updateRegistration);
+
+        log.info("开始接诊成功 - 挂号ID: {}", registrationId);
+    }
+
+    /**
+     * 完成接诊（保存病历并更新状态）
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public MedicalRecordVO completeConsultation(MedicalRecordDTO medicalRecordDTO, Long userId) {
+        log.info("完成接诊 - 挂号ID: {}, 用户ID: {}", medicalRecordDTO.getRegistrationId(), userId);
+
+        Registration registration = registrationMapper.selectById(medicalRecordDTO.getRegistrationId());
+        if (registration == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "挂号记录不存在");
+        }
+
+        // 验证是否是该医生的患者
+        if (!registration.getDoctorId().equals(userId)) {
+            throw new BusinessException(ResultCode.FAIL.getCode(), "无权操作此挂号记录");
+        }
+
+        // 检查是否已存在病历（编辑模式）
+        MedicalRecord existingRecord = medicalRecordMapper.selectByRegistrationId(medicalRecordDTO.getRegistrationId());
+
+        MedicalRecord medicalRecord;
+        if (existingRecord != null) {
+            // 更新病历
+            medicalRecord = existingRecord;
+            medicalRecord.setChiefComplaint(medicalRecordDTO.getChiefComplaint());
+            medicalRecord.setPresentIllness(medicalRecordDTO.getPresentIllness());
+            medicalRecord.setDiagnosis(medicalRecordDTO.getDiagnosis());
+            medicalRecord.setPrescription(medicalRecordDTO.getPrescription());
+            medicalRecord.setAdvice(medicalRecordDTO.getAdvice());
+            medicalRecordMapper.updateById(medicalRecord);
+            log.info("更新病历成功 - ID: {}", medicalRecord.getId());
+        } else {
+            // 创建新病历
+            medicalRecord = new MedicalRecord();
+            BeanUtils.copyProperties(medicalRecordDTO, medicalRecord);
+            medicalRecord.setPatientId(registration.getPatientId());
+            medicalRecord.setDoctorId(userId);
+            medicalRecord.setVisitTime(LocalDateTime.now());
+            medicalRecordMapper.insert(medicalRecord);
+            log.info("创建病历成功 - ID: {}", medicalRecord.getId());
+        }
+
+        // 更新挂号状态为已完成
+        Registration updateRegistration = new Registration();
+        updateRegistration.setId(registration.getId());
+        updateRegistration.setStatus(RegistrationStatus.COMPLETED);
+        registrationMapper.updateById(updateRegistration);
+
+        return medicalRecordMapper.selectDetailById(medicalRecord.getId());
+    }
+
+    /**
+     * 分页查询医生历史病历
+     */
+    @Override
+    public Page<MedicalRecordVO> getDoctorHistoryPage(MedicalRecordQueryDTO queryDTO, Long userId) {
+        log.info("分页查询医生历史病历 - 用户ID: {}", userId);
+        Page<MedicalRecordVO> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
+        return medicalRecordMapper.selectDoctorHistoryPage(page, userId,
+                queryDTO.getPatientName(), queryDTO.getDiagnosis(),
+                queryDTO.getStartDate(), queryDTO.getEndDate());
     }
 }

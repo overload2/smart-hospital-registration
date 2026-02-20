@@ -55,5 +55,11 @@ public class MessageRecordVO {
 
     // 创建时间
     private LocalDateTime createTime;
+
+    // 用户姓名
+    private String userName;
+
+    // 用户手机号
+    private String userPhone;
 }
 

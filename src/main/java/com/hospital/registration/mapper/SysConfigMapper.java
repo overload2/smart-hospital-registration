@@ -1,7 +1,10 @@
 package com.hospital.registration.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.entity.SysConfig;
+import com.hospital.registration.vo.SysConfigVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,5 +25,12 @@ public interface SysConfigMapper extends BaseMapper<SysConfig> {
 
     // 查询所有配置
     List<SysConfig> selectAllConfigs();
+
+    /**
+     * 分页查询配置
+     */
+    IPage<SysConfigVO> selectConfigPage(Page<SysConfigVO> page,
+                                        @Param("configName") String configName,
+                                        @Param("configKey") String configKey);
 }
 

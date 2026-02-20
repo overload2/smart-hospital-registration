@@ -1,7 +1,10 @@
 package com.hospital.registration.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.entity.SysDictType;
+import com.hospital.registration.vo.SysDictTypeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +25,10 @@ public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
 
     // 查询所有启用的字典类型
     List<SysDictType> selectAllEnabled();
+    /**
+     * 分页查询字典类型
+     */
+    IPage<SysDictTypeVO> selectDictTypePage(Page<SysDictTypeVO> page,
+                                            @Param("dictName") String dictName,
+                                            @Param("dictType") String dictType);
 }

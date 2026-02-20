@@ -159,4 +159,26 @@
           AND deleted = 0
     </select>
 
+    <!-- 查询医生今日待诊列表（已支付的挂号，按排队号排序） -->
+    <select id="selectDoctorTodayPatients" resultMap="RegistrationVOResultMap">
+        SELECT <include refid="RegistrationVO_Column_List" />
+        FROM registration r
+        LEFT JOIN user p ON r.patient_id = p.id AND p.deleted = 0
+        LEFT JOIN doctor doc ON r.doctor_id = doc.id AND doc.deleted = 0
+        LEFT JOIN user doc_user ON doc.user_id = doc_user.id AND doc_user.deleted = 0
+        LEFT JOIN department dept ON r.department_id = dept.id AND dept.deleted = 0
+        WHERE r.doctor_id = #{doctorId}
+        AND r.registration_date = #{registrationDate}
+        AND r.payment_status = 'PAID'
+        AND r.status IN ('PENDING', 'CONSULTING', 'COMPLETED')
+        AND r.deleted = 0
+        ORDER BY
+        CASE r.status
+        WHEN 'CONSULTING' THEN 1
+        WHEN 'PENDING' THEN 2
+        WHEN 'COMPLETED' THEN 3
+        END,
+        r.queue_number ASC
+    </select>
+
 </mapper>

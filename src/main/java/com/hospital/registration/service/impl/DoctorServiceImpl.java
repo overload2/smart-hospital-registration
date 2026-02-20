@@ -3,6 +3,7 @@ package com.hospital.registration.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.ResultCode;
+import com.hospital.registration.common.UserRole;
 import com.hospital.registration.dto.DoctorDTO;
 import com.hospital.registration.entity.Department;
 import com.hospital.registration.entity.Doctor;
@@ -87,6 +88,9 @@ public class DoctorServiceImpl implements DoctorService {
             log.error("医生新增失败 - 用户ID: {}", doctorDTO.getUserId());
             throw new BusinessException(ResultCode.FAIL.getCode(), "医生新增失败");
         }
+        // 更新用户的角色为医生
+        user.setRole(UserRole.DOCTOR);
+        userMapper.updateById(user);
 
         log.info("医生新增成功 - ID: {}, 用户姓名: {}", doctor.getId(), user.getRealName());
 
@@ -278,5 +282,14 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         log.info("医生状态更新成功 - ID: {}, 新状态: {}", id, status);
+    }
+
+    /**
+     * 批量更新医生状态
+     */
+    @Override
+    public void batchUpdateStatus(List<Long> ids, Integer status) {
+        log.info("批量更新医生状态 - ids: {}, status: {}", ids, status);
+        doctorMapper.batchUpdateStatus(ids, status);
     }
 }

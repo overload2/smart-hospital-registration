@@ -66,6 +66,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
             throw new BusinessException(ResultCode.UNAUTHORIZED.getCode(), "登录已过期，请重新登录");
         }
 
+        // 将用户ID存入request，供Controller使用
+        request.setAttribute("userId", userId);
         // 获取方法上的权限注解
         RequirePermission requirePermission = handlerMethod.getMethodAnnotation(RequirePermission.class);
 
@@ -78,6 +80,11 @@ public class PermissionInterceptor implements HandlerInterceptor {
         String permissionCode = requirePermission.value();
         log.info("权限校验 - 接口: {}, 需要权限: {}", request.getRequestURI(), permissionCode);
 
+        // 超级管理员跳过权限检查
+        if (permissionService.isSuperAdmin(userId)) {
+            log.info("超级管理员跳过权限检查 - 用户ID: {}", userId);
+            return true;
+        }
         // 校验用户是否拥有该权限
         boolean hasPermission = permissionService.hasPermission(userId, permissionCode);
         if (!hasPermission) {

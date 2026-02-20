@@ -2,11 +2,16 @@ package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hospital.registration.annotation.OperationLog;
+import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.service.MessageService;
 import com.hospital.registration.vo.MessageRecordVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @title: MessageController
@@ -91,6 +96,80 @@ public class MessageController {
         log.info("全部标记已读 - 用户ID: {}", userId);
         messageService.markAllAsRead(userId);
         return Result.ok("全部标记已读成功");
+    }
+
+    /**
+     * 分页查询消息记录（管理端）
+     */
+    @GetMapping("/page")
+    @RequirePermission("message:list")
+    public Result getMessagePage(
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false) Long userId,
+            @RequestParam(required = false) String messageType,
+            @RequestParam(required = false) String channel,
+            @RequestParam(required = false) Integer sendStatus,
+            @RequestParam(required = false) Integer readStatus) {
+        log.info("分页查询消息记录 - 页码: {}, 每页大小: {}", pageNum, pageSize);
+        IPage<MessageRecordVO> page = messageService.getMessagePage(
+                pageNum, pageSize, userId, messageType, channel, sendStatus, readStatus);
+        return Result.ok().data("page", page);
+    }
+
+    /**
+     * 发送系统公告
+     */
+    @PostMapping("/send-announcement")
+    @RequirePermission("message:send")
+    @OperationLog(module = "消息管理", operation = "ADD")
+    public Result sendAnnouncement(@RequestBody Map<String, Object> params) {
+        String title = (String) params.get("title");
+        String content = (String) params.get("content");
+        log.info("发送系统公告 - 标题: {}", title);
+        messageService.sendSystemAnnouncement(title, content);
+        return Result.ok("系统公告发送成功");
+    }
+
+    /**
+     * 重发失败消息
+     */
+    @PostMapping("/{id}/resend")
+    @RequirePermission("message:send")
+    @OperationLog(module = "消息管理", operation = "UPDATE")
+    public Result resendMessage(@PathVariable Long id) {
+        log.info("重发消息 - 消息ID: {}", id);
+        messageService.resendMessage(id);
+        return Result.ok("消息重发成功");
+    }
+
+    /**
+     * 删除消息记录
+     */
+    @PostMapping("/delete/{id}")
+    @RequirePermission("message:delete")
+    @OperationLog(module = "消息管理", operation = "DELETE")
+    public Result deleteMessage(@PathVariable Long id) {
+        log.info("删除消息 - 消息ID: {}", id);
+        messageService.deleteMessage(id);
+        return Result.ok("消息删除成功");
+    }
+
+    /**
+     * 批量删除消息记录
+     */
+    @PostMapping("/batch-delete")
+    @RequirePermission("message:delete")
+    @OperationLog(module = "消息管理", operation = "DELETE")
+    public Result batchDeleteMessage(@RequestBody Map<String, Object> params) {
+        List<Integer> idList = (List<Integer>) params.get("ids");
+        List<Long> ids = new ArrayList<>();
+        for (Integer id : idList) {
+            ids.add(id.longValue());
+        }
+        log.info("批量删除消息 - ids: {}", ids);
+        messageService.batchDeleteMessage(ids);
+        return Result.ok("批量删除成功");
     }
 }
 

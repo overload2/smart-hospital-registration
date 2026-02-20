@@ -18,7 +18,8 @@ public enum MessageType {
     REGISTRATION_CANCEL("REGISTRATION_CANCEL", "挂号取消"),
     REFUND_SUCCESS("REFUND_SUCCESS", "退款成功"),
     VISIT_REMINDER("VISIT_REMINDER", "就诊提醒"),
-    QUEUE_CALL("QUEUE_CALL", "排队叫号");
+    QUEUE_CALL("QUEUE_CALL", "排队叫号"),
+    SYSTEM_ANNOUNCEMENT("SYSTEM_ANNOUNCEMENT", "系统公告");
 
     @EnumValue
     private final String code;

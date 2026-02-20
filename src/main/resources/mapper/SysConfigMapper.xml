@@ -23,4 +23,18 @@
         SELECT * FROM sys_config ORDER BY id
     </select>
 
+    <!-- 分页查询配置 -->
+    <select id="selectConfigPage" resultType="com.hospital.registration.vo.SysConfigVO">
+        SELECT id, config_key, config_value, config_name, config_type, remark, create_time, update_time
+        FROM sys_config
+        <where>
+            <if test="configName != null and configName != ''">
+                AND config_name LIKE CONCAT('%', #{configName}, '%')
+            </if>
+            <if test="configKey != null and configKey != ''">
+                AND config_key LIKE CONCAT('%', #{configKey}, '%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
 </mapper>

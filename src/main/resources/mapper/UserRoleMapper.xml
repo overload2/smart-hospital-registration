@@ -26,5 +26,11 @@
     <delete id="deleteByUserId">
         DELETE FROM user_role WHERE user_id = #{userId}
     </delete>
-
+    <!-- 查询用户的角色编码列表 -->
+    <select id="selectRoleCodesByUserId" resultType="java.lang.String">
+        SELECT r.role_code
+        FROM user_role ur
+                 LEFT JOIN role r ON ur.role_id = r.id
+        WHERE ur.user_id = #{userId} AND r.deleted = 0
+    </select>
 </mapper>

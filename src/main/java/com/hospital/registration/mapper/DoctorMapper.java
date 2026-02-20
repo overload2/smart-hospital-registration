@@ -79,4 +79,11 @@ public interface DoctorMapper extends BaseMapper<Doctor> {
      */
     Long countByDepartmentId(@Param("departmentId") Long departmentId);
 
+    /**
+     * 批量更新医生状态
+     * @param ids 医生ID列表
+     * @param status 状态
+     * @return 影响行数
+     */
+    int batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status);
 }

@@ -55,4 +55,29 @@ public interface PermissionMapper extends BaseMapper<Permission> {
      * @return 子权限数量
      */
     Integer countByParentId(@Param("parentId") Long parentId);
+
+    /**
+     * 查询直接子权限ID
+     *
+     * @param parentId 父权限ID
+     * @return 直接子权限ID列表
+     */
+    List<Long> selectDirectChildrenIds(@Param("parentId") Long parentId);
+
+    /**
+     * 根据ID查询父权限ID
+     *
+     * @param id 权限ID
+     * @return 父权限ID
+     */
+    Long selectParentIdById(@Param("id") Long id);
+
+    /**
+     * 批量更新权限状态
+     *
+     * @param ids    权限ID列表
+     * @param status 状态
+     * @return 影响行数
+     */
+    int batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status);
 }

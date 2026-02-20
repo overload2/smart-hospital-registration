@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,6 +94,29 @@ public class UserController {
         UserVO userVO = userService.getUserById(userId);
 
         return Result.ok().data("user", userVO);
+    }
+
+    /**
+     * 根据角色编码获取用户列表
+     * GET /api/hospital/user/list-by-role?roleCode=USER
+     */
+    @GetMapping("/list-by-role")
+    public Result getUsersByRoleCode(@RequestParam String roleCode) {
+        log.info("根据角色编码查询用户列表 - roleCode: {}", roleCode);
+        List<UserVO> users = userService.getUsersByRoleCode(roleCode);
+        return Result.ok().data("users", users);
+    }
+
+    /**
+     * 用户登出
+     * POST /api/hospital/user/logout
+     */
+    @PostMapping("/logout")
+    public Result logout() {
+        log.info("用户登出");
+        // JWT 是无状态的，服务端不需要做特殊处理
+        // 如果需要实现 token 黑名单，可以在这里将 token 加入黑名单
+        return Result.ok("登出成功");
     }
 
     /**

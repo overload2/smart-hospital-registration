@@ -1,5 +1,6 @@
 package com.hospital.registration.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.SysConfigDTO;
@@ -71,5 +72,18 @@ public class SysConfigController {
     public Result delete(@RequestParam Long id) {
         sysConfigService.deleteConfig(id);
         return Result.ok().message("删除成功");
+    }
+
+    /**
+     * 分页查询配置
+     */
+    @GetMapping("/page")
+    public Result page(
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false) String configName,
+            @RequestParam(required = false) String configKey) {
+        IPage<SysConfigVO> page = sysConfigService.getConfigPage(pageNum, pageSize, configName, configKey);
+        return Result.ok().data("page", page);
     }
 }

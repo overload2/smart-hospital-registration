@@ -1,12 +1,16 @@
 package com.hospital.registration.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.MedicalRecordDTO;
+import com.hospital.registration.dto.MedicalRecordQueryDTO;
 import com.hospital.registration.service.MedicalRecordService;
 import com.hospital.registration.utils.JwtUtil;
 import com.hospital.registration.vo.MedicalRecordVO;
+import com.hospital.registration.vo.RegistrationVO;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -125,6 +129,62 @@ public class MedicalRecordController {
 
         log.info("查询医生的病历列表 - 医生ID: {}", doctorId);
         List<MedicalRecordVO> records = medicalRecordService.getDoctorMedicalRecords(doctorId);
+        return Result.ok().data("records", records);
+    }
+
+    /**
+     * 获取医生今日待诊列表
+     */
+    @GetMapping("/today-patients")
+    public Result getTodayPatients(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        log.info("获取医生今日待诊列表 - 用户ID: {}", userId);
+        List<RegistrationVO> registrations = medicalRecordService.getDoctorTodayPatients(userId);
+        return Result.ok().data("registrations", registrations);
+    }
+
+    /**
+     * 开始接诊（更新挂号状态为就诊中）
+     */
+    @PostMapping("/start-consultation/{registrationId}")
+    @OperationLog(module = "病历管理", operation = "UPDATE")
+    public Result startConsultation(@PathVariable Long registrationId, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        log.info("开始接诊 - 挂号ID: {}, 用户ID: {}", registrationId, userId);
+        medicalRecordService.startConsultation(registrationId, userId);
+        return Result.ok("开始接诊");
+    }
+
+    /**
+     * 完成接诊（保存病历并更新挂号状态为已完成）
+     */
+    @PostMapping("/complete-consultation")
+    @OperationLog(module = "病历管理", operation = "ADD")
+    public Result completeConsultation(@RequestBody MedicalRecordDTO medicalRecordDTO, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        log.info("完成接诊 - 挂号ID: {}, 用户ID: {}", medicalRecordDTO.getRegistrationId(), userId);
+        MedicalRecordVO medicalRecordVO = medicalRecordService.completeConsultation(medicalRecordDTO, userId);
+        return Result.ok("接诊完成").data("medicalRecord", medicalRecordVO);
+    }
+
+    /**
+     * 分页查询医生历史病历
+     */
+    @PostMapping("/history/page")
+    public Result getHistoryPage(@RequestBody MedicalRecordQueryDTO queryDTO, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        log.info("分页查询医生历史病历 - 用户ID: {}", userId);
+        Page<MedicalRecordVO> page = medicalRecordService.getDoctorHistoryPage(queryDTO, userId);
+        return Result.ok().data("page", page);
+    }
+
+    /**
+     * 查询患者历史病历（接诊时查看）
+     */
+    @GetMapping("/patient-history/{patientId}")
+    public Result getPatientHistory(@PathVariable Long patientId) {
+        log.info("查询患者历史病历 - 患者ID: {}", patientId);
+        List<MedicalRecordVO> records = medicalRecordService.getPatientMedicalRecords(patientId);
         return Result.ok().data("records", records);
     }
 }

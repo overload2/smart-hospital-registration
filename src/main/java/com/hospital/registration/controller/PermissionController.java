@@ -91,7 +91,7 @@ public class PermissionController {
      * @param permissionDTO 权限信息
      * @return 修改后的权限
      */
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     @OperationLog(module = "权限管理", operation = "UPDATE")
     public Result update(@PathVariable Long id, @RequestBody PermissionDTO permissionDTO) {
         log.info("修改权限 - ID: {}", id);
@@ -101,16 +101,38 @@ public class PermissionController {
 
     /**
      * 删除权限
-     *
-     * @param id 权限ID
-     * @return 操作结果
      */
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     @OperationLog(module = "权限管理", operation = "DELETE")
     public Result delete(@PathVariable Long id) {
         log.info("删除权限 - ID: {}", id);
         permissionService.deletePermission(id);
         return Result.ok("删除权限成功");
+    }
+    /**
+     * 更新权限状态（级联）
+     * 禁用时会同时禁用所有子权限
+     * 启用时会同时启用所有父权限
+     */
+    @PostMapping("/{id}/status")
+    @OperationLog(module = "权限管理", operation = "UPDATE")
+    public Result updateStatus(@PathVariable Long id, @RequestParam Integer status) {
+        log.info("更新权限状态（级联） - ID: {}, status: {}", id, status);
+        permissionService.updatePermissionStatusCascade(id, status);
+        String message = status == 1 ? "启用成功" : "禁用成功";
+        return Result.ok(message);
+    }
+
+    /**
+     * 批量更新权限状态（级联）
+     */
+    @PostMapping("/batch-status")
+    @OperationLog(module = "权限管理", operation = "UPDATE")
+    public Result batchUpdateStatus(@RequestBody List<Long> ids, @RequestParam Integer status) {
+        log.info("批量更新权限状态 - ids: {}, status: {}", ids, status);
+        permissionService.batchUpdatePermissionStatus(ids, status);
+        String message = status == 1 ? "批量启用成功" : "批量禁用成功";
+        return Result.ok(message);
     }
 
     /**

@@ -201,6 +201,118 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     /**
+     * 级联更新权限状态
+     * 禁用时：同时禁用所有子权限
+     * 启用时：同时启用所有父权限
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updatePermissionStatusCascade(Long id, Integer status) {
+        log.info("级联更新权限状态 - ID: {}, status: {}", id, status);
+
+        Permission permission = permissionMapper.selectById(id);
+        if (permission == null || permission.getDeleted() == 1) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "权限不存在");
+        }
+
+        List<Long> idsToUpdate = new ArrayList<>();
+        idsToUpdate.add(id);
+
+        if (status == 0) {
+            // 禁用时：递归收集所有子权限ID
+            collectAllChildrenIds(id, idsToUpdate);
+            log.info("禁用权限及其子权限 - 共 {} 个", idsToUpdate.size());
+        } else {
+            // 启用时：递归收集所有父权限ID
+            collectAllParentIds(id, idsToUpdate);
+            log.info("启用权限及其父权限 - 共 {} 个", idsToUpdate.size());
+        }
+
+        // 批量更新状态
+        permissionMapper.batchUpdateStatus(idsToUpdate, status);
+    }
+
+    /**
+     * 递归收集所有子权限ID
+     */
+    private void collectAllChildrenIds(Long parentId, List<Long> result) {
+        List<Long> childrenIds = permissionMapper.selectDirectChildrenIds(parentId);
+        if (childrenIds != null && !childrenIds.isEmpty()) {
+            for (Long childId : childrenIds) {
+                if (!result.contains(childId)) {
+                    result.add(childId);
+                    // 递归查询子权限的子权限
+                    collectAllChildrenIds(childId, result);
+                }
+            }
+        }
+    }
+
+    /**
+     * 递归收集所有父权限ID
+     */
+    private void collectAllParentIds(Long id, List<Long> result) {
+        Long parentId = permissionMapper.selectParentIdById(id);
+        if (parentId != null && parentId != 0 && !result.contains(parentId)) {
+            result.add(parentId);
+            // 递归查询父权限的父权限
+            collectAllParentIds(parentId, result);
+        }
+    }
+
+    /**
+     * 批量更新权限状态（带级联）
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void batchUpdatePermissionStatus(List<Long> ids, Integer status) {
+        log.info("批量更新权限状态 - ids: {}, status: {}", ids, status);
+
+        if (ids == null || ids.isEmpty()) {
+            return;
+        }
+
+        // 收集所有需要更新的ID（包括级联的）
+        List<Long> allIdsToUpdate = new ArrayList<>();
+
+        for (Long id : ids) {
+            if (!allIdsToUpdate.contains(id)) {
+                allIdsToUpdate.add(id);
+            }
+
+            if (status == 0) {
+                // 禁用时：收集所有子权限
+                collectAllChildrenIds(id, allIdsToUpdate);
+            } else {
+                // 启用时：收集所有父权限
+                collectAllParentIds(id, allIdsToUpdate);
+            }
+        }
+
+        log.info("批量更新权限状态 - 实际更新 {} 个权限", allIdsToUpdate.size());
+        permissionMapper.batchUpdateStatus(allIdsToUpdate, status);
+    }
+
+    /**
+     * 更新权限状态（简单更新，不级联）
+     * 保留原方法供特殊场景使用
+     */
+    @Override
+    public void updatePermissionStatus(Long id, Integer status) {
+        log.info("更新权限状态 - ID: {}, status: {}", id, status);
+
+        Permission permission = permissionMapper.selectById(id);
+        if (permission == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "权限不存在");
+        }
+
+        Permission updatePermission = new Permission();
+        updatePermission.setId(id);
+        updatePermission.setStatus(status);
+        permissionMapper.updateById(updatePermission);
+    }
+
+    /**
      * 为用户分配角色
      */
     @Override
@@ -290,6 +402,16 @@ public class PermissionServiceImpl implements PermissionService {
 
         List<String> permissionCodes = getUserPermissionCodes(userId);
         return permissionCodes.contains(permissionCode);
+    }
+
+    /**
+     * 判断用户是否是超级管理员
+     */
+    @Override
+    public boolean isSuperAdmin(Long userId) {
+        // 查询用户的角色编码，判断是否包含 ADMIN
+        List<String> roleCodes = userRoleMapper.selectRoleCodesByUserId(userId);
+        return roleCodes.contains("ADMIN");
     }
 
     /**

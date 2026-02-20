@@ -1,5 +1,7 @@
 package com.hospital.registration.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.SysDictDataDTO;
 import com.hospital.registration.dto.SysDictTypeDTO;
 import com.hospital.registration.entity.SysDictData;
@@ -230,5 +232,13 @@ public class SysDictServiceImpl implements SysDictService {
             throw new RuntimeException("字典数据不存在");
         }
         sysDictDataMapper.deleteById(id);
+    }
+    /**
+     * 分页查询字典类型
+     */
+    @Override
+    public IPage<SysDictTypeVO> getDictTypePage(Integer pageNum, Integer pageSize, String dictName, String dictType) {
+        Page<SysDictTypeVO> page = new Page<>(pageNum, pageSize);
+        return sysDictTypeMapper.selectDictTypePage(page, dictName, dictType);
     }
 }

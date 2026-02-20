@@ -50,4 +50,11 @@ public interface DoctorService {
      * 更新医生状态
      */
     void updateDoctorStatus(Long id, Integer status);
+
+    /**
+     * 批量更新医生状态
+     * @param ids 医生ID列表
+     * @param status 状态
+     */
+    void batchUpdateStatus(List<Long> ids, Integer status);
 }

@@ -1,6 +1,7 @@
 package com.hospital.registration.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.entity.MedicalRecord;
 import com.hospital.registration.vo.MedicalRecordVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -36,5 +37,15 @@ public interface MedicalRecordMapper extends BaseMapper<MedicalRecord> {
      * 查询医生的病历列表
      */
     List<MedicalRecordVO> selectByDoctorId(@Param("doctorId") Long doctorId);
+
+    /**
+     * 分页查询医生历史病历
+     */
+    Page<MedicalRecordVO> selectDoctorHistoryPage(Page<MedicalRecordVO> page,
+                                                  @Param("doctorId") Long doctorId,
+                                                  @Param("patientName") String patientName,
+                                                  @Param("diagnosis") String diagnosis,
+                                                  @Param("startDate") String startDate,
+                                                  @Param("endDate") String endDate);
 
 }

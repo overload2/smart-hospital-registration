@@ -51,5 +51,8 @@ public class RegisterDTO {
     // 邮箱（可选，但如果填写必须格式正确）
     @Email(message = "邮箱格式不正确")
     private String email;
+
+    // 注册来源：web-Web端，miniapp-小程序端
+    private String source;
 }
 

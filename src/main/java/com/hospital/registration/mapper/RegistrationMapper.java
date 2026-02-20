@@ -79,5 +79,13 @@ public interface RegistrationMapper extends BaseMapper<Registration> {
      * @return 挂号数量
      */
     Long countByScheduleId(@Param("scheduleId") Long scheduleId);
+
+    /**
+     * 查询医生今日待诊列表
+     */
+    List<RegistrationVO> selectDoctorTodayPatients(@Param("doctorId") Long doctorId,
+                                                   @Param("registrationDate") LocalDate registrationDate);
+
+
 }
 

@@ -1,5 +1,6 @@
 package com.hospital.registration.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.AssignPermissionDTO;
 import com.hospital.registration.dto.RoleDTO;
 import com.hospital.registration.vo.RoleVO;
@@ -68,4 +69,22 @@ public interface RoleService {
      * @return 权限ID列表
      */
     List<Long> getRolePermissionIds(Long roleId);
+
+    /**
+     * 分页查询角色列表
+     * @param current 当前页
+     * @param size 每页大小
+     * @param roleName 角色名称（可选）
+     * @param roleCode 角色编码（可选）
+     * @param status 状态（可选）
+     * @return 分页结果
+     */
+    Page<RoleVO> getRolePage(Integer current, Integer size, String roleName, String roleCode, Integer status);
+
+    /**
+     * 批量更新角色状态
+     * @param ids 角色ID列表
+     * @param status 状态
+     */
+    void batchUpdateStatus(List<Long> ids, Integer status);
 }

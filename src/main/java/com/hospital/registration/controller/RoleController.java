@@ -1,5 +1,6 @@
 package com.hospital.registration.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.annotation.OperationLog;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @title: RoleController
@@ -43,6 +45,28 @@ public class RoleController {
         log.info("查询所有角色列表");
         List<RoleVO> roles = roleService.getAllRoles();
         return Result.ok().data("roles", roles);
+    }
+
+    /**
+     * 分页查询角色列表
+     *
+     * @param current  当前页
+     * @param size     每页大小
+     * @param roleName 角色名称（可选）
+     * @param roleCode 角色编码（可选）
+     * @param status   状态（可选）
+     * @return 分页结果
+     */
+    @GetMapping("/page")
+    public Result page(
+            @RequestParam(defaultValue = "1") Integer current,
+            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(required = false) String roleName,
+            @RequestParam(required = false) String roleCode,
+            @RequestParam(required = false) Integer status) {
+        log.info("分页查询角色列表 - current: {}, size: {}", current, size);
+        Page<RoleVO> page = roleService.getRolePage(current, size, roleName, roleCode, status);
+        return Result.ok().data("records", page.getRecords()).data("total", page.getTotal());
     }
 
     /**
@@ -130,6 +154,28 @@ public class RoleController {
         log.info("查询角色权限ID列表 - 角色ID: {}", roleId);
         List<Long> permissionIds = roleService.getRolePermissionIds(roleId);
         return Result.ok().data("permissionIds", permissionIds);
+    }
+
+    /**
+     * 批量更新角色状态
+     *
+     * @param params 包含 ids 和 status
+     * @return 操作结果
+     */
+    @PutMapping("/batch-status")
+    @RequirePermission("system:role:edit")
+    @OperationLog(module = "角色管理", operation = "UPDATE")
+    public Result batchUpdateStatus(@RequestBody Map<String, Object> params) {
+        List<Integer> idList = (List<Integer>) params.get("ids");
+        Integer status = (Integer) params.get("status");
+
+        log.info("批量更新角色状态 - ids: {}, status: {}", idList, status);
+
+        // 转换为 Long 类型
+        List<Long> ids = idList.stream().map(Integer::longValue).toList();
+
+        roleService.batchUpdateStatus(ids, status);
+        return Result.ok("批量更新状态成功");
     }
 }
 

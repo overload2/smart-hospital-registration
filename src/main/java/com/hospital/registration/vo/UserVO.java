@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @title: UserVO
@@ -49,6 +50,15 @@ public class UserVO {
 
     // 创建时间
     private LocalDateTime createTime;
+
+    // 状态名称
+    private String statusName;
+
+    // 性别名称
+    private String genderName;
+
+    // 角色列表（用户可能有多个角色）
+    private List<String> roleNames;
 
     // 注意：没有password字段！保护用户隐私
 }
