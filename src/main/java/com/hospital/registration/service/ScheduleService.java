@@ -3,6 +3,7 @@ package com.hospital.registration.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.ScheduleDTO;
 import com.hospital.registration.vo.ScheduleVO;
+import com.hospital.registration.vo.app.DetailTimeSlotVO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -62,4 +63,6 @@ public interface ScheduleService {
      * 批量创建排班
      */
     List<ScheduleVO> batchAddSchedules(List<ScheduleDTO> scheduleDTOList);
+
+    List<DetailTimeSlotVO> getDetailSlots(Long id, Long userId);
 }

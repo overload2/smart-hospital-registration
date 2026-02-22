@@ -61,5 +61,7 @@ public interface DepartmentService {
      * @param status 状态
      */
     void batchUpdateStatus(List<Long> ids, Integer status);
+
+
 }
 

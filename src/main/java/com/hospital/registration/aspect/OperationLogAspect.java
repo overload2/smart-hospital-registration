@@ -2,6 +2,7 @@ package com.hospital.registration.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.registration.annotation.OperationLog;
+import com.hospital.registration.common.Constants;
 import com.hospital.registration.entity.SysOperationLog;
 import com.hospital.registration.service.SysOperationLogService;
 import com.hospital.registration.utils.JwtUtil;
@@ -89,7 +90,7 @@ public class OperationLogAspect {
 
             if (token != null && !token.isEmpty()) {
                 // 去掉 Bearer 前缀
-                if (token.startsWith("Bearer ")) {
+                if (token.startsWith(Constants.Jwt.PREFIX)) {
                     token = token.substring(7);
                 }
                 try {

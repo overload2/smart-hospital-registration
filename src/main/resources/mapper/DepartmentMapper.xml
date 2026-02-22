@@ -149,7 +149,11 @@
 
     <!-- 根据科室名称查询 -->
     <select id="selectByName" resultMap="BaseResultMap">
-        SELECT * FROM department WHERE name = #{name} LIMIT 1
+        SELECT * FROM department
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+          AND status = 1
+        ORDER BY CHAR_LENGTH(name) ASC
+            LIMIT 1
     </select>
 
     <!-- 批量更新科室状态 -->

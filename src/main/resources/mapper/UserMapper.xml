@@ -234,4 +234,8 @@
         WHERE id = #{id} AND deleted = 0
     </update>
 
+    <!-- 根据手机号查询用户 -->
+    <select id="selectByPhone" resultType="com.hospital.registration.entity.User">
+        SELECT * FROM user WHERE phone = #{phone} AND deleted = 0
+    </select>
 </mapper>

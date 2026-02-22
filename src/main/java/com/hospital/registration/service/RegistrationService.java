@@ -63,5 +63,39 @@ public interface RegistrationService {
      * 确认支付
      */
     void confirmPayment(Long id);
+    /**
+     * 分页查询挂号列表（增强版）
+     */
+    Page<RegistrationVO> getRegistrationPage(Integer pageNum, Integer pageSize,
+                                             Long patientId, Long doctorId,
+                                             Long departmentId, LocalDate registrationDate,
+                                             String status, String registrationNo,
+                                             String patientName, String patientPhone,
+                                             String patientIdCard);
+
+    /**
+     * 叫号
+     */
+    RegistrationVO callNumber(Long id);
+
+    /**
+     * 过号处理（重新排队）
+     */
+    void missedRequeue(Long id);
+
+    /**
+     * 过号处理（标记爽约）
+     */
+    void missedNoShow(Long id);
+
+    /**
+     * 获取今日候诊队列
+     */
+    List<RegistrationVO> getTodayQueue(Long doctorId);
+
+    /**
+     * 获取当前叫号信息
+     */
+    RegistrationVO getCurrentCalled(Long doctorId);
 }
 

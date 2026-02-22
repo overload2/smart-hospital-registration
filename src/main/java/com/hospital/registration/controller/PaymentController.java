@@ -1,8 +1,11 @@
 package com.hospital.registration.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.annotation.OperationLog;
+import com.hospital.registration.common.Constants;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.PaymentDTO;
+import com.hospital.registration.dto.PaymentQueryDTO;
 import com.hospital.registration.service.PaymentService;
 import com.hospital.registration.utils.JwtUtil;
 import com.hospital.registration.vo.PaymentVO;
@@ -11,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @title: PaymentController
@@ -48,7 +52,7 @@ public class PaymentController {
      */
     @PostMapping("/callback/{transactionNo}")
     @OperationLog(module = "支付管理", operation = "UPDATE")
-    public Result paymentCallback(@PathVariable String transactionNo) {
+        public Result paymentCallback(@PathVariable String transactionNo) {
         log.info("支付回调 - 交易流水号: {}", transactionNo);
         boolean success = paymentService.handlePaymentCallback(transactionNo);
         if (success) {
@@ -84,7 +88,7 @@ public class PaymentController {
     @GetMapping("/my")
     public Result getMyPayments(@RequestHeader("Authorization") String authHeader) {
         // 从 Authorization 头中提取 token
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
 
         // 从 token 中获取用户ID
         Long userId = jwtUtil.getUserIdFromToken(token);
@@ -95,5 +99,25 @@ public class PaymentController {
         log.info("查询我的支付记录 - 用户ID: {}", userId);
         List<PaymentVO> payments = paymentService.getUserPayments(userId);
         return Result.ok().data("payments", payments);
+    }
+    /**
+     * 分页查询支付记录
+     */
+    @PostMapping("/page")
+    public Result getPaymentPage(@RequestBody PaymentQueryDTO queryDTO) {
+        log.info("分页查询支付记录");
+        Page<PaymentVO> page = paymentService.getPaymentPage(queryDTO);
+        return Result.ok().data("page", page);
+    }
+    /**
+     * 手动退款（人工窗口退款）
+     */
+    @PostMapping("/manual-refund/{id}")
+    @OperationLog(module = "支付管理", operation = "UPDATE")
+    public Result manualRefund(@PathVariable Long id, @RequestBody Map<String, String> params) {
+        String remark = params.get("remark");
+        log.info("手动退款 - 支付ID: {}, 备注: {}", id, remark);
+        paymentService.manualRefund(id, remark);
+        return Result.ok("退款成功");
     }
 }

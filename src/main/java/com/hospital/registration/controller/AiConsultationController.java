@@ -1,6 +1,7 @@
 package com.hospital.registration.controller;
 
 import com.hospital.registration.annotation.OperationLog;
+import com.hospital.registration.common.Constants;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.AiChatDTO;
 import com.hospital.registration.service.AiConsultationService;
@@ -40,7 +41,7 @@ public class AiConsultationController {
     @OperationLog(module = "AI问诊", operation = "ADD")
     public Result chat(@Valid @RequestBody AiChatDTO dto,
                        @RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long userId = jwtUtil.getUserIdFromToken(token);
         if (userId == null) {
             return Result.error("无效的token");
@@ -56,7 +57,7 @@ public class AiConsultationController {
      */
     @GetMapping("/sessions")
     public Result getSessions(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long userId = jwtUtil.getUserIdFromToken(token);
         if (userId == null) {
             return Result.error("无效的token");
@@ -73,7 +74,7 @@ public class AiConsultationController {
     @GetMapping("/sessions/{sessionId}")
     public Result getSessionDetail(@PathVariable Long sessionId,
                                    @RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long userId = jwtUtil.getUserIdFromToken(token);
         if (userId == null) {
             return Result.error("无效的token");
@@ -91,7 +92,7 @@ public class AiConsultationController {
     @OperationLog(module = "AI问诊", operation = "UPDATE")
     public Result endSession(@PathVariable Long sessionId,
                              @RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long userId = jwtUtil.getUserIdFromToken(token);
         if (userId == null) {
             return Result.error("无效的token");

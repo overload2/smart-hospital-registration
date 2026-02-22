@@ -1,6 +1,8 @@
 package com.hospital.registration.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.PaymentDTO;
+import com.hospital.registration.dto.PaymentQueryDTO;
 import com.hospital.registration.vo.PaymentVO;
 import org.springframework.stereotype.Service;
 
@@ -58,4 +60,14 @@ public interface PaymentService {
      * @param amount 退款金额
      */
     void refundAsync(String registrationNo, BigDecimal amount);
+
+    /**
+     * 分页查询支付记录
+     */
+    Page<PaymentVO> getPaymentPage(PaymentQueryDTO queryDTO);
+
+    /**
+     * 手动退款
+     */
+    void manualRefund(Long id, String remark);
 }

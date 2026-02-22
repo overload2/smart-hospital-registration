@@ -1,11 +1,13 @@
 package com.hospital.registration.vo;
 
 import com.hospital.registration.common.TimeSlot;
+import com.hospital.registration.vo.app.DetailTimeSlotVO;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @title: ScheduleVO
@@ -61,5 +63,11 @@ public class ScheduleVO {
 
     // 更新时间
     private LocalDateTime updateTime;
+
+    // 每个细分时段号源数
+    private Integer slotCapacity;
+
+    // 细分时段列表（患者端展示用）
+    private List<DetailTimeSlotVO> detailSlots;
 }
 

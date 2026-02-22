@@ -46,5 +46,56 @@
           AND deleted = 0
         ORDER BY create_time DESC
     </select>
+    <!-- 分页查询支付记录 -->
+    <select id="selectPageWithDetails" resultType="com.hospital.registration.vo.PaymentVO">
+        SELECT p.id,
+        p.transaction_no,
+        p.registration_id,
+        r.registration_no,
+        p.user_id,
+        u.real_name AS patient_name,
+        u.phone AS patient_phone,
+        p.amount,
+        p.payment_method,
+        p.payment_status AS paymentStatus,
+        p.payment_time,
+        p.refund_time,
+        p.remark,
+        p.create_time
+        FROM payment p
+        LEFT JOIN registration r ON p.registration_id = r.id
+        LEFT JOIN user u ON p.user_id = u.id
+        <where>
+            p.deleted = 0
+            <if test="transactionNo != null and transactionNo != ''">
+                AND p.transaction_no LIKE CONCAT('%', #{transactionNo}, '%')
+            </if>
+            <if test="registrationNo != null and registrationNo != ''">
+                AND r.registration_no LIKE CONCAT('%', #{registrationNo}, '%')
+            </if>
+            <if test="paymentStatus != null and paymentStatus != ''">
+                AND p.payment_status = #{paymentStatus}
+            </if>
+            <if test="paymentMethod != null and paymentMethod != ''">
+                AND p.payment_method = #{paymentMethod}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND DATE(p.create_time) &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND DATE(p.create_time) &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY
+        CASE p.payment_status
+        WHEN 'REFUND_FAILED' THEN 1
+        WHEN 'REFUNDING' THEN 2
+        WHEN 'PENDING' THEN 3
+        WHEN 'PAID' THEN 4
+        WHEN 'REFUNDED' THEN 5
+        WHEN 'FAILED' THEN 6
+        END ASC,
+        p.create_time DESC
+    </select>
 
 </mapper>

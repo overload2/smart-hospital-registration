@@ -65,4 +65,12 @@ public class MedicalRecord {
     @TableLogic
     @TableField(value = "deleted")
     private Integer deleted;
+
+    // 既往史
+    @TableField("past_history")
+    private String pastHistory;
+
+    // 过敏史
+    @TableField("allergy_history")
+    private String allergyHistory;
 }

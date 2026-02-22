@@ -4,6 +4,7 @@ import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.LoginDTO;
 import com.hospital.registration.dto.RegisterDTO;
 import com.hospital.registration.service.SysLoginLogService;
+import com.hospital.registration.service.TokenService;
 import com.hospital.registration.service.UserService;
 import com.hospital.registration.vo.UserVO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,10 +31,13 @@ public class UserController {
 
     private final SysLoginLogService sysLoginLogService;
 
+    private final TokenService tokenService;
+
     // 构造器注入
-    public UserController(UserService userService, SysLoginLogService sysLoginLogService) {
+    public UserController(UserService userService, SysLoginLogService sysLoginLogService, TokenService tokenService) {
         this.userService = userService;
         this.sysLoginLogService = sysLoginLogService;
+        this.tokenService = tokenService;
     }
 
     /**
@@ -112,10 +116,11 @@ public class UserController {
      * POST /api/hospital/user/logout
      */
     @PostMapping("/logout")
-    public Result logout() {
-        log.info("用户登出");
-        // JWT 是无状态的，服务端不需要做特殊处理
-        // 如果需要实现 token 黑名单，可以在这里将 token 加入黑名单
+    public Result logout(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        log.info("管理端用户登出 - 用户ID: {}", userId);
+        // 删除Redis中的Token
+        tokenService.removeToken(userId, true);
         return Result.ok("登出成功");
     }
 

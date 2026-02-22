@@ -34,6 +34,8 @@
         <result column="department_name" property="departmentName"/>
         <result column="chief_complaint" property="chiefComplaint"/>
         <result column="present_illness" property="presentIllness"/>
+        <result column="past_history" property="pastHistory"/>
+        <result column="allergy_history" property="allergyHistory"/>
         <result column="diagnosis" property="diagnosis"/>
         <result column="prescription" property="prescription"/>
         <result column="advice" property="advice"/>
@@ -61,22 +63,25 @@
                u1.gender AS patient_gender,
                TIMESTAMPDIFF(YEAR, u1.birth_date, CURDATE()) AS patient_age,
                mr.doctor_id,
-               u2.real_name AS doctor_name,
+               doc_user.real_name AS doctor_name,
                dep.name AS department_name,
                mr.chief_complaint,
                mr.present_illness,
+               mr.past_history,
+               mr.allergy_history,
                mr.diagnosis,
                mr.prescription,
                mr.advice,
                mr.visit_time,
+               DATE_FORMAT(mr.visit_time, '%Y-%m-%d') AS visit_date,
                mr.create_time,
                mr.update_time
         FROM medical_record mr
                  LEFT JOIN registration r ON mr.registration_id = r.id
                  LEFT JOIN user u1 ON mr.patient_id = u1.id
-                 LEFT JOIN user u2 ON mr.doctor_id = u2.id
-                 LEFT JOIN doctor d ON mr.doctor_id = d.user_id
-                 LEFT JOIN department dep ON d.department_id = dep.id
+                 LEFT JOIN doctor doc ON mr.doctor_id = doc.id
+                 LEFT JOIN user doc_user ON doc.user_id = doc_user.id
+                 LEFT JOIN department dep ON doc.department_id = dep.id
         WHERE mr.id = #{id}
           AND mr.deleted = 0
     </select>
@@ -89,17 +94,24 @@
                mr.patient_id,
                u1.real_name AS patient_name,
                mr.doctor_id,
-               u2.real_name AS doctor_name,
+               doc_user.real_name AS doctor_name,
                dep.name AS department_name,
+               mr.chief_complaint,
+               mr.present_illness,
+               mr.past_history,
+               mr.allergy_history,
                mr.diagnosis,
+               mr.prescription,
+               mr.advice,
                mr.visit_time,
+               DATE_FORMAT(mr.visit_time, '%Y-%m-%d') AS visit_date,
                mr.create_time
         FROM medical_record mr
                  LEFT JOIN registration r ON mr.registration_id = r.id
                  LEFT JOIN user u1 ON mr.patient_id = u1.id
-                 LEFT JOIN user u2 ON mr.doctor_id = u2.id
-                 LEFT JOIN doctor d ON mr.doctor_id = d.user_id
-                 LEFT JOIN department dep ON d.department_id = dep.id
+                 LEFT JOIN doctor doc ON mr.doctor_id = doc.id
+                 LEFT JOIN user doc_user ON doc.user_id = doc_user.id
+                 LEFT JOIN department dep ON doc.department_id = dep.id
         WHERE mr.patient_id = #{patientId}
           AND mr.deleted = 0
         ORDER BY mr.visit_time DESC
@@ -114,14 +126,19 @@
                u1.real_name AS patient_name,
                u1.gender AS patient_gender,
                mr.doctor_id,
-               u2.real_name AS doctor_name,
+               doc_user.real_name AS doctor_name,
+               dep.name AS department_name,
+               mr.chief_complaint,
                mr.diagnosis,
                mr.visit_time,
+               DATE_FORMAT(mr.visit_time, '%Y-%m-%d') AS visit_date,
                mr.create_time
         FROM medical_record mr
                  LEFT JOIN registration r ON mr.registration_id = r.id
                  LEFT JOIN user u1 ON mr.patient_id = u1.id
-                 LEFT JOIN user u2 ON mr.doctor_id = u2.id
+                 LEFT JOIN doctor doc ON mr.doctor_id = doc.id
+                 LEFT JOIN user doc_user ON doc.user_id = doc_user.id
+                 LEFT JOIN department dep ON doc.department_id = dep.id
         WHERE mr.doctor_id = #{doctorId}
           AND mr.deleted = 0
         ORDER BY mr.visit_time DESC
@@ -137,24 +154,30 @@
         u1.gender AS patient_gender,
         TIMESTAMPDIFF(YEAR, u1.birth_date, CURDATE()) AS patient_age,
         mr.doctor_id,
-        u2.real_name AS doctor_name,
+        doc_user.real_name AS doctor_name,
         dep.name AS department_name,
         mr.chief_complaint,
         mr.present_illness,
+        mr.past_history,
+        mr.allergy_history,
         mr.diagnosis,
         mr.prescription,
         mr.advice,
         mr.visit_time,
+        DATE_FORMAT(mr.visit_time, '%Y-%m-%d') AS visit_date,
         mr.create_time,
         mr.update_time
         FROM medical_record mr
         LEFT JOIN registration r ON mr.registration_id = r.id
         LEFT JOIN user u1 ON mr.patient_id = u1.id
-        LEFT JOIN user u2 ON mr.doctor_id = u2.id
-        LEFT JOIN doctor d ON mr.doctor_id = d.user_id
-        LEFT JOIN department dep ON d.department_id = dep.id
+        LEFT JOIN doctor doc ON mr.doctor_id = doc.id
+        LEFT JOIN user doc_user ON doc.user_id = doc_user.id
+        LEFT JOIN department dep ON doc.department_id = dep.id
         <where>
-            mr.doctor_id = #{doctorId} AND mr.deleted = 0
+            mr.deleted = 0
+            <if test="doctorId != null">
+                AND mr.doctor_id = #{doctorId}
+            </if>
             <if test="patientName != null and patientName != ''">
                 AND u1.real_name LIKE CONCAT('%', #{patientName}, '%')
             </if>
@@ -169,5 +192,10 @@
             </if>
         </where>
         ORDER BY mr.visit_time DESC
+    </select>
+
+    <!-- 统计就诊过的患者数量 -->
+    <select id="countDistinctPatients" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT patient_id) FROM medical_record WHERE deleted = 0
     </select>
 </mapper>

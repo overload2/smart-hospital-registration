@@ -2,6 +2,8 @@ package com.hospital.registration.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.*;
+import com.hospital.registration.dto.app.AppLoginDTO;
+import com.hospital.registration.dto.app.AppRegisterDTO;
 import com.hospital.registration.vo.UserVO;
 
 import java.util.List;
@@ -104,5 +106,26 @@ public interface UserService {
      * 修改密码
      */
     void changePassword(Long userId, ChangePasswordDTO changePasswordDTO);
+
+    /**
+     * 患者端登录（手机号+密码）
+     */
+    Map<String, Object> appLogin(AppLoginDTO loginDTO);
+
+    /**
+     * 患者端注册
+     */
+    UserVO appRegister(AppRegisterDTO registerDTO);
+
+    /**
+     * 更新用户基本信息（患者端）
+     *
+     * @param userId   用户ID
+     * @param realName 真实姓名
+     * @param gender   性别（MALE/FEMALE）
+     * @param idCard   身份证号
+     */
+    void updateUserInfo(Long userId, String realName, String gender, String idCard);
+
 }
 

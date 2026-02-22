@@ -117,19 +117,7 @@ public class MessageController {
         return Result.ok().data("page", page);
     }
 
-    /**
-     * 发送系统公告
-     */
-    @PostMapping("/send-announcement")
-    @RequirePermission("message:send")
-    @OperationLog(module = "消息管理", operation = "ADD")
-    public Result sendAnnouncement(@RequestBody Map<String, Object> params) {
-        String title = (String) params.get("title");
-        String content = (String) params.get("content");
-        log.info("发送系统公告 - 标题: {}", title);
-        messageService.sendSystemAnnouncement(title, content);
-        return Result.ok("系统公告发送成功");
-    }
+
 
     /**
      * 重发失败消息

@@ -1,7 +1,9 @@
 package com.hospital.registration.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.entity.Payment;
+import com.hospital.registration.vo.PaymentVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +33,15 @@ public interface PaymentMapper extends BaseMapper<Payment> {
      * 查询用户的支付记录
      */
     List<Payment> selectByUserId(@Param("userId") Long userId);
+
+    /**
+     * 分页查询支付记录（关联挂号和患者信息）
+     */
+    Page<PaymentVO> selectPageWithDetails(Page<PaymentVO> page,
+                                          @Param("transactionNo") String transactionNo,
+                                          @Param("registrationNo") String registrationNo,
+                                          @Param("paymentStatus") String paymentStatus,
+                                          @Param("paymentMethod") String paymentMethod,
+                                          @Param("startDate") String startDate,
+                                          @Param("endDate") String endDate);
 }

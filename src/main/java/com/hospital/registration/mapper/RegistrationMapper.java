@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author suzd
@@ -86,6 +87,69 @@ public interface RegistrationMapper extends BaseMapper<Registration> {
     List<RegistrationVO> selectDoctorTodayPatients(@Param("doctorId") Long doctorId,
                                                    @Param("registrationDate") LocalDate registrationDate);
 
+    /**
+     * 统计排班下各细分时段的已预约数量
+     */
+    List<Map<String, Object>> countByScheduleAndDetailSlot(@Param("scheduleId") Long scheduleId);
 
+    /**
+     * 查询用户在指定排班下已预约的细分时段
+     */
+    List<String> selectBookedDetailSlots(@Param("patientId") Long patientId,
+                                         @Param("scheduleId") Long scheduleId);
+
+
+    /**
+     * 分页查询挂号列表（增强版）
+     */
+    Page<RegistrationVO> selectPageWithDetails(Page<RegistrationVO> page,
+                                               @Param("patientId") Long patientId,
+                                               @Param("doctorId") Long doctorId,
+                                               @Param("departmentId") Long departmentId,
+                                               @Param("registrationDate") LocalDate registrationDate,
+                                               @Param("status") String status,
+                                               @Param("registrationNo") String registrationNo,
+                                               @Param("patientName") String patientName,
+                                               @Param("patientPhone") String patientPhone,
+                                               @Param("patientIdCard") String patientIdCard);
+
+    /**
+     * 查询今日候诊队列
+     */
+    List<RegistrationVO> selectTodayQueue(@Param("doctorId") Long doctorId,
+                                          @Param("registrationDate") LocalDate registrationDate);
+
+    /**
+     * 查询当前叫号信息
+     */
+    RegistrationVO selectCurrentCalled(@Param("doctorId") Long doctorId,
+                                       @Param("registrationDate") LocalDate registrationDate);
+
+    /**
+     * 统计今日挂号数
+     */
+    Integer countTodayRegistrations();
+
+    /**
+     * 统计待就诊数（PENDING + CALLED）
+     */
+    Integer countPendingRegistrations();
+
+    /**
+     * 获取近7天挂号趋势
+     */
+    List<Map<String, Object>> selectRegistrationTrend();
+
+    /**
+     * 获取科室挂号占比
+     */
+    List<Map<String, Object>> selectDepartmentRatio();
+
+    /**
+     * 查询所有今日待诊患者（管理员用）
+     * @param date 日期
+     * @return 挂号VO列表
+     */
+    List<RegistrationVO> selectAllTodayPatients(@Param("date") LocalDate date);
 }
 

@@ -2,6 +2,7 @@ package com.hospital.registration.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.dto.DoctorDTO;
+import com.hospital.registration.entity.Doctor;
 import com.hospital.registration.vo.DoctorVO;
 
 import java.util.List;
@@ -57,4 +58,15 @@ public interface DoctorService {
      * @param status 状态
      */
     void batchUpdateStatus(List<Long> ids, Integer status);
+
+    /**
+     * 根据科室获取未来7天有排班的医生列表（患者端）
+     */
+    List<DoctorVO> getDoctorsWithScheduleByDepartment(Long departmentId);
+    /**
+     * 根据用户ID查询医生信息
+     * @param userId 用户ID
+     * @return 医生信息
+     */
+    Doctor selectByUserId(Long userId);
 }

@@ -93,5 +93,14 @@ public class RegistrationVO {
 
     // 更新时间
     private LocalDateTime updateTime;
+
+    // 细分时段编码
+    private String detailTimeSlot;
+
+    // 细分时段时间范围
+    private String detailTimeRange;
+
+    // 患者身份证号
+    private String patientIdCard;
 }
 

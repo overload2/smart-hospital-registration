@@ -29,10 +29,10 @@ public interface MedicalRecordService {
      * 修改病历
      * @param id 病历ID
      * @param medicalRecordDTO 病历信息
-     * @param doctorId 医生ID
+     * @param userId 用户ID
      * @return 病历VO
      */
-    MedicalRecordVO updateMedicalRecord(Long id, MedicalRecordDTO medicalRecordDTO, Long doctorId);
+    MedicalRecordVO updateMedicalRecord(Long id, MedicalRecordDTO medicalRecordDTO, Long userId);
 
     /**
      * 根据ID查询病历详情

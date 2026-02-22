@@ -103,4 +103,14 @@ public class MedicalRecordVO {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 既往史
+     */
+    private String pastHistory;
+
+    /**
+     * 过敏史
+     */
+    private String allergyHistory;
 }

@@ -2,6 +2,7 @@ package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.annotation.OperationLog;
+import com.hospital.registration.common.Constants;
 import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.MedicalRecordDTO;
@@ -46,7 +47,7 @@ public class MedicalRecordController {
     public Result createMedicalRecord(@Validated @RequestBody MedicalRecordDTO medicalRecordDTO,
                                       @RequestHeader("Authorization") String authHeader) {
         // 从 token 中获取医生ID
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long doctorId = jwtUtil.getUserIdFromToken(token);
         if (doctorId == null) {
             return Result.error("无效的token");
@@ -66,15 +67,15 @@ public class MedicalRecordController {
     public Result updateMedicalRecord(@PathVariable Long id,
                                       @Validated @RequestBody MedicalRecordDTO medicalRecordDTO,
                                       @RequestHeader("Authorization") String authHeader) {
-        // 从 token 中获取医生ID
-        String token = authHeader.replace("Bearer ", "");
-        Long doctorId = jwtUtil.getUserIdFromToken(token);
-        if (doctorId == null) {
+        // 从 token 中获取用户ID
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
+        Long userId = jwtUtil.getUserIdFromToken(token);
+        if (userId == null) {
             return Result.error("无效的token");
         }
 
-        log.info("修改病历 - ID: {}, 医生ID: {}", id, doctorId);
-        MedicalRecordVO medicalRecordVO = medicalRecordService.updateMedicalRecord(id, medicalRecordDTO, doctorId);
+        log.info("修改病历 - ID: {}, 用户ID: {}", id, userId);
+        MedicalRecordVO medicalRecordVO = medicalRecordService.updateMedicalRecord(id, medicalRecordDTO, userId);
         return Result.ok("病历修改成功").data("medicalRecord", medicalRecordVO);
     }
 
@@ -104,7 +105,7 @@ public class MedicalRecordController {
     @GetMapping("/my")
     public Result getMyMedicalRecords(@RequestHeader("Authorization") String authHeader) {
         // 从 token 中获取患者ID
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long patientId = jwtUtil.getUserIdFromToken(token);
         if (patientId == null) {
             return Result.error("无效的token");
@@ -121,7 +122,7 @@ public class MedicalRecordController {
     @GetMapping("/doctor")
     public Result getDoctorMedicalRecords(@RequestHeader("Authorization") String authHeader) {
         // 从 token 中获取医生ID
-        String token = authHeader.replace("Bearer ", "");
+        String token = authHeader.replace(Constants.Jwt.PREFIX, "");
         Long doctorId = jwtUtil.getUserIdFromToken(token);
         if (doctorId == null) {
             return Result.error("无效的token");

@@ -48,4 +48,9 @@ public interface MedicalRecordMapper extends BaseMapper<MedicalRecord> {
                                                   @Param("startDate") String startDate,
                                                   @Param("endDate") String endDate);
 
+    /**
+     * 统计就诊过的患者数量（去重）
+     */
+    Integer countDistinctPatients();
+
 }

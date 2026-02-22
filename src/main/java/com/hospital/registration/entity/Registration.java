@@ -87,4 +87,8 @@ public class Registration {
     @TableLogic
     @TableField(value = "deleted")
     private Integer deleted;
+
+    // 细分时段编码
+    @TableField("detail_time_slot")
+    private String detailTimeSlot;
 }

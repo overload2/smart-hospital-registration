@@ -59,7 +59,13 @@ spring:
           max-attempts: 3  # 最大重试次数
           initial-interval: 3000  # 初始重试间隔(3秒)
           multiplier: 2  # 重试间隔倍数
-
+  data:
+    redis:
+      host: 192.168.119.3
+      port: 6379
+      password: 123456
+      database: 0
+      timeout: 10000
 
   # JPA配置
 #  jpa:

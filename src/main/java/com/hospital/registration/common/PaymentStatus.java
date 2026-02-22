@@ -16,7 +16,9 @@ public enum PaymentStatus {
     PENDING(1, "PENDING", "待支付"),
     PAID(2, "PAID", "已支付"),
     REFUNDED(3, "REFUNDED", "已退款"),
-    REFUNDING(4, "REFUNDING", "退款中" );
+    REFUNDING(4, "REFUNDING", "退款中"),
+    REFUND_FAILED(5, "REFUND_FAILED", "退款失败"),
+    FAILED(6, "FAILED", "支付失败");
 
     private final Integer code;
 

@@ -2,6 +2,7 @@ package com.hospital.registration.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.common.BusinessException;
+import com.hospital.registration.common.DetailTimeSlot;
 import com.hospital.registration.common.ResultCode;
 import com.hospital.registration.dto.ScheduleDTO;
 import com.hospital.registration.entity.Department;
@@ -9,9 +10,11 @@ import com.hospital.registration.entity.Doctor;
 import com.hospital.registration.entity.Schedule;
 import com.hospital.registration.mapper.DepartmentMapper;
 import com.hospital.registration.mapper.DoctorMapper;
+import com.hospital.registration.mapper.RegistrationMapper;
 import com.hospital.registration.mapper.ScheduleMapper;
 import com.hospital.registration.service.ScheduleService;
 import com.hospital.registration.vo.ScheduleVO;
+import com.hospital.registration.vo.app.DetailTimeSlotVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @title: ScheduleServiceImpl
@@ -35,16 +40,19 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleMapper scheduleMapper;
     private final DoctorMapper doctorMapper;
     private final DepartmentMapper departmentMapper;
+    private final RegistrationMapper registrationMapper;
 
     /**
      * 构造器注入
      */
     public ScheduleServiceImpl(ScheduleMapper scheduleMapper,
                                DoctorMapper doctorMapper,
-                               DepartmentMapper departmentMapper) {
+                               DepartmentMapper departmentMapper,
+                               RegistrationMapper registrationMapper) {
         this.scheduleMapper = scheduleMapper;
         this.doctorMapper = doctorMapper;
         this.departmentMapper = departmentMapper;
+        this.registrationMapper = registrationMapper;
     }
 
     /**
@@ -388,6 +396,70 @@ public class ScheduleServiceImpl implements ScheduleService {
                 resultList.size(), scheduleDTOList.size() - resultList.size());
 
         return resultList;
+    }
+
+
+    /**
+     * 获取排班的细分时段列表（患者端）
+     */
+    @Override
+    public List<DetailTimeSlotVO> getDetailSlots(Long scheduleId, Long patientId) {
+        // 查询排班信息
+        ScheduleVO schedule = scheduleMapper.selectDetailById(scheduleId);
+        if (schedule == null) {
+            return new ArrayList<>();
+        }
+
+        // 获取该大时段对应的细分时段配置
+        List<DetailTimeSlot> slotConfigs = DetailTimeSlot.getSlotsByTimeSlot(schedule.getTimeSlot());
+
+        // 每个细分时段的容量
+        Integer slotCapacity = schedule.getSlotCapacity() != null ? schedule.getSlotCapacity() : 5;
+
+        // 查询各细分时段已预约数量
+        List<Map<String, Object>> bookedCounts = registrationMapper.countByScheduleAndDetailSlot(scheduleId);
+        Map<String, Integer> bookedMap = new HashMap<>();
+        for (Map<String, Object> item : bookedCounts) {
+            String slot = (String) item.get("detailTimeSlot");
+            Integer count = ((Number) item.get("count")).intValue();
+            bookedMap.put(slot, count);
+        }
+
+        // 查询用户已预约的细分时段
+        List<String> userBookedSlots = new ArrayList<>();
+        if (patientId != null) {
+            userBookedSlots = registrationMapper.selectBookedDetailSlots(patientId, scheduleId);
+        }
+
+        // 构建细分时段VO列表
+        List<DetailTimeSlotVO> result = new ArrayList<>();
+        for (DetailTimeSlot config : slotConfigs) {
+            DetailTimeSlotVO vo = new DetailTimeSlotVO();
+            vo.setSlotCode(config.getSlotCode());
+            vo.setTimeRange(config.getTimeRange());
+            vo.setPeriod(config.getPeriod());
+            vo.setCapacity(slotCapacity);
+
+            Integer booked = bookedMap.getOrDefault(config.getSlotCode(), 0);
+            vo.setBookedCount(booked);
+            vo.setRemainingCount(slotCapacity - booked);
+
+            // 判断是否可预约
+            if (userBookedSlots.contains(config.getSlotCode())) {
+                vo.setAvailable(false);
+                vo.setUnavailableReason("BOOKED");
+            } else if (vo.getRemainingCount() <= 0) {
+                vo.setAvailable(false);
+                vo.setUnavailableReason("FULL");
+            } else {
+                vo.setAvailable(true);
+                vo.setUnavailableReason(null);
+            }
+
+            result.add(vo);
+        }
+
+        return result;
     }
 
     /**

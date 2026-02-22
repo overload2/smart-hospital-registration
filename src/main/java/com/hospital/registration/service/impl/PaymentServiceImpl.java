@@ -1,10 +1,12 @@
 package com.hospital.registration.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.PaymentStatus;
 import com.hospital.registration.common.ResultCode;
 import com.hospital.registration.config.RabbitMQConfig;
 import com.hospital.registration.dto.PaymentDTO;
+import com.hospital.registration.dto.PaymentQueryDTO;
 import com.hospital.registration.dto.RefundMessage;
 import com.hospital.registration.entity.Payment;
 import com.hospital.registration.entity.Registration;
@@ -247,6 +249,58 @@ public class PaymentServiceImpl implements PaymentService {
                     registrationNo, e.getMessage(), e);
         }
     }
+
+    /**
+     * 分页查询支付记录
+     */
+    @Override
+    public Page<PaymentVO> getPaymentPage(PaymentQueryDTO queryDTO) {
+        log.info("分页查询支付记录");
+        Page<PaymentVO> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
+        return paymentMapper.selectPageWithDetails(page,
+                queryDTO.getTransactionNo(),
+                queryDTO.getRegistrationNo(),
+                queryDTO.getPaymentStatus(),
+                queryDTO.getPaymentMethod(),
+                queryDTO.getStartDate(),
+                queryDTO.getEndDate());
+    }
+    /**
+     * 手动退款
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void manualRefund(Long id, String remark) {
+        log.info("手动退款 - 支付ID: {}", id);
+
+        Payment payment = paymentMapper.selectById(id);
+        if (payment == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "支付记录不存在");
+        }
+
+        if (payment.getPaymentStatus() != PaymentStatus.PAID
+                && payment.getPaymentStatus() != PaymentStatus.REFUNDING
+                && payment.getPaymentStatus() != PaymentStatus.REFUND_FAILED) {
+            throw new BusinessException(ResultCode.FAIL.getCode(), "当前状态不允许退款");
+        }
+
+        // 更新支付状态为已退款
+        Payment updatePayment = new Payment();
+        updatePayment.setId(id);
+        updatePayment.setPaymentStatus(PaymentStatus.REFUNDED);
+        updatePayment.setRefundTime(LocalDateTime.now());
+        updatePayment.setRemark(remark);
+        paymentMapper.updateById(updatePayment);
+
+        // 同步更新挂号表的支付状态
+        Registration updateRegistration = new Registration();
+        updateRegistration.setId(payment.getRegistrationId());
+        updateRegistration.setPaymentStatus(PaymentStatus.REFUNDED);
+        registrationMapper.updateById(updateRegistration);
+
+        log.info("手动退款成功 - 支付ID: {}", id);
+    }
+
     /**
      * 生成交易流水号
      * 格式: PAY + yyyyMMddHHmmss + 4位随机数

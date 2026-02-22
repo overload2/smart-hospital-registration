@@ -60,5 +60,10 @@ public class UserVO {
     // 角色列表（用户可能有多个角色）
     private List<String> roleNames;
 
-    // 注意：没有password字段！保护用户隐私
+    // 角色编码列表
+    private List<String> roleCodes;
+
+    // 权限编码列表
+    private List<String> permissions;
+
 }

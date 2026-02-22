@@ -56,7 +56,7 @@ public class AiConsultationServiceImpl implements AiConsultationService {
     private static final String GUIDE_SYSTEM_PROMPT = """
               你是一个专业的医院智能导诊助手。你的任务是根据患者描述的症状，推荐合适的科室。
 
-              医院现有科室：内科、外科、妇产科、儿科、眼科、耳鼻喉科、口腔科、皮肤科、骨科、神经内科、心血管内科、消化内科、呼吸内科。
+              医院现有科室： %s
 
               请根据患者的症状描述：
               1. 简要分析可能的健康问题
@@ -236,7 +236,17 @@ public class AiConsultationServiceImpl implements AiConsultationService {
         // 添加系统提示词
         Map<String, String> systemMessage = new HashMap<>();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "GUIDE".equals(session.getSessionType()) ? GUIDE_SYSTEM_PROMPT : CONSULT_SYSTEM_PROMPT);
+
+        // 根据会话类型选择提示词
+        String systemPrompt;
+        if ("GUIDE".equals(session.getSessionType())) {
+            // 智能导诊：动态获取科室列表
+            String departmentNames = getActiveDepartmentNames();
+            systemPrompt = String.format(GUIDE_SYSTEM_PROMPT, departmentNames);
+        } else {
+            systemPrompt = CONSULT_SYSTEM_PROMPT;
+        }
+        systemMessage.put("content", systemPrompt);
         messages.add(systemMessage);
 
         // 添加历史消息（最近10条）
@@ -269,5 +279,22 @@ public class AiConsultationServiceImpl implements AiConsultationService {
             return matcher.group(1).trim();
         }
         return null;
+    }
+    /**
+     * 获取所有启用科室的名称列表
+     */
+    private String getActiveDepartmentNames() {
+        List<Department> departments = departmentMapper.selectActiveList();
+        if (departments == null || departments.isEmpty()) {
+            return "内科、外科、妇产科、儿科、眼科、耳鼻喉科、口腔科、皮肤科、骨科";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < departments.size(); i++) {
+            sb.append(departments.get(i).getName());
+            if (i < departments.size() - 1) {
+                sb.append("、");
+            }
+        }
+        return sb.toString();
     }
 }

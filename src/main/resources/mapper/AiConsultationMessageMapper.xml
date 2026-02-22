@@ -27,10 +27,9 @@
     <select id="selectBySessionId" resultMap="VOResultMap">
         SELECT m.id, m.role, m.content, m.recommended_department_id, m.recommended_doctor_id, m.create_time,
                d.name AS recommended_department_name,
-               doc.name AS recommended_doctor_name
+               NULL AS recommended_doctor_name
         FROM ai_consultation_message m
                  LEFT JOIN department d ON m.recommended_department_id = d.id
-                 LEFT JOIN doctor doc ON m.recommended_doctor_id = doc.id
         WHERE m.session_id = #{sessionId}
         ORDER BY m.create_time ASC
     </select>

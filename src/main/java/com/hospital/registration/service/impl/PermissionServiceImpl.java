@@ -411,7 +411,7 @@ public class PermissionServiceImpl implements PermissionService {
     public boolean isSuperAdmin(Long userId) {
         // 查询用户的角色编码，判断是否包含 ADMIN
         List<String> roleCodes = userRoleMapper.selectRoleCodesByUserId(userId);
-        return roleCodes.contains("ADMIN");
+        return roleCodes.contains("ADMIN")|| roleCodes.contains("SUPER_ADMIN");
     }
 
     /**

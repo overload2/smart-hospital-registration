@@ -98,13 +98,7 @@ public interface MessageService {
                                           Long userId, String messageType, String channel,
                                           Integer sendStatus, Integer readStatus);
 
-    /**
-     * 发送系统公告
-     *
-     * @param title   标题
-     * @param content 内容
-     */
-    void sendSystemAnnouncement(String title, String content);
+
 
     /**
      * 重发失败消息
@@ -126,6 +120,15 @@ public interface MessageService {
      * @param ids 消息ID列表
      */
     void batchDeleteMessage(List<Long> ids);
+
+    /**
+     * 发送叫号通知
+     *
+     * @param registration   挂号记录
+     * @param departmentName 科室名称
+     * @param doctorName     医生姓名
+     */
+    void sendQueueCallNotice(Registration registration, String departmentName, String doctorName);
 
 
 }

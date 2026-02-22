@@ -46,6 +46,9 @@ public class PaymentVO {
      */
     private String patientName;
 
+    // 患者手机号
+    private String patientPhone;
+
     /**
      * 支付金额
      */

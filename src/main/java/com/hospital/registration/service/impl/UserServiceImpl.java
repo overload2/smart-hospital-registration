@@ -5,11 +5,15 @@ import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.Gender;
 import com.hospital.registration.common.ResultCode;
 import com.hospital.registration.dto.*;
+import com.hospital.registration.dto.app.AppLoginDTO;
+import com.hospital.registration.dto.app.AppRegisterDTO;
 import com.hospital.registration.entity.Role;
 import com.hospital.registration.entity.User;
 import com.hospital.registration.entity.UserRole;
 import com.hospital.registration.mapper.UserMapper;
 import com.hospital.registration.mapper.UserRoleMapper;
+import com.hospital.registration.service.PermissionService;
+import com.hospital.registration.service.TokenService;
 import com.hospital.registration.service.UserService;
 import com.hospital.registration.utils.JwtUtil;
 import com.hospital.registration.utils.PasswordUtil;
@@ -39,6 +43,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordUtil passwordUtil;
     private final JwtUtil jwtUtil;
     private final UserRoleMapper userRoleMapper;
+    private final TokenService tokenService;
+    private final PermissionService permissionService;
 
     /**
      * 构造器注入
@@ -46,11 +52,15 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserMapper userMapper,
                            PasswordUtil passwordUtil,
                            JwtUtil jwtUtil,
-                           UserRoleMapper userRoleMapper) {
+                           UserRoleMapper userRoleMapper,
+                           TokenService tokenService,
+                           PermissionService permissionService) {
         this.userMapper = userMapper;
         this.passwordUtil = passwordUtil;
         this.jwtUtil = jwtUtil;
         this.userRoleMapper = userRoleMapper;
+        this.tokenService = tokenService;
+        this.permissionService = permissionService;
     }
 
     /**
@@ -133,12 +143,20 @@ public class UserServiceImpl implements UserService {
         // 4. 生成Token
         String token = jwtUtil.generateToken(user.getId(), user.getUsername());
 
+        // 5. 缓存Token
+        tokenService.saveToken(user.getId(), token, true);
         log.info("用户登录成功 - ID: {}, 用户名: {}", user.getId(), user.getUsername());
 
-        // 5. 返回Token和用户信息
+        // 6. 返回Token和用户信息
         Map<String, Object> result = new HashMap<>();
         result.put("token", token);
-        result.put("user", convertToVO(user));
+        // 获取用户角色和权限
+        UserVO userVO = convertToVO(user);
+        List<String> roleCodes = userRoleMapper.selectRoleCodesByUserId(user.getId());
+        List<String> permissions = permissionService.getUserPermissionCodes(user.getId());
+        userVO.setRoleCodes(roleCodes);
+        userVO.setPermissions(permissions);
+        result.put("user", userVO);
 
         return result;
     }
@@ -467,5 +485,119 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordUtil.encode(changePasswordDTO.getNewPassword());
         userMapper.updatePassword(userId, encodedPassword);
         log.info("修改密码成功 - userId: {}", userId);
+    }
+
+    /**
+     * 患者端登录（手机号+密码）
+     */
+    @Override
+    public Map<String, Object> appLogin(AppLoginDTO loginDTO) {
+        log.info("患者端登录 - 手机号: {}", loginDTO.getPhone());
+
+        // 1. 根据手机号查询用户
+        User user = userMapper.selectByPhone(loginDTO.getPhone());
+        if (user == null) {
+            throw new BusinessException(ResultCode.USER_NOT_EXIST.getCode(), "该手机号未注册");
+        }
+
+        // 2. 验证密码
+        boolean isPasswordCorrect = passwordUtil.matches(loginDTO.getPassword(), user.getPassword());
+        if (!isPasswordCorrect) {
+            throw new BusinessException(ResultCode.PASSWORD_ERROR);
+        }
+
+        // 3. 检查账号状态
+        if (user.getStatus() == 0) {
+            throw new BusinessException(ResultCode.FORBIDDEN.getCode(), "账号已被禁用");
+        }
+
+        // 4. 生成Token
+        String token = jwtUtil.generateToken(user.getId(), user.getUsername());
+
+        // 5. 缓存Token
+        tokenService.saveToken(user.getId(), token, false);
+        log.info("患者端登录成功 - ID: {}, 手机号: {}", user.getId(), loginDTO.getPhone());
+
+        // 6. 返回Token和用户信息
+        Map<String, Object> result = new HashMap<>();
+        result.put("token", token);
+        result.put("user", convertToVO(user));
+
+        return result;
+    }
+
+    /**
+     * 患者端注册
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public UserVO appRegister(AppRegisterDTO registerDTO) {
+        log.info("患者端注册 - 手机号: {}", registerDTO.getPhone());
+
+        // 1. 检查手机号是否已注册
+        User existUser = userMapper.selectByPhone(registerDTO.getPhone());
+        if (existUser != null) {
+            throw new BusinessException(ResultCode.USER_ALREADY_EXIST.getCode(), "该手机号已注册");
+        }
+
+        // 2. 创建用户实体
+        User user = new User();
+        user.setPhone(registerDTO.getPhone());
+        user.setUsername(registerDTO.getPhone());  // 用手机号作为用户名
+        user.setRealName(registerDTO.getRealName());
+        user.setIdCard(registerDTO.getIdCard());
+
+        // 3. 设置性别
+        if (registerDTO.getGender() != null && !registerDTO.getGender().isEmpty()) {
+            user.setGender(Gender.valueOf(registerDTO.getGender()));
+        } else {
+            user.setGender(Gender.MALE);  // 默认男
+        }
+
+        // 4. 加密密码
+        String encodedPassword = passwordUtil.encode(registerDTO.getPassword());
+        user.setPassword(encodedPassword);
+
+        // 5. 设置默认值
+        user.setStatus(1);  // 默认启用
+        user.setRole(com.hospital.registration.common.UserRole.PATIENT);  // 患者角色
+
+        // 6. 保存到数据库
+        userMapper.insert(user);
+
+        // 7. 分配患者角色（角色ID=4）
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(4L);
+        userRoleMapper.insert(userRole);
+
+        log.info("患者端注册成功 - ID: {}, 手机号: {}", user.getId(), registerDTO.getPhone());
+
+        // 8. 转换为VO返回
+        return convertToVO(user);
+    }
+
+    /**
+     * 更新用户基本信息（患者端）
+     */
+    @Override
+    public void updateUserInfo(Long userId, String realName, String gender, String idCard) {
+        log.info("更新用户基本信息 - 用户ID: {}", userId);
+
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "用户不存在");
+        }
+
+        User updateUser = new User();
+        updateUser.setId(userId);
+        updateUser.setRealName(realName);
+        if (gender != null && !gender.isEmpty()) {
+            updateUser.setGender(Gender.valueOf(gender));
+        }
+        updateUser.setIdCard(idCard);
+
+        userMapper.updateById(updateUser);
+        log.info("用户信息更新成功 - 用户ID: {}", userId);
     }
 }

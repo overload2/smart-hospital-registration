@@ -23,6 +23,9 @@ public class MessageRecord {
     // 接收用户ID
     @TableField("user_id")
     private Long userId;
+    // 消息模板ID
+    @TableField("template_id")
+    private Long templateId;
 
     // 消息类型
     @TableField("message_type")

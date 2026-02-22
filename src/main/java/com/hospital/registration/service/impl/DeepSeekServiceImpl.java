@@ -2,6 +2,7 @@ package com.hospital.registration.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hospital.registration.common.Constants;
 import com.hospital.registration.config.DeepSeekConfig;
 import com.hospital.registration.service.DeepSeekService;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,7 @@ public class DeepSeekServiceImpl implements DeepSeekService {
             // 发送请求
             Request request = new Request.Builder()
                     .url(deepSeekConfig.getBaseUrl() + "/chat/completions")
-                    .addHeader("Authorization", "Bearer " + deepSeekConfig.getApiKey())
+                    .addHeader("Authorization", Constants.Jwt.PREFIX + deepSeekConfig.getApiKey())
                     .addHeader("Content-Type", "application/json")
                     .post(RequestBody.create(jsonBody, MediaType.parse("application/json")))
                     .build();

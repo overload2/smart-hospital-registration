@@ -7,6 +7,7 @@ import com.hospital.registration.vo.DoctorVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -86,4 +87,16 @@ public interface DoctorMapper extends BaseMapper<Doctor> {
      * @return 影响行数
      */
     int batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status);
+
+    /**
+     * 查询科室下未来指定日期范围内有排班的医生
+     */
+    List<DoctorVO> selectDoctorsWithSchedule(@Param("departmentId") Long departmentId,
+                                             @Param("startDate") LocalDate startDate,
+                                             @Param("endDate") LocalDate endDate);
+
+    /**
+     * 统计医生数量
+     */
+    Integer countDoctors();
 }

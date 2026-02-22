@@ -46,5 +46,15 @@ public class MedicalRecordDTO {
      * 医嘱
      */
     private String advice;
+
+    /**
+     * 既往史
+     */
+    private String pastHistory;
+
+    /**
+     * 过敏史
+     */
+    private String allergyHistory;
 }
 
