@@ -148,4 +148,94 @@
         where username = #{username}
     </select>
 
+    <!-- 根据角色编码查询用户列表 -->
+    <select id="selectUsersByRoleCode" resultType="com.hospital.registration.vo.UserVO">
+        SELECT
+            u.id,
+            u.username,
+            u.real_name AS realName,
+            u.phone,
+            u.status,
+            u.create_time AS createTime
+        FROM user u
+                 INNER JOIN user_role ur ON u.id = ur.user_id
+                 INNER JOIN role r ON ur.role_id = r.id
+        WHERE r.role_code = #{roleCode}
+          AND u.deleted = 0
+          AND r.deleted = 0
+        ORDER BY u.create_time DESC
+    </select>
+
+    <!-- 查询所有启用的用户 -->
+    <select id="selectActiveUsers" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM user
+        WHERE status = 1 AND deleted = 0
+    </select>
+
+    <!-- 用户VO结果映射 -->
+    <resultMap id="UserVOResultMap" type="com.hospital.registration.vo.UserVO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="real_name" property="realName"/>
+        <result column="id_card" property="idCard"/>
+        <result column="phone" property="phone"/>
+        <result column="gender" property="gender"/>
+        <result column="birth_date" property="birthDate"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 分页条件查询用户 -->
+    <select id="selectPageByCondition" resultMap="UserVOResultMap">
+        SELECT id, username, real_name, id_card, phone, gender, birth_date, email, status, create_time
+        FROM user
+        <where>
+            deleted = 0
+            <if test="username != null and username != ''">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="realName != null and realName != ''">
+                AND real_name LIKE CONCAT('%', #{realName}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%', #{phone}, '%')
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据ID查询用户详情 -->
+    <select id="selectUserDetailById" resultMap="UserVOResultMap">
+        SELECT id, username, real_name, id_card, phone, gender, birth_date, email, status, create_time
+        FROM user
+        WHERE id = #{id} AND deleted = 0
+    </select>
+
+    <!-- 批量更新用户状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE user
+        SET status = #{status}, update_time = NOW()
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND deleted = 0
+    </update>
+
+    <!-- 重置密码 -->
+    <update id="updatePassword">
+        UPDATE user
+        SET password = #{password}, update_time = NOW()
+        WHERE id = #{id} AND deleted = 0
+    </update>
+
+    <!-- 根据手机号查询用户 -->
+    <select id="selectByPhone" resultType="com.hospital.registration.entity.User">
+        SELECT * FROM user WHERE phone = #{phone} AND deleted = 0
+    </select>
 </mapper>

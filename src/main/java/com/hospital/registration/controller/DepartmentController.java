@@ -1,6 +1,8 @@
 package com.hospital.registration.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hospital.registration.annotation.OperationLog;
+import com.hospital.registration.common.RequirePermission;
 import com.hospital.registration.common.Result;
 import com.hospital.registration.dto.DepartmentDTO;
 import com.hospital.registration.service.DepartmentService;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @title: DepartmentController
@@ -33,6 +36,8 @@ public class DepartmentController {
      * 新增科室
      */
     @PostMapping("/add")
+    @RequirePermission("department:add")
+    @OperationLog(module = "科室管理", operation = "ADD")
     public Result addDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentVO departmentVO = departmentService.addDepartment(departmentDTO);
         return Result.ok("科室新增成功").data("department", departmentVO);
@@ -42,6 +47,8 @@ public class DepartmentController {
      * 更新科室信息
      */
     @PostMapping("/{id}")
+    @RequirePermission("department:edit")
+    @OperationLog(module = "科室管理", operation = "UPDATE")
     public Result updateDepartment(@PathVariable Long id,
                                    @Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentVO departmentVO = departmentService.updateDepartment(id, departmentDTO);
@@ -52,6 +59,8 @@ public class DepartmentController {
      * 删除科室
      */
     @PostMapping("/delete/{id}")
+    @RequirePermission("department:delete")
+    @OperationLog(module = "科室管理", operation = "DELETE")
     public Result deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
         return Result.ok("科室删除成功");
@@ -91,10 +100,29 @@ public class DepartmentController {
      * 更新科室状态
      */
     @PostMapping("/{id}/status")
+    @OperationLog(module = "科室管理", operation = "UPDATE")
     public Result updateDepartmentStatus(@PathVariable Long id,
                                          @RequestParam Integer status) {
         departmentService.updateDepartmentStatus(id, status);
         return Result.ok("科室状态更新成功");
+    }
+
+    /**
+     * 批量更新科室状态
+     */
+    @PostMapping("/batch-status")
+    @RequirePermission("department:edit")
+    @OperationLog(module = "科室管理", operation = "UPDATE")
+    public Result batchUpdateStatus(@RequestBody Map<String, Object> params) {
+        List<Integer> idList = (List<Integer>) params.get("ids");
+        Integer status = (Integer) params.get("status");
+
+        log.info("批量更新科室状态 - ids: {}, status: {}", idList, status);
+
+        List<Long> ids = idList.stream().map(Integer::longValue).toList();
+        departmentService.batchUpdateStatus(ids, status);
+
+        return Result.ok("批量更新状态成功");
     }
 }
 

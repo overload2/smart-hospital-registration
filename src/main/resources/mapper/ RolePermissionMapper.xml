@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.RolePermissionMapper">
+
+    <!-- 根据角色ID查询权限ID列表 -->
+    <select id="selectPermissionIdsByRoleId" resultType="java.lang.Long">
+        SELECT permission_id FROM role_permission WHERE role_id = #{roleId}
+    </select>
+
+    <!-- 根据角色ID删除角色权限关联 -->
+    <delete id="deleteByRoleId">
+        DELETE FROM role_permission WHERE role_id = #{roleId}
+    </delete>
+
+</mapper>

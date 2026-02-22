@@ -146,4 +146,24 @@
             update_time =  #{updateTime}
         where   id = #{id} 
     </update>
+
+    <!-- 根据科室名称查询 -->
+    <select id="selectByName" resultMap="BaseResultMap">
+        SELECT * FROM department
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+          AND status = 1
+        ORDER BY CHAR_LENGTH(name) ASC
+            LIMIT 1
+    </select>
+
+    <!-- 批量更新科室状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE department
+        SET status = #{status}, update_time = NOW()
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND deleted = 0
+    </update>
 </mapper>

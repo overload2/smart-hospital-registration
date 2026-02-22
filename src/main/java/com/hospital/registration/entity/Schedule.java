@@ -61,4 +61,8 @@ public class Schedule {
     @TableLogic
     @TableField(value = "deleted")
     private Integer deleted;
+
+    // 每个细分时段号源数
+    @TableField("slot_capacity")
+    private Integer slotCapacity = 5;
 }

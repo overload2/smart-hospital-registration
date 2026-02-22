@@ -1,0 +1,1 @@
+ALTER TABLE message_record ADD COLUMN template_id BIGINT COMMENT '消息模板ID' AFTER id;

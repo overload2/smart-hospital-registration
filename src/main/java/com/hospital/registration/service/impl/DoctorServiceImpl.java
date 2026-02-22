@@ -3,6 +3,7 @@ package com.hospital.registration.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.common.BusinessException;
 import com.hospital.registration.common.ResultCode;
+import com.hospital.registration.common.UserRole;
 import com.hospital.registration.dto.DoctorDTO;
 import com.hospital.registration.entity.Department;
 import com.hospital.registration.entity.Doctor;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -87,6 +89,9 @@ public class DoctorServiceImpl implements DoctorService {
             log.error("医生新增失败 - 用户ID: {}", doctorDTO.getUserId());
             throw new BusinessException(ResultCode.FAIL.getCode(), "医生新增失败");
         }
+        // 更新用户的角色为医生
+        user.setRole(UserRole.DOCTOR);
+        userMapper.updateById(user);
 
         log.info("医生新增成功 - ID: {}, 用户姓名: {}", doctor.getId(), user.getRealName());
 
@@ -279,4 +284,42 @@ public class DoctorServiceImpl implements DoctorService {
 
         log.info("医生状态更新成功 - ID: {}, 新状态: {}", id, status);
     }
+
+    /**
+     * 批量更新医生状态
+     */
+    @Override
+    public void batchUpdateStatus(List<Long> ids, Integer status) {
+        log.info("批量更新医生状态 - ids: {}, status: {}", ids, status);
+        doctorMapper.batchUpdateStatus(ids, status);
+    }
+
+    /**
+     * 根据科室获取未来7天有排班的医生列表（患者端）
+     */
+    @Override
+    public List<DoctorVO> getDoctorsWithScheduleByDepartment(Long departmentId) {
+        log.info("获取科室下有排班的医生列表 - 科室ID: {}", departmentId);
+
+        // 检查科室是否存在
+        Department department = departmentMapper.selectById(departmentId);
+        if (department == null) {
+            log.warn("科室不存在 - 科室ID: {}", departmentId);
+            throw new BusinessException(ResultCode.NOT_FOUND.getCode(), "科室不存在");
+        }
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(7);
+
+        List<DoctorVO> doctors = doctorMapper.selectDoctorsWithSchedule(departmentId, startDate, endDate);
+        log.info("查询到 {} 个有排班的医生", doctors.size());
+        return doctors;
+    }
+
+    @Override
+    public Doctor selectByUserId(Long userId) {
+        return doctorMapper.selectByUserId(userId);
+    }
+
+
 }

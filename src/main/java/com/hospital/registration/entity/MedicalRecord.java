@@ -32,6 +32,14 @@ public class MedicalRecord {
     @TableField("doctor_id")
     private Long doctorId;
 
+    // 主诉（新增）
+    @TableField("chief_complaint")
+    private String chiefComplaint;
+
+    // 现病史（新增）
+    @TableField("present_illness")
+    private String presentIllness;
+
     // 诊断结果
     private String diagnosis;
 
@@ -57,4 +65,12 @@ public class MedicalRecord {
     @TableLogic
     @TableField(value = "deleted")
     private Integer deleted;
+
+    // 既往史
+    @TableField("past_history")
+    private String pastHistory;
+
+    // 过敏史
+    @TableField("allergy_history")
+    private String allergyHistory;
 }

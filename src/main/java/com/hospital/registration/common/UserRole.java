@@ -13,9 +13,11 @@ import lombok.Getter;
  */
 @Getter
 public enum UserRole {
-    PATIENT(1, "PATIENT", "患者"),
-    DOCTOR(2, "DOCTOR", "医生"),
-    ADMIN(3, "ADMIN", "管理员");
+    USER(5, "USER", "普通用户"),
+    PATIENT(4, "PATIENT", "患者"),
+    DOCTOR(3, "DOCTOR", "医生"),
+    ADMIN(2, "ADMIN", "管理员"),
+    SUPER_ADMIN(1, "SUPER_ADMIN", "超级管理员");
 
     private final Integer code;
 
@@ -24,6 +26,7 @@ public enum UserRole {
     private final String dbValue;
 
     private final String name;
+
 
     UserRole(Integer code, String dbValue, String name) {
         this.code = code;

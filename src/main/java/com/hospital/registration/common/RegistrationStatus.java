@@ -14,9 +14,11 @@ import lombok.Getter;
 @Getter
 public enum RegistrationStatus {
     PENDING(1, "PENDING", "待就诊"),
-    CONSULTING(2, "CONSULTING", "就诊中"),
-    COMPLETED(3, "COMPLETED", "已完成"),
-    CANCELLED(4, "CANCELLED", "已取消");
+    CALLED(2, "CALLED", "已叫号"),
+    CONSULTING(3, "CONSULTING", "就诊中"),
+    COMPLETED(4, "COMPLETED", "已完成"),
+    CANCELLED(5, "CANCELLED", "已取消"),
+    MISSED(6, "MISSED", "已过号");
 
     private final Integer code;
 

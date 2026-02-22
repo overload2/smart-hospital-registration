@@ -1,8 +1,13 @@
 package com.hospital.registration.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital.registration.entity.MedicalRecord;
+import com.hospital.registration.vo.MedicalRecordVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author suzd
@@ -13,16 +18,39 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MedicalRecordMapper extends BaseMapper<MedicalRecord> {
 
-    int deleteByPrimaryKey(Long id);
+    /**
+     * 根据挂号ID查询病历
+     */
+    MedicalRecord selectByRegistrationId(@Param("registrationId") Long registrationId);
 
-    int insert(MedicalRecord record);
+    /**
+     * 查询病历详情（包含关联信息）
+     */
+    MedicalRecordVO selectDetailById(@Param("id") Long id);
 
-    int insertSelective(MedicalRecord record);
+    /**
+     * 查询患者的病历列表
+     */
+    List<MedicalRecordVO> selectByPatientId(@Param("patientId") Long patientId);
 
-    MedicalRecord selectByPrimaryKey(Long id);
+    /**
+     * 查询医生的病历列表
+     */
+    List<MedicalRecordVO> selectByDoctorId(@Param("doctorId") Long doctorId);
 
-    int updateByPrimaryKeySelective(MedicalRecord record);
+    /**
+     * 分页查询医生历史病历
+     */
+    Page<MedicalRecordVO> selectDoctorHistoryPage(Page<MedicalRecordVO> page,
+                                                  @Param("doctorId") Long doctorId,
+                                                  @Param("patientName") String patientName,
+                                                  @Param("diagnosis") String diagnosis,
+                                                  @Param("startDate") String startDate,
+                                                  @Param("endDate") String endDate);
 
-    int updateByPrimaryKey(MedicalRecord record);
+    /**
+     * 统计就诊过的患者数量（去重）
+     */
+    Integer countDistinctPatients();
 
 }

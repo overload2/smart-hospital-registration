@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.MessageRecordMapper">
+
+    <!-- 消息记录VO结果映射 -->
+    <resultMap id="MessageRecordVOResultMap" type="com.hospital.registration.vo.MessageRecordVO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="message_type" property="messageType"/>
+        <result column="channel" property="channel"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="send_status" property="sendStatus"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="read_status" property="readStatus"/>
+        <result column="read_time" property="readTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 分页查询用户消息列表 -->
+    <select id="selectPageByUserId" resultMap="MessageRecordVOResultMap">
+        SELECT id, user_id, message_type, channel, title, content,
+               send_status, send_time, read_status, read_time, create_time
+        FROM message_record
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 统计用户未读消息数量 -->
+    <select id="countUnread" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM message_record
+        WHERE user_id = #{userId}
+          AND read_status = 0
+          AND send_status = 1
+    </select>
+
+    <!-- 分页查询消息记录（管理端） -->
+    <select id="selectMessagePage" resultType="com.hospital.registration.vo.MessageRecordVO">
+        SELECT mr.*, u.real_name AS userName, u.phone AS userPhone
+        FROM message_record mr
+        LEFT JOIN user u ON mr.user_id = u.id
+        <where>
+            <if test="userId != null">
+                AND mr.user_id = #{userId}
+            </if>
+            <if test="messageType != null and messageType != ''">
+                AND mr.message_type = #{messageType}
+            </if>
+            <if test="channel != null and channel != ''">
+                AND mr.channel = #{channel}
+            </if>
+            <if test="sendStatus != null">
+                AND mr.send_status = #{sendStatus}
+            </if>
+            <if test="readStatus != null">
+                AND mr.read_status = #{readStatus}
+            </if>
+        </where>
+        ORDER BY mr.create_time DESC
+    </select>
+
+    <!-- 批量删除消息记录 -->
+    <delete id="batchDelete">
+        DELETE FROM message_record
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,134 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.registration.mapper.PaymentMapper">
 
+    <!-- 结果映射 -->
     <resultMap id="BaseResultMap" type="com.hospital.registration.entity.Payment">
-            <id property="id" column="id" />
-            <result property="transactionNo" column="transaction_no" />
-            <result property="registrationId" column="registration_id" />
-            <result property="userId" column="user_id" />
-            <result property="amount" column="amount" />
-            <result property="paymentMethod" column="payment_method" />
-            <result property="paymentStatus" column="payment_status" />
-            <result property="paymentTime" column="payment_time" />
-            <result property="refundTime" column="refund_time" />
-            <result property="remark" column="remark" />
-            <result property="createTime" column="create_time" />
-            <result property="updateTime" column="update_time" />
+        <id column="id" property="id"/>
+        <result column="transaction_no" property="transactionNo"/>
+        <result column="registration_id" property="registrationId"/>
+        <result column="user_id" property="userId"/>
+        <result column="amount" property="amount"/>
+        <result column="payment_method" property="paymentMethod"/>
+        <result column="payment_status" property="paymentStatus"/>
+        <result column="payment_time" property="paymentTime"/>
+        <result column="refund_time" property="refundTime"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,transaction_no,registration_id,user_id,amount,payment_method,
-        payment_status,payment_time,refund_time,remark,create_time,
-        update_time
-    </sql>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from payment
-        where  id = #{id} 
+    <!-- 根据挂号ID查询支付记录 -->
+    <select id="selectByRegistrationId" resultMap="BaseResultMap">
+        SELECT *
+        FROM payment
+        WHERE registration_id = #{registrationId}
+          AND deleted = 0
+        LIMIT 1
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from payment
-        where  id = #{id} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Payment" useGeneratedKeys="true">
-        insert into payment
-        ( id,transaction_no,registration_id,user_id,amount,payment_method,
-        payment_status,payment_time,refund_time,remark,create_time,
-        update_time)
-        values (#{id},#{transactionNo},#{registrationId},#{userId},#{amount},#{paymentMethod},
-        #{paymentStatus},#{paymentTime},#{refundTime},#{remark},#{createTime},
-        #{updateTime})
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hospital.registration.entity.Payment" useGeneratedKeys="true">
-        insert into payment
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="transactionNo != null">transaction_no,</if>
-                <if test="registrationId != null">registration_id,</if>
-                <if test="userId != null">user_id,</if>
-                <if test="amount != null">amount,</if>
-                <if test="paymentMethod != null">payment_method,</if>
-                <if test="paymentStatus != null">payment_status,</if>
-                <if test="paymentTime != null">payment_time,</if>
-                <if test="refundTime != null">refund_time,</if>
-                <if test="remark != null">remark,</if>
-                <if test="createTime != null">create_time,</if>
-                <if test="updateTime != null">update_time,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id},</if>
-                <if test="transactionNo != null">#{transactionNo},</if>
-                <if test="registrationId != null">#{registrationId},</if>
-                <if test="userId != null">#{userId},</if>
-                <if test="amount != null">#{amount},</if>
-                <if test="paymentMethod != null">#{paymentMethod},</if>
-                <if test="paymentStatus != null">#{paymentStatus},</if>
-                <if test="paymentTime != null">#{paymentTime},</if>
-                <if test="refundTime != null">#{refundTime},</if>
-                <if test="remark != null">#{remark},</if>
-                <if test="createTime != null">#{createTime},</if>
-                <if test="updateTime != null">#{updateTime},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.hospital.registration.entity.Payment">
-        update payment
-        <set>
-                <if test="transactionNo != null">
-                    transaction_no = #{transactionNo},
-                </if>
-                <if test="registrationId != null">
-                    registration_id = #{registrationId},
-                </if>
-                <if test="userId != null">
-                    user_id = #{userId},
-                </if>
-                <if test="amount != null">
-                    amount = #{amount},
-                </if>
-                <if test="paymentMethod != null">
-                    payment_method = #{paymentMethod},
-                </if>
-                <if test="paymentStatus != null">
-                    payment_status = #{paymentStatus},
-                </if>
-                <if test="paymentTime != null">
-                    payment_time = #{paymentTime},
-                </if>
-                <if test="refundTime != null">
-                    refund_time = #{refundTime},
-                </if>
-                <if test="remark != null">
-                    remark = #{remark},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime},
-                </if>
-        </set>
-        where   id = #{id} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.hospital.registration.entity.Payment">
-        update payment
-        set 
-            transaction_no =  #{transactionNo},
-            registration_id =  #{registrationId},
-            user_id =  #{userId},
-            amount =  #{amount},
-            payment_method =  #{paymentMethod},
-            payment_status =  #{paymentStatus},
-            payment_time =  #{paymentTime},
-            refund_time =  #{refundTime},
-            remark =  #{remark},
-            create_time =  #{createTime},
-            update_time =  #{updateTime}
-        where   id = #{id} 
-    </update>
+    <!-- 根据交易流水号查询支付记录 -->
+    <select id="selectByTransactionNo" resultMap="BaseResultMap">
+        SELECT *
+        FROM payment
+        WHERE transaction_no = #{transactionNo}
+          AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 查询用户的支付记录 -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT *
+        FROM payment
+        WHERE user_id = #{userId}
+          AND deleted = 0
+        ORDER BY create_time DESC
+    </select>
+    <!-- 分页查询支付记录 -->
+    <select id="selectPageWithDetails" resultType="com.hospital.registration.vo.PaymentVO">
+        SELECT p.id,
+        p.transaction_no,
+        p.registration_id,
+        r.registration_no,
+        p.user_id,
+        u.real_name AS patient_name,
+        u.phone AS patient_phone,
+        p.amount,
+        p.payment_method,
+        p.payment_status AS paymentStatus,
+        p.payment_time,
+        p.refund_time,
+        p.remark,
+        p.create_time
+        FROM payment p
+        LEFT JOIN registration r ON p.registration_id = r.id
+        LEFT JOIN user u ON p.user_id = u.id
+        <where>
+            p.deleted = 0
+            <if test="transactionNo != null and transactionNo != ''">
+                AND p.transaction_no LIKE CONCAT('%', #{transactionNo}, '%')
+            </if>
+            <if test="registrationNo != null and registrationNo != ''">
+                AND r.registration_no LIKE CONCAT('%', #{registrationNo}, '%')
+            </if>
+            <if test="paymentStatus != null and paymentStatus != ''">
+                AND p.payment_status = #{paymentStatus}
+            </if>
+            <if test="paymentMethod != null and paymentMethod != ''">
+                AND p.payment_method = #{paymentMethod}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND DATE(p.create_time) &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND DATE(p.create_time) &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY
+        CASE p.payment_status
+        WHEN 'REFUND_FAILED' THEN 1
+        WHEN 'REFUNDING' THEN 2
+        WHEN 'PENDING' THEN 3
+        WHEN 'PAID' THEN 4
+        WHEN 'REFUNDED' THEN 5
+        WHEN 'FAILED' THEN 6
+        END ASC,
+        p.create_time DESC
+    </select>
+
 </mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.registration.mapper.MessageTemplateMapper">
+
+    <!-- 分页查询消息模板 -->
+    <select id="selectTemplatePage" resultType="com.hospital.registration.vo.MessageTemplateVO">
+        SELECT id, template_code, template_name, message_type, channel,
+        title_template, content_template, variables, status, create_time, update_time
+        FROM message_template
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (template_code LIKE CONCAT('%', #{keyword}, '%')
+                OR template_name LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="messageType != null and messageType != ''">
+                AND message_type = #{messageType}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询所有启用的模板 -->
+    <select id="selectActiveTemplates" resultType="com.hospital.registration.vo.MessageTemplateVO">
+        SELECT id, template_code, template_name, message_type, channel,
+               title_template, content_template, variables, status, create_time, update_time
+        FROM message_template
+        WHERE status = 1
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据模板编码查询 -->
+    <select id="selectByTemplateCode" resultType="com.hospital.registration.entity.MessageTemplate">
+        SELECT * FROM message_template WHERE template_code = #{templateCode}
+    </select>
+
+    <!-- 批量更新模板状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE message_template
+        SET status = #{status}, update_time = NOW()
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>
